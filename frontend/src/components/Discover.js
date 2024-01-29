@@ -4,7 +4,7 @@ import { topics } from "../utils/constants";
 
 const Discover = () => {
   const { search } = useLocation();
-  
+
   const styles = {
     topic: {
       base: "flex items-center gap-2 justify-center cursor-pointer text-gray-800 px-3 py-2 rounded hover:bg-gray-200 xl:border-2 xl-border-gray-200 xl:rounded-full",

@@ -14,10 +14,15 @@ const Sidebar = () => {
   // const { pathParam } = useParams();
   const user = false;
 
-  const link =
-    "flex items-center gap-3 p-3 justify-center font-semibold text-gray-800 rounded xl:justify-start hover:bg-gray-200";
-  const activeLink =
-    "flex items-center gap-3 p-3 justify-center font-semibold xl:justify-start hover:bg-gray-200";
+  const styles = {
+    link: {
+      base:
+        "flex items-center gap-3 p-3 justify-center font-semibold text-gray-800 rounded xl:justify-start hover:bg-gray-200",
+      active:
+        "flex items-center gap-3 p-3 justify-center font-semibold xl:justify-start hover:bg-gray-200",
+
+    }
+  }
 
   return (
     <div>
@@ -32,10 +37,10 @@ const Sidebar = () => {
         )}
       </div>
       {toggleSidebar && (
-        <div className="flex flex-col justify-start mb-10 border-r-2 border-gray-100 xl:w-full  xl:border-0 p-3">
+        <div className="flex flex-col justify-start w-20 mb-10 border-r-2 border-gray-100 xl:w-full  xl:border-0 p-3">
           <div className="xl:border-b-2 border-gray-200 xl:pb-4">
             <Link to="/">
-              <div className={link}>
+              <div className={styles.link.base}>
                 <AiFillHome className="text-2xl" />
                 <span className="hidden xl:block text-xl">For you</span>
               </div>
@@ -43,7 +48,7 @@ const Sidebar = () => {
           </div>
           {!user && (
             <div className='hidden py-5 xl:block'>
-              <p className="text-gray-500 p-2">
+              <p className="text-gray-500 text-center py-2">
                 Log in to like and comment on clips
               </p>
               <Link
@@ -52,8 +57,8 @@ const Sidebar = () => {
               >Log in</Link>
             </div>
           )}
-          <SignUpForm />
           <Discover />
+          <SignUpForm />
           <SuggestedAccounts />
           <Footer />
         </div>

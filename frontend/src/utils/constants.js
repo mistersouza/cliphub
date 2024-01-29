@@ -37,4 +37,8 @@ export const topics = [
   },
 ];
 
-export const footerList = ['About', 'Newsroom', 'Store', 'Contact', 'Carrers', 'ByteDance', 'Creator Directory']
+export const aboutAndContactLinks = ['About', 'Newsroom', 'Store', 'Contact', 'Carrers', 'ByteDance', 'Creator Directory'];
+
+export const cliphubForGoodLinks = ['TikTok for Good', 'Advertise', 'Developers', 'Transparency', 'TikTok Rewards'];
+
+export const helpAndGuidelinesLinks = ['Help', 'Safety', 'Terms', 'Privacy', 'Creator Portal', 'Community Guidelines'];
