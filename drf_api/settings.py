@@ -1,6 +1,6 @@
 from pathlib import Path
-import os
 import dj_database_url
+import os
 
 if os.path.exists('env.py'):
     import env
@@ -49,16 +49,18 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = os.getenv('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = 'DEBUG' in os.environ
+DEBUG = os.environ.get('DEBUG', '') == '1'
 
 ALLOWED_HOSTS = [
-    os.environ.get('ALLOWED_HOST'),
-    'cliphub-af0e79d881e5.herokuapp.com', 
-    '.gitpod.io',
+    os.environ.get('ALLOWED_HOST', ''),
+    '.localhost',
 ]
 
+CORS_ALLOWED_ORIGINS = [
+    os.environ.get('CLIENT_ORIGIN')
+]
+   
 # Application definition
-
 INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
@@ -66,7 +68,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'cloudinary_storage', 
+    'cloudinary_storage',
     'cloudinary',
     'rest_framework',
     'django_filters',
@@ -100,11 +102,11 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
+CORS_ALLOW_CREDENTIALS = True
+
 CORS_ALLOWED_ORIGINS = [
     os.environ.get('CLIENT_ORIGIN')
 ]
-
-CORS_ALLOW_CREDENTIALS = True
 
 ROOT_URLCONF = 'drf_api.urls'
 
@@ -126,7 +128,6 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'drf_api.wsgi.application'
 
-
 # Database
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
 
@@ -141,6 +142,7 @@ else:
     DATABASES = {
         'default': dj_database_url.parse(os.environ.get("DATABASE_URL"))
     }
+
 
 # Password validation
 # https://docs.djangoproject.com/en/3.2/ref/settings/#auth-password-validators
