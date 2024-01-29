@@ -2,7 +2,7 @@ import React from "react";
 import { aboutAndContactLinks, cliphubForGoodLinks, helpAndGuidelinesLinks } from "../utils/constants";
 
 const List = ({ list }) => (
-  <div className='flex flex-wrap gap-2'>
+  <div className='flex flex-wrap gap-1'>
     {list.map((item) => (
       <p
         key={item}
@@ -16,12 +16,11 @@ const List = ({ list }) => (
 
 const Footer = () => {
   return (
-    <div className="hidden xl:flex xl:flex-col gap-2">
+    <div className="hidden xl:flex xl:flex-col gap-2 py-3">
       <List list={aboutAndContactLinks} />
       <List list={cliphubForGoodLinks} />
       <List list={helpAndGuidelinesLinks} />
-      <p className='text-sm text-gray-800 text-center'>ClipHub™ 2024</p>
-
+      <p className='text-sm text-gray-800 font-semibold text-center'>ClipHub™ 2024</p>
     </div>
   );
 };

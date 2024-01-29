@@ -11,7 +11,7 @@ import SignUpForm from "./auth/SignUpForm";
 
 const Sidebar = () => {
   const [toggleSidebar, setToggleSidebar] = useState(true);
-  // const { pathParam } = useParams();
+  const { pathParam } = useParams();
   const user = false;
 
   const styles = {
@@ -40,7 +40,7 @@ const Sidebar = () => {
         <div className="flex flex-col justify-start w-20 mb-10 border-r-2 border-gray-100 xl:w-full  xl:border-0 p-3">
           <div className="xl:border-b-2 border-gray-200 xl:pb-4">
             <Link to="/">
-              <div className={styles.link.base}>
+              <div className={pathParam ? styles.link.base : styles.link.active}>
                 <AiFillHome className="text-2xl" />
                 <span className="hidden xl:block text-xl">For you</span>
               </div>
