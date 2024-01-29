@@ -11,6 +11,7 @@ import SignUpForm from "./auth/SignUpForm";
 
 const Sidebar = () => {
   const [toggleSidebar, setToggleSidebar] = useState(true);
+  // const { pathParam } = useParams();
   const user = false;
 
   const link =
