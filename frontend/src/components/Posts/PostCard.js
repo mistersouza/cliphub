@@ -10,10 +10,10 @@ const PostCard = ({ post }) => {
   const [isHovered, setIsHovered] = useState(false);
   const [isPlaying, setIsPlaying] = useState(false);
   const [isMuted, setIsMuted] = useState(false);
-  const videoRef = useRef(null);
+  const clipRef = useRef(null);
 
   const handlePlaybackClick = () => {
-    videoRef?.current[isPlaying ? "pause" : "play"]();
+    clipRef?.current[isPlaying ? "pause" : "play"]();
     setIsPlaying((prev) => !prev);
   };
 
@@ -51,14 +51,11 @@ const PostCard = ({ post }) => {
           onMouseLeave={() => setIsHovered(false)}
         >
           <Link>
-            <video
+            <img
               className="lg:w-[600px] h-[300px] md:h-[400px] lg:h-[528px] w-[200px] rounded-2xl cursor-pointer bg-gray-100"
-              loop
-              ref={videoRef}
-            >
-              <source src="https://www.youtube.com/watch?v=EngW7tLk6R8" type="video/mp4" />
-              Your browser does not support the video tag.
-            </video>
+              ref={clipRef}
+              src={post.image}
+            />
           </Link>
           {isHovered && (
             <div className="absolute bottom-6 cursor-pointer left-8 md:left-14 lg:left-0 flex gap-10 lg:justify-between w-[100px] md:w-[50px] lg:w-[600px] p-3">
