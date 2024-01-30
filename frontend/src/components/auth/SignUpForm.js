@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Link, useHistory } from 'react-router-dom'
+import { Link, useHistory } from "react-router-dom";
 import axios from "axios";
 
 const SignUpForm = () => {
@@ -10,7 +10,7 @@ const SignUpForm = () => {
     password2: "",
   });
   const { username, password1, password2 } = signUpData;
-  
+
   const handleInputChange = ({ target }) => {
     setSignUpData({
       ...signUpData,
@@ -28,12 +28,9 @@ const SignUpForm = () => {
       setErrors(error.response?.data);
     }
   };
-  
+
   return (
-    <div className="hidden p-4 xl:block">
-      <p className="text-gray-800 mb-4">
-        Sign up to like and comment on your favorite videos
-      </p>
+    <div className="hidden py-3 xl:block">
       <form onSubmit={handleFormSubmit}>
         <div className="mb-4">
           <label
@@ -107,7 +104,7 @@ const SignUpForm = () => {
         <div>
           <button
             type="submit"
-            className="w-full py-2 border border-gray-800 rounded-md font-semibold hover:bg-gray-800 hover:text-gray-200"
+            className="w-full text-center text-lg text-gray-800 font-semibold py-2 border border-gray-800 rounded hover:bg-gray-800 hover:text-gray-50"
           >
             Sign up
           </button>
