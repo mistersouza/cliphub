@@ -2,7 +2,7 @@ import React from 'react'
 
 const NoResults = ({ message }) => {
   return (
-    <div>{message}</div>
+    <div className='text-center'>{message}</div>
   )
 }
 
