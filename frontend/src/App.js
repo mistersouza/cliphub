@@ -2,6 +2,7 @@ import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import Navbar from "./components/Navbar";
 import Sidebar from "./components/Sidebar";
 import Feed from "./components/Posts/Feed";
+import UploadClip from "./components/Posts/UploadClip";
 
 const App = () => {
   return (
@@ -13,7 +14,10 @@ const App = () => {
             <Sidebar />
           </div>
           <div className="flex flex-col flex-1 gap-10 overflow-auto h-[88vh] videos">
-            <Feed />
+            <Routes>
+              <Route path="/feed" element={<Feed />} />
+              <Route path="/upload" element={<UploadClip />} />
+            </Routes>
           </div>
         </div>
       </div>
