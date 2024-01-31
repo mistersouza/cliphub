@@ -3,6 +3,7 @@ import Navbar from "./components/Navbar";
 import Sidebar from "./components/Sidebar";
 import Feed from "./components/Posts/Feed";
 import UploadClip from "./components/Posts/UploadClip";
+import ClipDetail from "./components/Posts/ClipDetail";
 
 const App = () => {
   return (
@@ -15,8 +16,9 @@ const App = () => {
           </div>
           <div className="flex flex-col flex-1 gap-10 overflow-auto h-[88vh] videos">
             <Routes>
-              <Route path="/feed" element={<Feed />} />
+              <Route path="/posts" element={<Feed />} />
               <Route path="/upload" element={<UploadClip />} />
+              <Route path="/posts/:id" element={<ClipDetail />} />
             </Routes>
           </div>
         </div>
