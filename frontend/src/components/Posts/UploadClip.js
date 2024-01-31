@@ -20,12 +20,17 @@ const UploadClip = () => {
   // const clipRef = useRef();
   const navigate = useNavigate();
 
+  // console.log('clipRef in component', clipRef);
   const handleInputChange = ({ target }) => {
     setPostData({
       ...postData,
       [target.name]: target.value,
     });
   };
+
+  useEffect(() => {
+    // console.log('clipRef in useEffect', clipRef);
+  })
 
   const handleClipChange = (event) => {
     if (event.target.files.length) {
@@ -43,6 +48,7 @@ const UploadClip = () => {
 
     formData.append("caption", caption );
     formData.append("topic", topic);
+    // console.log('clipRef in handleClipSubmit', clipRef);
     // formData.append("clip", clipRef.current.files[0]);
 
     try {
