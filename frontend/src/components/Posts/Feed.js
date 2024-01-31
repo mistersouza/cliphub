@@ -2,7 +2,7 @@ import { useState, useEffect, useContext } from "react";
 import { axiosRequest } from "../../api/axiosDefaults";
 
 import NoResults from "../NoResults";
-import PostCard from "./PostCard";
+import ClipCard from "./ClipCard";
 import { AppContext } from "../../context/AppContext";
 
 const Feed = () => {
@@ -27,7 +27,7 @@ const Feed = () => {
     <div className="flex flex-col gap-10 h-full gap-10 w-full">
       {posts.results?.length ? (
         posts.results.map((post) => (
-          <PostCard post={post} key={post.id} />
+          <ClipCard post={post} key={post.id} />
         ))
       ) : (
         <NoResults message="No videos just yet :/" />
