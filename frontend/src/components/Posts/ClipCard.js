@@ -17,6 +17,10 @@ const ClipCard = ({ post }) => {
     setIsPlaying((prev) => !prev);
   };
 
+  useEffect(() => {
+    if (clipRef?.current) clipRef.current.muted = isMuted;
+  }, [isMuted]);
+
   return (
     <div className="flex flex-col border-b-2 border-gray-200 pb-6">
       <div>
@@ -69,11 +73,11 @@ const ClipCard = ({ post }) => {
                 </button>
               )}
               {isMuted ? (
-                <button onClick={setIsMuted((prev) => !prev)}>
+                <button onClick={() => setIsMuted((prev) => !prev)}>
                   <HiVolumeOff className="text-gray-800 text-2xl lg:text-4xl" />
                 </button>
               ) : (
-                <button onClick={setIsMuted((prev) => !prev)}>
+                <button onClick={() => setIsMuted((prev) => !prev)}>
                   <HiVolumeUp className="text-gray-800 text-2xl lg:text-4xl" />
                 </button>
               )}
