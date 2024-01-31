@@ -27,14 +27,14 @@ class Post(models.Model):
     owner = models.ForeignKey(User, on_delete=models.CASCADE)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
-    title = models.CharField(max_length=255)
-    content = models.TextField(blank=True)
-    image = models.ImageField(
+    caption = models.CharField(max_length=255)
+    topic = models.TextField(blank=True)
+    clip = models.ImageField(
         upload_to='images/',
         default='../default_post_oroosj',
         blank=True
     )
-    image_filter = models.CharField(
+    clip_filter = models.CharField(
         max_length=32,
         choices=image_filter_choices,
         default='normal'
@@ -44,4 +44,4 @@ class Post(models.Model):
         ordering = ['-created_at']
 
     def __str__(self):
-        return f'{self.id} {self.title}'
+        return f'{self.id} {self.caption}'
