@@ -22,7 +22,7 @@ const ClipCard = ({ post }) => {
       <div>
         <div className="flex gap-3 p-2 cursor-pointer font-semibold rounded">
           <div className="w-10 h-10 md:w-10 md:h-16">
-            <Link to="/">
+            <Link to={'/'}>
               <img
                 className="w-16 object-cover rounded-full"
                 src={post.profile_image}
@@ -50,7 +50,7 @@ const ClipCard = ({ post }) => {
           onMouseEnter={() => setIsHovered(true)}
           onMouseLeave={() => setIsHovered(false)}
         >
-          <Link>
+          <Link to={`/posts/${post.id}`}>
             <img
               className="lg:w-[600px] h-[300px] md:h-[400px] lg:h-[528px] w-[200px] rounded-2xl cursor-pointer bg-gray-100 z-0"
               ref={clipRef}
@@ -69,11 +69,11 @@ const ClipCard = ({ post }) => {
                 </button>
               )}
               {isMuted ? (
-                <button onClick={() => setIsMuted(false)}>
+                <button onClick={setIsMuted((prev) => !prev)}>
                   <HiVolumeOff className="text-gray-800 text-2xl lg:text-4xl" />
                 </button>
               ) : (
-                <button onClick={() => setIsMuted(true)}>
+                <button onClick={setIsMuted((prev) => !prev)}>
                   <HiVolumeUp className="text-gray-800 text-2xl lg:text-4xl" />
                 </button>
               )}
