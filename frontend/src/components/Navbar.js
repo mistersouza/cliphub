@@ -1,4 +1,5 @@
 import { useContext } from "react";
+import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { Link } from "react-router-dom";
 
@@ -10,13 +11,14 @@ import { IoMdAdd } from "react-icons/io";
 import Avatar from "./Avatar";
 
 const Navbar = () => {
-  // const { user, setUser } = useContext(AppContext);
-  const user = true;
+  const { user, setUser } = useContext(AppContext);
+  const navigate = useNavigate();
 
   const handleLogoutSubmit = async () => {
     try {
       await axios.post("/dj-rest-auth/logout/");
-      // setUser(null);
+      setUser(null);
+      navigate('/posts'); 
     } catch (error) {
       console.log(error);
     }
@@ -51,18 +53,18 @@ const Navbar = () => {
       </div>
       {user ? (
         <div className="flex items-center gap-3 md:gap-5">
-          <Link to={"/"}>
+          <Link to={"/upload"}>
             <button className="border-2 px-2 md:px-4 text-md font-semibold flex items-center gap-2">
-              <IoMdAdd className="text-xl" />{" "}
-              <span className="hidden md:block">Upload </span>
+              <IoMdAdd className="text-2xl" />{" "}
+              <span className="hidden md:block text-lg">Upload </span>
             </button>
           </Link>
           <Link to={"/"}>
-            <Avatar src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" />
+            <Avatar src={user.profile_image} />
           </Link>
           <button
             className="curser-pointer text-3xl text-gray-800"
-            onClick={() => {}}
+            onClick={handleLogoutSubmit}
           >
             <AiOutlineLogout />
           </button>
