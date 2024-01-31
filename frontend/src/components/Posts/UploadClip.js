@@ -12,12 +12,12 @@ const UploadClip = () => {
   const [errors, setErrors] = useState({});
   const [savingClip, setSavingClip] = useState(false);
   const [postData, setPostData] = useState({
-    title: "",
-    content: "",
-    image: "",
+    caption: "",
+    topic: "",
+    clip: "",
   });
-  const { title, content, image } = postData;
-  const clipRef = useRef();
+  const { caption, topic, clip } = postData;
+  // const clipRef = useRef();
   const navigate = useNavigate();
 
   const handleInputChange = ({ target }) => {
@@ -27,31 +27,27 @@ const UploadClip = () => {
     });
   };
 
-  useEffect(() => {
-    console.log(postData);
-  });
-
-  const handleImageChange = (event) => {
+  const handleClipChange = (event) => {
     if (event.target.files.length) {
-      URL.revokeObjectURL(image);
+      URL.revokeObjectURL(clip);
       setPostData({
         ...postData,
-        image: URL.createObjectURL(event.target.files[0]),
+        clip: URL.createObjectURL(event.target.files[0]),
       });
     }
   };
 
-  const handlePostSubmit = async (event) => {
+  const handleClipSubmit = async (event) => {
     event.preventDefault();
     const formData = new FormData();
 
-    formData.append("title", title);
-    formData.append("content", content);
-    formData.append("image", clipRef.current.files[0]);
+    formData.append("caption", caption );
+    formData.append("topic", topic);
+    // formData.append("clip", clipRef.current.files[0]);
 
     try {
       const { data } = await axiosRequest.post("/posts/", formData);
-      // navigate(`/posts/${data.id}`);
+      navigate('/posts');
       setSavingClip(true);
     } catch (error) {
       // console.log(error);
@@ -65,12 +61,12 @@ const UploadClip = () => {
 
   return (
     <div className="flex justify-center h-full w-full absolute top-[60] left-0 pt-10 lg:pt-20 bg-gray-200 mb-10">
-      <div className="bg-white rounded-lg xl:h-[80vh] flex gap-6 flex-wrap justify-center items-center p-14 pt-6">
+      <form onSubmit={handleClipSubmit} className="bg-white rounded-lg xl:h-[80vh] flex gap-6 flex-wrap justify-center items-center p-14 pt-6">
         <div>
           <div className="flex flex-col items-center gap-1 py-5">
-            <p className="text-2xl font-bold">Upload video</p>
+            <p className="text-2xl font-bold">Upload clip</p>
             <p className="text-md text-gray-500">
-              Post a video to your account
+              Post a clip to your account
             </p>
           </div>
           <div className="flex flex-col justify-center items-center border-dashed border-4 border-gray-200 rounded-xl outline-none w-[260px] h-[458px] p-3 cursor-pointer hover:border-gray-800 hover:bg-gray-100">
@@ -78,10 +74,10 @@ const UploadClip = () => {
               <p>Loading...</p>
             ) : (
               <div>
-                {image ? (
+                {clip ? (
                   <div>
                     <figure className="flex flex-col justify-center h-[425px] bg-black">
-                      <img src={image} />
+                      <img src={clip} />
                     </figure>
                   </div>
                 ) : (
@@ -103,8 +99,8 @@ const UploadClip = () => {
                       type="file"
                       id="dropzone"
                       name="image"
-                      onChange={handleImageChange}
-                      ref={clipRef}
+                      onChange={handleClipChange}
+                      // ref={clipRef}
                     />
                   </div>
                 )}
@@ -112,20 +108,19 @@ const UploadClip = () => {
             )}
           </div>
         </div>
-        <form 
-          onSubmit={handlePostSubmit}
-          className="flex flex-col gap-3 pb-10">
-          <label className="text-md font-medium ">Title</label>
+        <div className="flex flex-col gap-3 pb-10">
+          <label className="text-md font-medium ">Caption</label>
           <input
             type="text"
-            name="title"
-            value={title}
+            name="caption"
+            value={caption}
             onChange={(event) => handleInputChange(event)}
             className="rounded lg:after:w-650 outline-none text-md border-2 border-gray-200 p-2"
           />
           <label className="text-md font-medium ">Choose a topic</label>
           <select
-            name="content"
+            name="topic"
+            value={topic}
             onChange={handleInputChange}
             className="outline-none lg:w-650 border-2 border-gray-200 text-md capitalize lg:p-4 p-2 rounded cursor-pointer"
           >
@@ -148,16 +143,15 @@ const UploadClip = () => {
               Discard
             </button>
             <button
-              className={`bg-${image ? 'gray-800' : 'gray-500'} text-white text-md font-medium p-2 rounded w-28 lg:w-44 outline-none`}
-              disabled={image ? false : true}
-              onClick={() => {}}
+              className={`bg-${clip ? 'gray-800' : 'gray-500'} text-white text-md font-medium p-2 rounded w-28 lg:w-44 outline-none`}
+              // disabled={clip ? false : true}
               type="submit"
             >
               {savingClip ? "Posting..." : "Post"}
             </button>
           </div>
-        </form>
-      </div>
+        </div>
+      </form>
     </div>
   );
 };
