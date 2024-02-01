@@ -1,15 +1,13 @@
-import React from 'react'
+import React from 'react';
 
-const Avatar = ({ src }) => {
-    return (
-    <div>
-        <img 
-            className='size-10 object-cover rounded-full cursor-pointer'
-            src={src}
-            alt='User profile'
-        />
+const Avatar = ({ src, size = 10 }) => {
+  return (
+    <div
+      className={`size-${size} bg-no-repeat bg-center bg-cover rounded-full cursor-pointer`}
+      style={{backgroundImage: `url(${src})`}}
+    >
     </div>
-  )
-}
+  );
+};
 
-export default Avatar
+export default Avatar;

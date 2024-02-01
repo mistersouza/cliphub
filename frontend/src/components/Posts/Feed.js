@@ -27,7 +27,7 @@ const Feed = () => {
     <div className="flex flex-col gap-10 h-full gap-10 w-full">
       {posts.results?.length ? (
         posts.results.map((post) => (
-          <ClipCard post={post} key={post.id} />
+          <ClipCard key={post.id} />
         ))
       ) : (
         <NoResults message="No videos just yet :/" />
