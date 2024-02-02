@@ -6,8 +6,7 @@ import ClipCard from "./ClipCard";
 import { AppContext } from "../../context/AppContext";
 
 const Feed = () => {
-  const { user } = useContext(AppContext); 
-  const [posts, setPosts] = useState({ results: [] });
+  const { user, posts, setPosts } = useContext(AppContext); 
   const [isLoaded, setIsLoaded] = useState(false);
 
   useEffect(() => {
@@ -23,11 +22,12 @@ const Feed = () => {
     fetchData();
   }, []);
 
+  console.log('posts', posts);
   return (
     <div className="flex flex-col gap-10 h-full gap-10 w-full">
       {posts.results?.length ? (
         posts.results.map((post) => (
-          <ClipCard key={post.id} />
+          <ClipCard key={post.id} post={post}/>
         ))
       ) : (
         <NoResults message="No videos just yet :/" />

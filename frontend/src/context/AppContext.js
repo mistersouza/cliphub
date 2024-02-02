@@ -4,6 +4,7 @@ const AppContext = createContext();
 
 const AppProvider = ({ children }) => {
   const [user, setUser] = useState(null);
+  const [posts, setPosts] = useState({ results: [] });
   const [profiles, setProfiles] = useState({
     pageProfile: { results: [] },
     popularProfiles: { results: [] },
@@ -23,6 +24,8 @@ const AppProvider = ({ children }) => {
     user,
     setUser,
     profiles,
+    posts, 
+    setPosts
   };
 
   return <AppContext.Provider value={context}>{children}</AppContext.Provider>;

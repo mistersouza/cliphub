@@ -2,6 +2,7 @@ import { useEffect, useRef, useState, useContext } from "react";
 import { GoVerified } from "react-icons/go";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import { MdOutlineCancel, MdFavorite } from "react-icons/md";
+import { FaCommentDots } from "react-icons/fa";
 import { BsFillPauseFill, BsFillPlayFill } from "react-icons/bs";
 import { HiVolumeUp, HiVolumeOff } from "react-icons/hi";
 
@@ -32,11 +33,18 @@ const ClipDetail = () => {
     })();
   }, [id]);
 
-  console.log("post", post);
+  const {
+    like_id: likeId,
+    likes_count: likesCount,
+    comments_count: commentsCount,
+  } = post;
 
-  const handLikeClick = async () => {
+  const isLiked = !!likeId;
+
+  const handleLikeClick = async () => {
     try {
       const { data } = await axiosResponse.post("/likes/", { post: id });
+      console.log("data", data);
       setPosts((prevPosts) => ({
         ...prevPosts,
         results: prevPosts.results.map((post) => {
@@ -45,10 +53,38 @@ const ClipDetail = () => {
             : post;
         }),
       }));
+      setPost((prevPost) => ({
+        ...prevPost,
+        likes_count: prevPost.likes_count + 1,
+        like_id: data.id,
+      }));
     } catch (error) {
       console.log(error);
     }
   };
+
+  const handleUnlikeClick = async () => {
+    try {
+      await axiosResponse.delete(`/likes/${likeId}/`);
+      setPosts((prevPosts) => ({
+        ...prevPosts,
+        results: prevPosts.results.map((post) => {
+          return post.id === id
+            ? { ...post, likes_count: post.likes_count - 1, like_id: null }
+            : post;
+        }),
+      }));
+      setPost((prevPost) => ({
+        ...prevPost,
+        likes_count: prevPost.likes_count - 1,
+        like_id: null,
+      }));
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  console.log("post", post);
 
   const handlePlaybackClick = () => {
     clipRef?.current[isPlaying ? "pause" : "play"]();
@@ -130,14 +166,30 @@ const ClipDetail = () => {
         </div>
         <p className="text-sm text-gray-800 px-5">{post.caption}</p>
         <div>
-          <div>
-            <div className="flex flex-col items-center justify-center cursor-pointer">
-              <button
-                className="bg-gray-200 rounded-full p-1 md:p-2 text-gray-800"
-                onClick={handLikeClick}
-              >
-                <MdFavorite className="text-base md:text-lg" />
-              </button>
+          <div className="flex p-4">
+            <div className="flex gap-3 items-center justify-center text-gray-800 text-sm md:text-lg cursor-pointer">
+              {!isLiked ? (
+                <button
+                  className="bg-gray-200 rounded-full p-1 md:p-2"
+                  onClick={handleLikeClick}
+                >
+                  <MdFavorite className="text-gray-400" />
+                </button>
+              ) : (
+                <button
+                  className="bg-gray-200 rounded-full p-1 md:p-2"
+                  onClick={handleUnlikeClick}
+                >
+                  <MdFavorite />
+                </button>
+              )}
+              <p>{likeId ? likesCount : 0}</p>
+              <div className="flex gap-3 items-center justify-center text-sm md:text-lg cursor-pointer">
+                <div className={`bg-gray-200 rounded-full p-1 md:p-2 ${!commentsCount ? 'text-gray-400' : ''}`}>
+                  <FaCommentDots />
+                </div>
+                <p>{commentsCount ? commentsCount : 0}</p>
+              </div>
             </div>
           </div>
           <Comment />

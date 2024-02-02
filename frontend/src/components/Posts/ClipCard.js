@@ -21,6 +21,9 @@ const ClipCard = ({ post }) => {
     if (clipRef?.current) clipRef.current.muted = isMuted;
   }, [isMuted]);
 
+  console.log('post', post);
+  if (!post) return null; 
+
   return (
     <div className="flex flex-col border-b-2 border-gray-200 pb-6">
       <div>
@@ -54,7 +57,7 @@ const ClipCard = ({ post }) => {
           onMouseEnter={() => setIsHovered(true)}
           onMouseLeave={() => setIsHovered(false)}
         >
-          <Link to={`/posts/${post.id}`}>
+          <Link to={`/posts/${post?.id}`}>
             <img
               className="lg:w-[600px] h-[300px] md:h-[400px] lg:h-[528px] w-[200px] rounded-2xl cursor-pointer bg-gray-100 z-0"
               ref={clipRef}
