@@ -14,10 +14,10 @@ import Comments from "../comments/Comments";
 
 const ClipDetail = () => {
   const { setPosts } = useContext(AppContext);
+  const [post, setPost] = useState({});
   const [isPlaying, setIsPlaying] = useState(false);
   const [isMuted, setIsMuted] = useState(false);
   const [isHovered, setIsHovered] = useState(false);
-  const [post, setPost] = useState({});
   const navigate = useNavigate();
   const clipRef = useRef(null);
   const { id } = useParams();
@@ -191,7 +191,11 @@ const ClipDetail = () => {
               </div>
             </div>
           </div>
+<<<<<<< HEAD
           <Comments post={post} setPost={setPost}/>
+=======
+          <Comments post={post} setPost={setPost} />
+>>>>>>> 7ce4344 (Refactor no results components)
         </div>
       </div>
     </div>

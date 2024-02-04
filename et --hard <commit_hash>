@@ -1,0 +1,56 @@
+[33m87a7795[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mmain[m[33m, [m[1;31morigin/main[m[33m, [m[1;31morigin/HEAD[m[33m)[m HEAD@{0}: reset: moving to HEAD^
+[33mec6d03a[m HEAD@{1}: reset: moving to HEAD^
+[33m7782025[m HEAD@{2}: commit: Implement unlike functionality
+[33mec6d03a[m HEAD@{3}: reset: moving to HEAD
+[33mec6d03a[m HEAD@{4}: commit: Implement like functionality
+[33m87a7795[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mmain[m[33m, [m[1;31morigin/main[m[33m, [m[1;31morigin/HEAD[m[33m)[m HEAD@{5}: commit: Update static files ready for deployment
+[33m5534b0c[m HEAD@{6}: commit: Write clip detail component
+[33mc1fd519[m HEAD@{7}: commit: Add debug logs
+[33m1c5bfdc[m HEAD@{8}: commit: Add navigation logout function
+[33m8800eab[m HEAD@{9}: commit: Add route for clip detail
+[33m37eba29[m HEAD@{10}: commit: Implement mute functionality
+[33md22cba8[m HEAD@{11}: commit: Update import name
+[33m644f034[m HEAD@{12}: commit: Update seIsMuted call
+[33m98e8c2b[m HEAD@{13}: commit: Update image variable to clip
+[33mc16f0a1[m HEAD@{14}: revert: Revert "Update postcard component to clipcard"
+[33md5ab993[m HEAD@{15}: commit: Update postcard component to clipcard
+[33m8545908[m HEAD@{16}: commit: Rename component
+[33m5008179[m HEAD@{17}: commit: Update title, content, image fields to caption, topic and clip
+[33m074c464[m HEAD@{18}: commit: Update title, content, image fields to caption, topic and clip
+[33mafd046a[m HEAD@{19}: revert: Revert "Collect static updated static files"
+[33me72cf2d[m HEAD@{20}: commit: Collect static updated static files
+[33m4116450[m HEAD@{21}: commit: Update variables
+[33m104dfce[m HEAD@{22}: commit: Write feed component
+[33mfd02f06[m HEAD@{23}: commit: Update styles
+[33m7d3b86b[m HEAD@{24}: commit: Implement routes
+[33m62362f8[m HEAD@{25}: commit: Update styles and get rid of subtext
+[33m6b7bf8e[m HEAD@{26}: commit: Write log in form component
+[33m4217c34[m HEAD@{27}: commit: Implement modal view
+[33m24e307f[m HEAD@{28}: commit: Write auth modal component
+[33mc2cd4bf[m HEAD@{29}: commit: Set staticfiles dirs
+[33mff66f0b[m HEAD@{30}: commit: Write upload clip component
+[33me3f655d[m HEAD@{31}: commit: Write sign up component
+[33m3d5da9d[m HEAD@{32}: commit: Write no results component
+[33m29de748[m HEAD@{33}: commit: Write post carc component
+[33m40b7484[m HEAD@{34}: commit: Get setting ready for deployment
+[33mfe504f5[m HEAD@{35}: commit: Correct cors allowed origins
+[33mf0da29e[m HEAD@{36}: commit: Collect static files for deployment
+[33m7a4b10c[m HEAD@{37}: commit: Write footer component
+[33m1d46579[m HEAD@{38}: commit: Write discover comoponent
+[33m04bf55d[m HEAD@{39}: commit: Add constants
+[33m6cedc5c[m HEAD@{40}: commit: Write sidebar component
+[33m219bca9[m HEAD@{41}: commit: Set up app context
+[33m96e4e91[m HEAD@{42}: commit: Write Navbar component
+[33m389d7d6[m HEAD@{43}: commit: Write Avatar component
+[33mb1c5424[m HEAD@{44}: commit: Set up Tailwind CSS
+[33m183879d[m HEAD@{45}: commit: Add runtime.txt
+[33m55dde41[m HEAD@{46}: commit: Collect static files
+[33m620f8ce[m HEAD@{47}: commit: Prefix urls with api/
+[33m1ad8ad4[m HEAD@{48}: commit: Updade app url on allowed hosts
+[33mef29d9f[m HEAD@{49}: commit: Set debug to true
+[33mf4675ef[m HEAD@{50}: commit: remove trail / from allowed host app url
+[33mf2f0767[m HEAD@{51}: commit: Set drf api ready for deployment
+[33mdf94777[m HEAD@{52}: commit: Start react app
+[33m2f9358a[m HEAD@{53}: checkout: moving from main to main
+[33m2f9358a[m HEAD@{54}: branch: Reset to origin/main
+[33m2f9358a[m HEAD@{55}: clone: from https://github.com/mistersouza/cliphub.git

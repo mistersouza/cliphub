@@ -30,7 +30,7 @@ const Feed = () => {
           <ClipCard key={post.id} post={post}/>
         ))
       ) : (
-        <NoResults message="No videos just yet :/" />
+        <NoResults message="No videos just yet :/" noClips />
       )}
     </div>
   );
