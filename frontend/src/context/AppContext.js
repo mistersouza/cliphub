@@ -6,24 +6,26 @@ const AppProvider = ({ children }) => {
   const [user, setUser] = useState(null);
   const [posts, setPosts] = useState({ results: [] });
   const [profiles, setProfiles] = useState({
-    pageProfile: { results: [] },
-    popularProfiles: { results: [] },
+    profiles: { results: [] },
   });
 
   useEffect(() => {
     (async () => {
       try {
-        const [{ data: user }, {data: profiles }] = await Promise.all([
-          axiosResponse.get("dj-rest-auth/user/"),
-          axiosResponse.get('/profiles/')
-        ])
+        const { data: user } = await axiosResponse.get("dj-rest-auth/user/");
         setUser(user);
-        setProfiles((prevProfiles) => ({
+      } catch (error) {
+        console.log('Error fetching user:', error);
+      }
+
+      try {
+        const { data: profiles } = await axiosResponse.get("profiles/");
+        setProfiles(prevProfiles => ({
           ...prevProfiles,
-          popularProfiles: profiles
+          profiles, 
         }))
       } catch (error) {
-        console.log(error);
+        console.log('Error fetching profiles:', error);
       }
     })();
   }, []);
@@ -32,8 +34,8 @@ const AppProvider = ({ children }) => {
     user,
     setUser,
     profiles,
-    posts, 
-    setPosts
+    posts,
+    setPosts,
   };
 
   return <AppContext.Provider value={context}>{children}</AppContext.Provider>;
