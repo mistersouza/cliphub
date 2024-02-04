@@ -10,7 +10,7 @@ import { axiosRequest, axiosResponse } from "../../api/axiosDefaults";
 import { AppContext } from "../../context/AppContext";
 import NoResults from "../NoResults";
 import Avatar from "../Avatar";
-import Comment from "../comments/Comment";
+import Comments from "../comments/Comments";
 
 const ClipDetail = () => {
   const { setPosts } = useContext(AppContext);
@@ -38,6 +38,8 @@ const ClipDetail = () => {
     likes_count: likesCount,
     comments_count: commentsCount,
   } = post;
+
+  console.log('post', post);
 
   const isLiked = !!likeId;
 
@@ -77,14 +79,11 @@ const ClipDetail = () => {
       setPost((prevPost) => ({
         ...prevPost,
         likes_count: prevPost.likes_count - 1,
-        like_id: null,
       }));
     } catch (err) {
       console.log(err);
     }
   };
-
-  console.log("post", post);
 
   const handlePlaybackClick = () => {
     clipRef?.current[isPlaying ? "pause" : "play"]();
@@ -183,7 +182,7 @@ const ClipDetail = () => {
                   <MdFavorite />
                 </button>
               )}
-              <p>{likeId ? likesCount : 0}</p>
+              <p>{likesCount ? likesCount : 0}</p>
               <div className="flex gap-3 items-center justify-center text-sm md:text-lg cursor-pointer">
                 <div className={`bg-gray-200 rounded-full p-1 md:p-2 ${!commentsCount ? 'text-gray-400' : ''}`}>
                   <FaCommentDots />
@@ -192,7 +191,7 @@ const ClipDetail = () => {
               </div>
             </div>
           </div>
-          <Comment />
+          <Comments post={post} setPost={setPost}/>
         </div>
       </div>
     </div>

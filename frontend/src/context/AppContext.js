@@ -13,13 +13,21 @@ const AppProvider = ({ children }) => {
   useEffect(() => {
     (async () => {
       try {
-        const { data } = await axiosResponse.get("dj-rest-auth/user/");
-        setUser(data)
+        const [{ data: user }, {data: profiles }] = await Promise.all([
+          axiosResponse.get("dj-rest-auth/user/"),
+          axiosResponse.get('/profiles/')
+        ])
+        setUser(user);
+        setProfiles((prevProfiles) => ({
+          ...prevProfiles,
+          popularProfiles: profiles
+        }))
       } catch (error) {
         console.log(error);
       }
     })();
   }, []);
+
   const context = {
     user,
     setUser,

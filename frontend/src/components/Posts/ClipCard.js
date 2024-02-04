@@ -21,7 +21,6 @@ const ClipCard = ({ post }) => {
     if (clipRef?.current) clipRef.current.muted = isMuted;
   }, [isMuted]);
 
-  console.log('post', post);
   if (!post) return null; 
 
   return (
