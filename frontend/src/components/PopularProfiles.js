@@ -16,8 +16,8 @@ const PopularProfiles = () => {
           <div className="flex items-center gap-2.5 px-1.5" key={profile.id}>
             <Avatar src={profile.image} size={12} />
             <div className="hidden xl:flex flex-col">
-              <span className="flex items-center gap-1 text-lg font-semibold text-gray-800">
-                {profile.owner} <GoVerified className="text-sm"/>
+              <span className="flex items-center gap-1 text-sm font-semibold text-gray-800">
+                @{profile.owner} <GoVerified className="text-sm"/>
               </span>
               <span className="text-xs text-gray-400">{profile.name}</span>
             </div>

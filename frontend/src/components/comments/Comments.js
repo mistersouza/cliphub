@@ -3,6 +3,7 @@ import { useParams } from "react-router-dom";
 import NoResults from "../NoResults";
 import { AppContext } from "../../context/AppContext";
 import { axiosRequest, axiosResponse } from "../../api/axiosDefaults";
+import Avatar from "../Avatar";
 
 const Comments = ({ setPost, post }) => {
   // const { user } = useContext(AppContext);
@@ -11,7 +12,9 @@ const Comments = ({ setPost, post }) => {
   const [content, setContent] = useState('')
   const [comments, setComments] = useState({ results: [] });
 
-  const { id, comments_count } = post
+  const { id, profile_id: profileId, profile_image: profileImage, comments_count } = post
+
+  console.log('comments', comments);
 
   useEffect(() => {
     (async () => {
@@ -51,10 +54,15 @@ const Comments = ({ setPost, post }) => {
 
   return (
     <div className="border-t-2 border-gray-200 bg-gray-100 border-b-2 lg:pb-0 pb-[100px]">
-      <div className="overflow-y-auto lg:h-[457px]">
+      <div className="overflow-y-auto lg:h-[457px] py-2">
         {comments.results.length ? (
           comments.results.map(comment => (
-            <p key={comment.id}>{comment.content}</p>
+            <div 
+              className="flex items-center gap-1.5 px-3 py-1"
+              key={comment.id}>
+              <Avatar src={profileImage}/>
+              <p>{comment.content}</p>
+            </div>
           ))
         ) : (
           <NoResults
