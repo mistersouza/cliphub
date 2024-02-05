@@ -14,11 +14,11 @@ const Discover = () => {
   };
 
   return (
-    <div className="xl:border-b-2 xl:border-gray-200 pb-6">
-      <p className="hidden xl:block text-gray-800 font-semibold m-3 mt-4">
+    <div className="xl:border-b-2 xl:border-gray-200 py-3">
+      <p className="hidden xl:block text-gray-800 font-semibold pb-3.5">
         Popular topics
       </p>
-      <div className="flex flex-wrap gap-3">
+      <div className="flex flex-wrap gap-3 px-1.5">
         {topics?.map((topic) => (
           <Link to={`/?topic=${topic.name}`} key={topic.name}>
             <div

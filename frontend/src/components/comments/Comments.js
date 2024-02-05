@@ -48,7 +48,6 @@ const Comments = ({ setPost, post }) => {
       console.log(error);
     }
   }
-  console.log("comments", comments);
 
   return (
     <div className="border-t-2 border-gray-200 bg-gray-100 border-b-2 lg:pb-0 pb-[100px]">

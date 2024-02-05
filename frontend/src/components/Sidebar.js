@@ -6,7 +6,7 @@ import { ImCancelCircle } from "react-icons/im";
 
 import Discover from "./Discover";
 import Footer from "./Footer";
-import SuggestedAccounts from "./SuggestedAccounts";
+import PopularProfiles from "./PopularProfiles";
 import SignUpForm from "./auth/SignUpForm";
 import Modal from "./Modal";
 
@@ -66,7 +66,7 @@ const Sidebar = () => {
             <Modal modal={showAuthModal} handleModalClick={handleModalClick} />
           )}
           <Discover />
-          <SuggestedAccounts />
+          <PopularProfiles />
           <Footer />
         </div>
       )}

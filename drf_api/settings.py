@@ -53,6 +53,7 @@ DEBUG = os.environ.get('DEBUG', '') == '1'
 
 ALLOWED_HOSTS = [
     os.environ.get('ALLOWED_HOST', ''),
+    '8000-mistersouza-cliphub-p5p9gfyuvy5.ws-eu108.gitpod.io',
     '.localhost',
 ]
 

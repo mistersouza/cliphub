@@ -191,11 +191,7 @@ const ClipDetail = () => {
               </div>
             </div>
           </div>
-<<<<<<< HEAD
-          <Comments post={post} setPost={setPost}/>
-=======
           <Comments post={post} setPost={setPost} />
->>>>>>> 7ce4344 (Refactor no results components)
         </div>
       </div>
     </div>

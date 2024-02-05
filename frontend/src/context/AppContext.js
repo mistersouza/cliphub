@@ -5,9 +5,7 @@ const AppContext = createContext();
 const AppProvider = ({ children }) => {
   const [user, setUser] = useState(null);
   const [posts, setPosts] = useState({ results: [] });
-  const [profiles, setProfiles] = useState({
-    profiles: { results: [] },
-  });
+  const [profiles, setProfiles] = useState({ results: []});
 
   useEffect(() => {
     (async () => {
@@ -15,17 +13,17 @@ const AppProvider = ({ children }) => {
         const { data: user } = await axiosResponse.get("dj-rest-auth/user/");
         setUser(user);
       } catch (error) {
-        console.log('Error fetching user:', error);
+        console.log("Error fetching user:", error);
       }
 
       try {
         const { data: profiles } = await axiosResponse.get("profiles/");
-        setProfiles(prevProfiles => ({
+        setProfiles((prevProfiles) => ({
           ...prevProfiles,
-          profiles, 
-        }))
+          results: [...profiles.results], 
+        }));
       } catch (error) {
-        console.log('Error fetching profiles:', error);
+        console.log("Error fetching profiles:", error);
       }
     })();
   }, []);
