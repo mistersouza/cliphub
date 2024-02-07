@@ -5,7 +5,10 @@ const AppContext = createContext();
 const AppProvider = ({ children }) => {
   const [user, setUser] = useState(null);
   const [posts, setPosts] = useState({ results: [] });
-  const [profiles, setProfiles] = useState({ results: []});
+  const [profiles, setProfiles] = useState({
+    pageProfile: { results: [] },
+    popularProfiles: { results: [] }
+  });
 
   useEffect(() => {
     (async () => {
@@ -20,7 +23,7 @@ const AppProvider = ({ children }) => {
         const { data: profiles } = await axiosResponse.get("profiles/");
         setProfiles((prevProfiles) => ({
           ...prevProfiles,
-          results: [...profiles.results], 
+          popularProfiles: profiles
         }));
       } catch (error) {
         console.log("Error fetching profiles:", error);
@@ -32,6 +35,7 @@ const AppProvider = ({ children }) => {
     user,
     setUser,
     profiles,
+    setProfiles,
     posts,
     setPosts,
   };
