@@ -1,33 +1,50 @@
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { GoVerified } from "react-icons/go";
 import { Link } from "react-router-dom";
 
 import ClipCard from "../Posts/ClipCard";
 import NoResults from "../NoResults";
-import { axiosResponse } from "../../api/axiosDefaults";
+import { axiosRequest, axiosResponse } from "../../api/axiosDefaults";
 
 const UserProfile = () => {
   const [profile, setProfile] = useState({});
-  const [active, setActive] = useState('clips');
-  const [clipsTab, setClipsTab] = useState(true)
-  const [likedTab, setLikedTab] = useState(false)
-  const clipsRef = useRef(null)
-  const likedRef = useRef(null)
-  const [isHovered, setIsHovered] = useState(false);
+  const [tab, setTab] = useState("clips");
+  const [clipsActive, setClipsActive] = useState(true);
+  const [likedActive, setLikedActive] = useState(false);
+  const [profileClips, setProfileClips] = useState({ results: [] });
   const { id } = useParams();
 
-  console.log("user profile", profile);
   useEffect(() => {
     (async () => {
       try {
-        const { data } = await axiosResponse.get(`profiles/${id}/`);
-        setProfile(data);
+        const [
+          { data: profile },
+          { data: allClips },
+          { data: profileClips },
+          { data: likedClips },
+        ] = await Promise.all([
+          axiosRequest.get(`profiles/${id}/`),
+          axiosRequest.get("posts/"),
+          axiosRequest.get(`posts/?owner__profile=${id}`),
+          axiosRequest.get(`likes/?owner__profile=${id}`),
+        ]);
+        setProfile(profile);
+        if (tab === "clips") setProfileClips(profileClips);
+        if (tab === "liked") {
+          const filteredClips = likedClips.results.reduce((acc, likedClip) => {
+            const filtered = allClips.results.filter(
+              (clip) => clip.id === likedClip.post
+            );
+            return acc.concat(filtered);
+          }, []);
+          setProfileClips({ results: [ ...filteredClips ]});
+        }
       } catch (error) {
         console.log("Error fetching user profile:", error);
       }
     })();
-  }, [id]);
+  }, [id, tab]);
 
   return (
     <div>
@@ -48,45 +65,50 @@ const UserProfile = () => {
       <div>
         <div className="flex gap-2 border-b border-gray-200">
           <p
-            className={`text-xl cursor-pointer text-gray-500 px-3.5 py-1.5 ${
-              clipsTab && active ? "border-b-2 border-gray-800" : ""
+            className={`text-xl cursor-pointer text-gray-500 px-3.5 py-1.5 hover:text-gray-800 ${
+              tab && clipsActive ? "border-b-2 border-gray-800" : ""
             }`}
             onClick={() => {
-              setActive('clips'); 
+              setTab("clips");
             }}
             onMouseEnter={() => {
-              setClipsTab(true); 
-              setLikedTab(false);
+              setClipsActive(true);
+              setLikedActive(false);
             }}
             onMouseLeave={() => {
-              if (active === 'liked') {
-                setClipsTab(false);
-                setLikedTab(true); 
+              if (tab !== "clips") {
+                setClipsActive(false);
+                setLikedActive(true);
               }
             }}
-            ref={clipsRef}
           >
             Clips
           </p>
           <p
             className={`text-xl cursor-pointer text-gray-500 px-3.5 py-1.5 ${
-              likedTab && active ? "border-b-2 border-gray-800" : ""
+              tab && likedActive ? "border-b-2 border-gray-800" : ""
             }`}
-            onClick={() => setActive('liked')}
+            onClick={() => setTab("liked")}
             onMouseEnter={() => {
-              setClipsTab(false); 
-              setLikedTab(true); 
+              setClipsActive(false);
+              setLikedActive(true);
             }}
             onMouseLeave={() => {
-              if (active === 'clips') {
-                setClipsTab(true);
-                setLikedTab(false); 
+              if (tab === "clips") {
+                setClipsActive(true);
+                setLikedActive(false);
               }
             }}
-            ref={likedRef}
-          > 
+          >
             Liked
           </p>
+        </div>
+        <div>
+          {profileClips.results.length ? (
+            profileClips.results.map((clip) => <p>{clip.id}</p>)
+          ) : (
+            <NoResults />
+          )}
         </div>
       </div>
     </div>
