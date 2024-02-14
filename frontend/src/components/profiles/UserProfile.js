@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { GoVerified } from "react-icons/go";
+import { BsPlay } from "react-icons/bs";
 import { Link } from "react-router-dom";
 
 import ClipCard from "../Posts/ClipCard";
@@ -32,13 +33,8 @@ const UserProfile = () => {
         setProfile(profile);
         if (tab === "clips") setProfileClips(profileClips);
         if (tab === "liked") {
-          const filteredClips = likedClips.results.reduce((acc, likedClip) => {
-            const filtered = allClips.results.filter(
-              (clip) => clip.id === likedClip.post
-            );
-            return acc.concat(filtered);
-          }, []);
-          setProfileClips({ results: [ ...filteredClips ]});
+          console.log("tab", tab);
+          setProfileClips({ results: [] });
         }
       } catch (error) {
         console.log("Error fetching user profile:", error);
@@ -46,6 +42,7 @@ const UserProfile = () => {
     })();
   }, [id, tab]);
 
+  console.log("liked", profileClips);
   return (
     <div>
       <div className="flex items-center">
@@ -103,11 +100,26 @@ const UserProfile = () => {
             Liked
           </p>
         </div>
-        <div>
+        <div className="flex flex-col gap-10 h-full gap-10 w-full">
           {profileClips.results.length ? (
-            profileClips.results.map((clip) => <p>{clip.id}</p>)
+            <div className="grid grid-cols-4 gap-3">
+              {profileClips.results.map((clip) => (
+                <Link key={clip.id}>
+                  <div
+                    className="flex flex-col justify-end bg-cover bg-center h-60 rounded-lg p-2"
+                    style={{ backgroundImage: `url(${clip.clip})` }}
+                  >
+                    <div className="flex items-center">
+                      <BsPlay className="text-2xl"/>
+                      <span className="text-lg">55K</span>
+                    </div>
+                  </div>
+                  <p className="p-1.5 text-sm text-gray-500">{clip.caption}</p>
+                </Link>
+              ))}
+            </div>
           ) : (
-            <NoResults />
+            <NoResults message="No videos just yet :/" noClips />
           )}
         </div>
       </div>
