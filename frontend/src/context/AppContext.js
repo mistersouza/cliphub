@@ -1,8 +1,9 @@
 import { createContext, useEffect, useState } from "react";
-import { axiosResponse } from "../api/axiosDefaults";
+import { axiosRequest, axiosResponse } from "../api/axiosDefaults";
 const AppContext = createContext();
 
 const AppProvider = ({ children }) => {
+  const [query, setQuery] = useState(''); 
   const [user, setUser] = useState(null);
   const [posts, setPosts] = useState({ results: [] });
   const [profiles, setProfiles] = useState({
@@ -20,7 +21,7 @@ const AppProvider = ({ children }) => {
       }
 
       try {
-        const { data: profiles } = await axiosResponse.get("profiles/");
+        const { data: profiles } = await axiosRequest.get("profiles/");
         setProfiles((prevProfiles) => ({
           ...prevProfiles,
           popularProfiles: profiles
@@ -38,6 +39,8 @@ const AppProvider = ({ children }) => {
     setProfiles,
     posts,
     setPosts,
+    query,
+    setQuery
   };
 
   return <AppContext.Provider value={context}>{children}</AppContext.Provider>;

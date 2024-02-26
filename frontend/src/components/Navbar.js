@@ -1,4 +1,4 @@
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { Link } from "react-router-dom";
@@ -11,8 +11,15 @@ import { IoMdAdd } from "react-icons/io";
 import Avatar from "./Avatar";
 
 const Navbar = () => {
-  const { user, setUser } = useContext(AppContext);
+  const [ queryInput, setQueryInput ] = useState(''); 
+  const { user, setUser, setQuery } = useContext(AppContext);
   const navigate = useNavigate();
+
+  const handleSearchSubmit = (event) => {
+    event.preventDefault();
+
+    setQuery(queryInput); 
+  }
 
   const handleLogoutSubmit = async () => {
     try {
@@ -38,13 +45,13 @@ const Navbar = () => {
           onSubmit={() => {}}
         >
           <input
-            value={""}
-            onChange={() => {}}
+            value={queryInput}
+            onChange={({ target }) => setQueryInput(target.value)}
             className="bg-primary p-2 md:text-md font-medium border-2 border-gray-100 focus:outline-none focus:border-2 focus:border-gray-300 w-[300px] md:w-[350px] rounded-full  md:top-0"
-            placeholder="Search accounts and videos"
+            placeholder="Search clips"
           />
           <button
-            onClick={() => {}}
+            onClick={handleSearchSubmit}
             className="absolute md:right-5 right-6 top-2.5 border-l-2 border-gray-300 pl-4 text-2xl text-gray-400"
           >
             <BiSearch />

@@ -1,111 +1,311 @@
-![CI logo](https://codeinstitute.s3.amazonaws.com/fullstack/ci_logo_small.png)
+# ClipHub
 
-Welcome Thiago Souza,
+![ClipHub logo]()
 
-This is the Code Institute student template for Gitpod. We have preinstalled all of the tools you need to get started. It's perfectly ok to use this template as the basis for your project submissions.
+▷ 
 
-You can safely delete this README.md file, or change it for your own project. Please do read it at least once, though! It contains some important information about Gitpod and the extensions we use. Some of this information has been updated since the video content was created. The last update to this file was: **September 1, 2021**
+Check it live out [here.]()
 
-## Gitpod Reminders
+## Content Guide 🗺️
 
-To run a frontend (HTML, CSS, Javascript only) application in Gitpod, in the terminal, type:
+▷ Feel free to cruise through using the content button up there in the top right corner—it's like a breeze for getting around. 
 
-`python3 -m http.server`
+## Planning & Development
 
-A blue button should appear to click: _Make Public_,
+### Business Strategy 🚀
 
-Another blue button should appear to click: _Open Browser_.
+▷ 
 
-To run a backend Python file, type `python3 app.py`, if your Python file is named `app.py` of course.
+- 
 
-A blue button should appear to click: _Make Public_,
+- 
 
-Another blue button should appear to click: _Open Browser_.
+- 
 
-In Gitpod you have superuser security privileges by default. Therefore you do not need to use the `sudo` (superuser do) command in the bash terminal in any of the lessons.
+### Who's Our Crew? 🎯
 
-To log into the Heroku toolbelt CLI:
+🏬   
+👨‍👩‍👧‍👦  
+🛍️  
+📱   
+💰 
+🚀 
+👥 
+📰   
+🧐 
 
-1. Log in to your Heroku account and go to *Account Settings* in the menu under your avatar.
-2. Scroll down to the *API Key* and click *Reveal*
-3. Copy the key
-4. In Gitpod, from the terminal, run `heroku_config`
-5. Paste in your API key when asked
+### User Stories
 
-You can now use the `heroku` CLI program - try running `heroku apps` to confirm it works. This API key is unique and private to you so do not share it. If you accidentally make it public then you can create a new one with _Regenerate API Key_.
+▷ These user stories, requirements, and features? They're the plot twists in our website's grand narrative, guaranteeing a wild ride for our incredible users. And that's not all! We're just getting started. As our user squad grows, we'll keep weaving in more tales to keep the adventure alive and kicking.
 
-------
+- __User Registration:__ 
 
-## Release History
+- __Product Listing:__ 
 
-We continually tweak and adjust this template to help give you the best experience. Here is the version history:
+- __Search Functionality:__ 
 
-**September 20 2023:** Update Python version to 3.9.17.
+- __Secure Payment:__ 
 
-**September 1 2021:** Remove `PGHOSTADDR` environment variable.
+- __User Profiles:__ 
 
-**July 19 2021:** Remove `font_fix` script now that the terminal font issue is fixed.
+- __Review and Ratings:__ 
 
-**July 2 2021:** Remove extensions that are not available in Open VSX.
+- __Responsive Design:__ 
 
-**June 30 2021:** Combined the P4 and P5 templates into one file, added the uptime script. See the FAQ at the end of this file.
+- __Seller Dashboard:__ 
 
-**June 10 2021:** Added: `font_fix` script and alias to fix the Terminal font issue
+- __Feedback Mechanism:__ 
 
-**May 10 2021:** Added `heroku_config` script to allow Heroku API key to be stored as an environment variable.
+- __Geolocation Services:__ 
 
-**April 7 2021:** Upgraded the template for VS Code instead of Theia.
+- __Wishlist and Favorites:__ 
 
-**October 21 2020:** Versions of the HTMLHint, Prettier, Bootstrap4 CDN and Auto Close extensions updated. The Python extension needs to stay the same version for now.
+- __Integration with Social Media:__ 
 
-**October 08 2020:** Additional large Gitpod files (`core.mongo*` and `core.python*`) are now hidden in the Explorer, and have been added to the `.gitignore` by default.
+- __Seller Verification:__ 
 
-**September 22 2020:** Gitpod occasionally creates large `core.Microsoft` files. These are now hidden in the Explorer. A `.gitignore` file has been created to make sure these files will not be committed, along with other common files.
+- __Customer Support:__ 
 
-**April 16 2020:** The template now automatically installs MySQL instead of relying on the Gitpod MySQL image. The message about a Python linter not being installed has been dealt with, and the set-up files are now hidden in the Gitpod file explorer.
+### Wireframes
 
-**April 13 2020:** Added the _Prettier_ code beautifier extension instead of the code formatter built-in to Gitpod.
+▷ We're all about that sleek vibe with a single font family to keep things clean and seamless. But hey, the future looks spicy! We're diving into custom font territory, backed by loads of UX research, sharper business goals, and some epic partnerships.
 
-**February 2020:** The initialisation files now _do not_ auto-delete. They will remain in your project. You can safely ignore them. They just make sure that your workspace is configured correctly each time you open it. It will also prevent the Gitpod configuration popup from appearing.
+Started with a free template to hustle up our MVP launch - gotta nail those must-haves, you know? But hey, that's just phase one! Digging deep into UX research and leveling up with TechLabs training means big things for this project's next chapter.
 
-**December 2019:** Added Eventyret's Bootstrap 4 extension. Type `!bscdn` in a HTML file to add the Bootstrap boilerplate. Check out the <a href="https://github.com/Eventyret/vscode-bcdn" target="_blank">README.md file at the official repo</a> for more options.
+![Wireframes]()
 
-------
+### Color Scheme
 
-## FAQ about the uptime script
+▷ In the initial design phase, we're rocking a grayscale palette to highlight content structure and nail that user experience. Once we've aced the UX research, we're bringing in accent colors to jazz up the design and make user interaction smoother.
 
-**Why have you added this script?**
+![Color Scheme]()
 
-It will help us to calculate how many running workspaces there are at any one time, which greatly helps us with cost and capacity planning. It will help us decide on the future direction of our cloud-based IDE strategy.
+### Typography
 
-**How will this affect me?**
+▷ Right now, we're rolling with Robobo's sassiness, but I'm on a mission to amp up our site's style and user experience. I'm diving into font choices that vibe perfectly with our design and audience.
 
-For everyday usage of Gitpod, it doesn’t have any effect at all. The script only captures the following data:
+![Roboto]()
 
-- An ID that is randomly generated each time the workspace is started.
-- The current date and time
-- The workspace status of “started” or “running”, which is sent every 5 minutes.
+## Up Next: What's in Store!
 
-It is not possible for us or anyone else to trace the random ID back to an individual, and no personal data is being captured. It will not slow down the workspace or affect your work.
+▷ Hey, listen up! We're all about making waves in the community and doing it right. We focused on the essentials, cherry-picking the must-haves that match most needs to get our MVP out the door on time.
 
-**So….?**
+![Design breakpoints]()
 
-We want to tell you this so that we are being completely transparent about the data we collect and what we do with it.
+### Across the Whole Site
 
-**Can I opt out?**
+- Navbar
+    - __Navigation:__ 
+    - __Menus:__ 
+    - __User-Friendly Touch:__ 
+    - __One-Click Wonders:__ 
+    - __Cart at a Glance:__ 
 
-Yes, you can. Since no personally identifiable information is being captured, we'd appreciate it if you let the script run; however if you are unhappy with the idea, simply run the following commands from the terminal window after creating the workspace, and this will remove the uptime script:
+![Navbar dropdown]()
 
-```
-pkill uptime.sh
-rm .vscode/uptime.sh
-```
+- Hero
+    - __Header Display:__ 
+    - __Conditional Content:__ 
+    - __Search Bar:__ 
+    - __Page Title:__ F
 
-**Anything more?**
+![Hero - Home]()
+![Hero - Items]()
 
-Yes! We'd strongly encourage you to look at the source code of the `uptime.sh` file so that you know what it's doing. As future software developers, it will be great practice to see how these shell scripts work.
+- Footer
+    - A standard footer section with dark background styling and padding to ensure visual consistency.
 
----
+### Home
 
-Happy coding!
-# cliphub
+▷ 
+![Home]()
+
+### All in
+
+▷ 
+![All Items]()
+
+### The devil's in the details
+
+▷  
+
+![Clip detail]()
+
+### If it's yours, go wild—CRUD it however you like
+
+- __Add Item (Authenticated Sellers Only):__ 
+- __Edit Item (Owner Access Only):__ 
+
+![Adding and Editing]()
+
+- __Delete Item (Owner Privilege Required):__ 
+
+![Deleting]()
+
+### Access Granted: Let's Dive In
+
+- Alright, here's the backstage pass: We're rocking the show with allauth for login/register magic.
+- we've got these cool decorators—making sure the right folks access the right stuff on the site. 
+- And hey, we've sprinkled some magic in the HTML to make your user journey feel just right. It's all about that personal touch!
+
+![Navbar - loggedin]()
+![Navbar - loggedout]()
+
+## Django Squad: Apps & Cool Stuf
+
+▷ Alright, localle )) is a cool mix of three Django applications:
+
+- __core:__ The heart of it all
+- __inventory:__ Stocked and loaded
+- __store:__ Your one-stop shop
+
+▷ And to make this awesome ride even smoother, we've got some handy Django packages on board:
+
+- __crispy_forms:__ 
+- __crispy_bootstrap5:__ 
+- __cloudinary__ 
+- __allauth:__ 
+
+## Inside the Data Universe 
+
+▷ Check it out—the backstage of our database magic! This diagram reveals the intricate web of connections between our database models. It's a snapshot of simplicity and power. But hey, there's a deeper story to each model. Take a closer peek to unravel their secrets and see how they all come together!
+
+![DBDiagram]()
+
+## Coming Soon: The Cool Features!
+
+▷ We're cooking up some cool stuff! Currently in the code lab, we've got some features brewing as we speak. And that's not all! Our UX exploration is uncovering needs and desires, fueling the fire for even more awesome things to come. Right now, our focus is on bringing to life:
+
+- __About Page:__ 
+- __Store:__ 
+- __Inbox:__ 
+- __Ratings:__ 
+- __Reviews:__ 
+- __Cart:__ 
+- __Payment:__ 
+
+## Testing
+
+All the tests in one [place](testing.md)
+
+
+## Tech Stack
+
+### Languages Spoken Here
+
+- HTML. The foundation of our web magic.
+- CCSS. Adding that stylish flair to everything you see.
+- JavaScript. Bringing life to elements and making things interactive while supporting the HTML & CSS groove.
+- Python. Powering the brains behind the scenes.
+
+### Framework used and abused
+
+- [Django](https://www.djangoproject.com/). The web wizard behind this project's magic. It's the sleek toolkit that makes building powerful and secure websites a breeze.
+
+### Storage trusted
+
+- [Amazon Web Services (AWS)](https://aws.amazon.com). The home for all our static and media files, securely stored in the digital realm.
+- [Cloudinary](https://cloudinary.com/) - Where media becomes magic. It's our creative hub, transforming images and videos into dazzling web assets.
+
+### Database
+
+- [ElephantSQL](https://www.elephantsql.com/). Your database sanctuary, where data roams freely and securely, as robust as an elephant.
+
+### Libraries
+
+- [Bootstrap](). The hero behind our site's responsive design, stylish elements, and navbar magic.
+- [Font Awesome](https://fontawesome.com/). The secret sauce sprinkled across our site, giving every element that visual edge with its array of icons.
+- [Google Fonts](https://fonts.google.com/). Working its magic with the Roboto font family, giving our site that unique typography and unmistakable flair.
+
+## Toolbox Essentials
+
+- [Gitpod](https://www.gitpod.io) - My trusty coding hangout for this project.
+- [Git](https://git-scm.com/) - Keeping things organized with version control.
+- [Github](https://github.com/) - Home to my precious code repository.
+- [Heroku](https://dashboard.heroku.com/) - Where my deployed web app finds its cozy home.
+- [Am I Responsive](http://ami.responsivedesign.is/) - My go-to for testing and capturing those sleek web page shots for different devices.
+- [Google Chrome DevTools](https://developers.google.com/web/tools/chrome-devtools) - Testing and fixing, one site glitch at a time.
+- [w3 html validator](https://validator.w3.org/) -Making sure my HTML plays by the rules.
+- [w3 css validator](https://jigsaw.w3.org/) - Keeping my style game sharp and error-free.
+- [jshint](https://jshint.com/) -  Giving my JS code the thumbs-up after testing and validating.
+- [Dead Link Checker](https://www.deadlinkchecker.com/website-dead-link-checker.asp) - Keeping those links alive and kicking.
+- [DBDiagram](https://dbdiagram.io/) - The mastermind behind my DB models' cool diagrams.
+
+## Deployment
+
+### GitPod
+
+▷ Getting your app ready
+
+- Open up your settings.py file 
+    - Setup databse
+        ```python
+        import dj_database_url
+
+        DATABASES = {
+            'default': dj_database_url.parse("<your Postrgres database URL>")
+        }
+        ```
+    - Update settings.py in your Django app
+        ```python
+        DEBUG = False
+        ```
+    - Update Allowed Hosts
+        ```python
+        ALLOWED_HOSTS = ['.herokuapp.com', 'localhost']
+        ```
+
+- On the CL
+    - Create a requirements. This file tells Heroku what your app needs to run smoothly.
+        ```bash
+        pip3 freeze --local > requirements.txt
+        ```
+    - Craft a Procfile. This tells Heroku how to run your app. Think of it as the main instruction manual.
+        ```bash
+        echo web: python app.py > Procfile
+        ```
+    - Shift models to ElephantSQL.
+        ```bash
+        python3 manage.py makemigrations
+        python3 manage.py migrate
+        ```
+
+▷ The site first brewed up in GitPod and then landed in this remote [GitHub repository]().And let's talk GIT – the commands that made the magic real.
+
+- **git status** >> It's like peeking into the project's mood board - shows any changes or new stuff.
+- **git add --all** >> The "get ready to party" move - stages files for the big commit.
+- **git commit -m " "** >> The official seal of approval - commits all the files.
+- **git push** >> The grand finale - sends everything to the master branch up there on GitHub. Boom!
+
+### Heroku 
+
+▷ After all that hustle, it's time to set this project free in the wild, wild web world. Let it spread its wings and conquer the digital realm! 
+
+- Started fresh on Heroku and gave our app a European vibe.
+- Swiped right for GitHub as our deployment wingman.
+- Dropped in some super-secret config vars for that behind-the-scenes magic. Check out the cool settings
+![Config Vars](https://github.com/mistersouza/localle/blob/main/static/assets/images/localle_heroku-vars.png)
+- Finally hit that deploy button and let the awesomeness unfold
+
+## Big Ups
+
+▷ Sure, I've been the lone wolf, architecting this whole thing—planning, designing, and coding away. But truth be told, I owe a lot to the squad that's had my back. And you know what? I wouldn't have it any other way. The teamwork vibe in coding is what makes this journey epic, and I'm all about embracing that collaborative spirit. Cheers to coding camaraderie!
+
+### Bits 'n' Bobs 
+
+- I've scavenged all the beautiful free images and pictures from [Unsplash](https://unsplash.com/)
+- I got this project rolling with a boost from [Start Bootstrap](https://startbootstrap.com/)
+
+### Borrowed Brilliance
+
+- Code With Stein [Online Marketplace]()
+- Code Institute's [I Think Therefore I Blog ]()
+
+### Supercharged Support
+
+- David Calikes, Code Institute Cohort Facilitator.
+  - Positive and Uplifting. David's Always available and boosts my confidence everytime we chat.
+- Oluwafemi Medale, Code Institute Mentor.
+  - Bugs terminator. He always make times, when there's no time at all.
+- Chat GPT, Mister know it all.
+  - Documenting King. Not always correct, but frequently inspiring.

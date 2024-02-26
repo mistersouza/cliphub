@@ -6,7 +6,7 @@ import { ImCancelCircle } from "react-icons/im";
 
 import Discover from "./Discover";
 import Footer from "./Footer";
-import PopularProfiles from "./PopularProfiles";
+import PopularProfiles from "./profiles/PopularProfiles";
 import SignUpForm from "./auth/SignUpForm";
 import Modal from "./Modal";
 

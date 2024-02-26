@@ -1,12 +1,14 @@
-import React from 'react';
+import React from "react";
+import { Link } from "react-router-dom";
 
-const Avatar = ({ src, size = 10 }) => {
+const Avatar = ({ id, src, size = 10 }) => {
   return (
-    <div
-      className={`size-${size} bg-no-repeat bg-center bg-cover rounded-full cursor-pointer`}
-      style={{backgroundImage: `url(${src})`}}
-    >
-    </div>
+    <Link to={`profiles/${id}`}>
+      <div
+        className={`size-${size} bg-no-repeat bg-center bg-cover rounded-full cursor-pointer`}
+        style={{ backgroundImage: `url(${src})` }}
+      ></div>
+    </Link>
   );
 };
 

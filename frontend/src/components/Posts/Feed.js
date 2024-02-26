@@ -5,22 +5,25 @@ import NoResults from "../NoResults";
 import ClipCard from "./ClipCard";
 import { AppContext } from "../../context/AppContext";
 
-const Feed = () => {
-  const { user, posts, setPosts } = useContext(AppContext); 
+const Feed = ({ filter='' }) => {
+  const { user, posts, setPosts, query } = useContext(AppContext); 
   const [isLoaded, setIsLoaded] = useState(false);
-
+  
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const { data } = await axiosRequest.get("/posts/");
+        let url = `/posts/?${filter}`
+        if (query) url += `search=${query}`;
+        const { data } = await axiosRequest.get(url);
         setPosts(data);
         setIsLoaded(true);
       } catch (error) {
         console.log(error);
       }
     };
+    setIsLoaded(false); 
     fetchData();
-  }, []);
+  }, [filter, query]);
 
   console.log('posts', posts);
   return (

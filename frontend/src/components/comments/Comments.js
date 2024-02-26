@@ -49,6 +49,8 @@ const Comments = ({ setPost, post }) => {
       })
     } catch (error) {
       console.log(error);
+    } finally {
+      setPosting(false); 
     }
   }
 
