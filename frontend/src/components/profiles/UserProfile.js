@@ -45,7 +45,7 @@ const UserProfile = () => {
   console.log("liked", profileClips);
   return (
     <div>
-      <div className="flex items-center">
+      <div className="flex items-center py-5">
         <Link to={`profiles/${id}`}>
           <div
             className="size-20 bg-no-repeat bg-center bg-cover rounded-full cursor-pointer"
@@ -100,7 +100,7 @@ const UserProfile = () => {
             Liked
           </p>
         </div>
-        <div className="flex flex-col gap-10 h-full gap-10 w-full">
+        <div className="flex flex-col gap-10 h-ful py-10">
           {profileClips.results.length ? (
             <div className="grid grid-cols-4 gap-3">
               {profileClips.results.map((clip) => (
