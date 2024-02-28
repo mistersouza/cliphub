@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
+from cloudinary_storage.storage import MediaCloudinaryStorage
 
 
 class Post(models.Model):
@@ -29,10 +30,9 @@ class Post(models.Model):
     updated_at = models.DateTimeField(auto_now=True)
     caption = models.CharField(max_length=255)
     topic = models.TextField(blank=True)
-    clip = models.ImageField(
-        upload_to='images/',
-        default='../default_post_oroosj',
-        blank=True
+    clip = models.FileField(
+        upload_to='videos/',
+        storage=MediaCloudinaryStorage(resource_type='video'),
     )
     clip_filter = models.CharField(
         max_length=32,
