@@ -30,7 +30,7 @@ const ClipUpload = () => {
 
   useEffect(() => {
     // console.log('clipRef in useEffect', clipRef);
-  })
+  });
 
   const handleClipChange = (event) => {
     if (event.target.files.length) {
@@ -42,18 +42,32 @@ const ClipUpload = () => {
     }
   };
 
+  const handleDiscardClick = () => {
+    // Clear the clip from the state
+    setPostData({
+      ...postData,
+      clip: "",
+    });
+  };
+
+  console.log('caption', caption);
+  console.log('topic', topic);
+  console.log('clip', clip);
+
   const handleClipSubmit = async (event) => {
     event.preventDefault();
     const formData = new FormData();
 
-    formData.append("caption", caption );
+    formData.append("caption", caption);
     formData.append("topic", topic);
     // console.log('clipRef in handleClipSubmit', clipRef);
-    // formData.append("clip", clipRef.current.files[0]);
+    formData.append("clip", clip);
 
+    console.log('form data', formData);
     try {
       const { data } = await axiosRequest.post("/posts/", formData);
-      navigate('/posts');
+      console.log('form data', data);
+      navigate("/posts");
       setSavingClip(true);
     } catch (error) {
       // console.log(error);
@@ -67,13 +81,14 @@ const ClipUpload = () => {
 
   return (
     <div className="flex justify-center h-full w-full absolute top-[60] left-0 pt-10 lg:pt-20 bg-gray-200 mb-10">
-      <form onSubmit={handleClipSubmit} className="bg-white rounded-lg xl:h-[80vh] flex gap-6 flex-wrap justify-center items-center p-14 pt-6">
+      <form
+        onSubmit={handleClipSubmit}
+        className="bg-white rounded-lg xl:h-[80vh] flex gap-6 flex-wrap justify-center items-center p-14 pt-6"
+      >
         <div>
           <div className="flex flex-col items-center gap-1 py-5">
             <p className="text-2xl font-bold">Upload clip</p>
-            <p className="text-md text-gray-500">
-              Post a clip to your account
-            </p>
+            <p className="text-md text-gray-500">Post a clip to your account</p>
           </div>
           <div className="flex flex-col justify-center items-center border-dashed border-4 border-gray-200 rounded-xl outline-none w-[260px] h-[458px] p-3 cursor-pointer hover:border-gray-800 hover:bg-gray-100">
             {isLoading ? (
@@ -82,9 +97,10 @@ const ClipUpload = () => {
               <div>
                 {clip ? (
                   <div>
-                    <figure className="flex flex-col justify-center h-[425px] bg-black">
-                      <img src={clip} />
-                    </figure>
+                    <video className="flex flex-col justify-center h-[425px] bg-black">
+                      <source src={clip} type="video/mp4" />
+                      Your browser does not support video tags :/
+                    </video>
                   </div>
                 ) : (
                   <div className="flex items-center justify-center w-full">
@@ -96,7 +112,7 @@ const ClipUpload = () => {
                           <span>or drag and drop</span>
                         </p>
                         <p className="text-xs text-gray-500 text-center">
-                          SVG, PNG, JPG or GIF (MAX. 800x400px)
+                          MP4 only(MAX. 800x400px)
                         </p>
                       </div>
                     </label>
@@ -143,13 +159,15 @@ const ClipUpload = () => {
           <div className="flex gap-6 mt-10">
             <button
               className="border-gray-300 border-2 text-md font-medium p-2 rounded w-28 lg:w-44 outline-none"
-              onClick={() => {}}
+              onClick={handleDiscardClick}
               type="button"
             >
               Discard
             </button>
             <button
-              className={`bg-${clip ? 'gray-800' : 'gray-500'} text-white text-md font-medium p-2 rounded w-28 lg:w-44 outline-none`}
+              className={`bg-${
+                clip ? "gray-800" : "gray-500"
+              } text-white text-md font-medium p-2 rounded w-28 lg:w-44 outline-none`}
               // disabled={clip ? false : true}
               type="submit"
             >
