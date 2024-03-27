@@ -17,7 +17,7 @@ const ClipUpload = () => {
     clip: "",
   });
   const { caption, topic, clip } = postData;
-  // const clipRef = useRef();
+  const clipRef = useRef(null);
   const navigate = useNavigate();
 
   // console.log('clipRef in component', clipRef);
@@ -29,7 +29,7 @@ const ClipUpload = () => {
   };
 
   useEffect(() => {
-    // console.log('clipRef in useEffect', clipRef);
+    console.log("clipRef in useEffect", clipRef);
   });
 
   const handleClipChange = (event) => {
@@ -50,9 +50,9 @@ const ClipUpload = () => {
     });
   };
 
-  console.log('caption', caption);
-  console.log('topic', topic);
-  console.log('clip', clip);
+  console.log("caption", caption);
+  console.log("topic", topic);
+  console.log("clip", clip);
 
   const handleClipSubmit = async (event) => {
     event.preventDefault();
@@ -60,13 +60,13 @@ const ClipUpload = () => {
 
     formData.append("caption", caption);
     formData.append("topic", topic);
-    // console.log('clipRef in handleClipSubmit', clipRef);
-    formData.append("clip", clip);
+    console.log("clipRef in handleClipSubmit", clipRef);
+    formData.append("clip", clipRef.current.files[0]);
 
-    console.log('form data', formData);
+    console.log("form data", formData);
     try {
       const { data } = await axiosRequest.post("/posts/", formData);
-      console.log('form data', data);
+      console.log("form data", data);
       navigate("/posts");
       setSavingClip(true);
     } catch (error) {
@@ -95,37 +95,43 @@ const ClipUpload = () => {
               <p>Loading...</p>
             ) : (
               <div>
-                {clip ? (
-                  <div>
-                    <video className="flex flex-col justify-center h-[425px] bg-black">
-                      <source src={clip} type="video/mp4" />
-                      Your browser does not support video tags :/
-                    </video>
-                  </div>
-                ) : (
-                  <div className="flex items-center justify-center w-full">
-                    <label htmlFor="dropzone">
-                      <div className="flex flex-col items-center justify-center gap-3">
-                        <FaCloudUploadAlt className="text-gray-500 text-6xl" />
-                        <p className="flex flex-col text-sm text-gray-500">
-                          <span className="font-semibold">Click to upload</span>
-                          <span>or drag and drop</span>
-                        </p>
-                        <p className="text-xs text-gray-500 text-center">
-                          MP4 only(MAX. 800x400px)
-                        </p>
-                      </div>
-                    </label>
-                    <input
-                      className="hidden"
-                      type="file"
-                      id="dropzone"
-                      name="image"
-                      onChange={handleClipChange}
-                      // ref={clipRef}
-                    />
-                  </div>
-                )}
+                <video
+                  className={
+                    !clip
+                      ? "hidden"
+                      : "flex flex-col justify-center h-[425px] bg-black"
+                  }
+                >
+                  <source src={clip} type="video/mp4" />
+                  Your browser does not support video tags :/
+                </video>
+
+                <div
+                  className={
+                    clip ? "hidden" : "flex items-center justify-center w-full"
+                  }
+                >
+                  <label htmlFor="dropzone">
+                    <div className="flex flex-col items-center justify-center gap-3">
+                      <FaCloudUploadAlt className="text-gray-500 text-6xl" />
+                      <p className="flex flex-col text-sm text-gray-500">
+                        <span className="font-semibold">Click to upload</span>
+                        <span>or drag and drop</span>
+                      </p>
+                      <p className="text-xs text-gray-500 text-center">
+                        MP4 only(MAX. 800x400px)
+                      </p>
+                    </div>
+                  </label>
+                  <input
+                    className="hidden"
+                    type="file"
+                    id="dropzone"
+                    name="image"
+                    onChange={handleClipChange}
+                    ref={clipRef}
+                  />
+                </div>
               </div>
             )}
           </div>
