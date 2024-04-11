@@ -36,7 +36,6 @@ const Navbar = () => {
       <Link to="/">
         <div className="text-4xl font-bold text-gray-800 flex items-center">
           <span>cliphub</span>
-          <span className="text-gray-500 text-5xl">&gt;&gt;</span>
         </div>
       </Link>
       <div className="hidden relative md:block">
