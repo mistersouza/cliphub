@@ -98,7 +98,7 @@ Started with a free template to hustle up our MVP launch - gotta nail those must
 
 ▷ Hey, listen up! We're all about making waves in the community and doing it right. We focused on the essentials, cherry-picking the must-haves that match most needs to get our MVP out the door on time.
 
-![Design breakpoints]()
+![Design breakpoints](https://github.com/mistersouza/cliphub/blob/main/frontend/src/assets/images/cliphub_breakpoints.png)
 
 ### Across the Whole Site
 
