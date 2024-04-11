@@ -76,11 +76,9 @@ Ready to embark on your learning journey? Check it live out [here.](https://clip
 
 ### Wireframes
 
-▷ We're all about that sleek vibe with a single font family to keep things clean and seamless. But hey, the future looks spicy! We're diving into custom font territory, backed by loads of UX research, sharper business goals, and some epic partnerships.
+▷ While our platform may draw initial comparisons to TikTok, our vision extends beyond imitation. We're infusing our unique design sensibilities as we evolve. With every stride in UX research and business expansion, we're committed to refining our platform's identity. Armed with newfound expertise from TechLabs, I'm ready to propel us towards unparalleled growth and innovation.
 
-Started with a free template to hustle up our MVP launch - gotta nail those must-haves, you know? But hey, that's just phase one! Digging deep into UX research and leveling up with TechLabs training means big things for this project's next chapter.
-
-![Wireframes]()
+![Wireframes](https://github.com/mistersouza/cliphub/blob/main/frontend/src/assets/images/cliphub_wireframe_feed.png)
 
 ### Color Scheme
 
