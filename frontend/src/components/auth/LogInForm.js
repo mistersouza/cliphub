@@ -1,10 +1,7 @@
 import { useContext, useState } from "react";
 import axios from "axios";
 
-import { AppContext } from "../../context/AppContext";
-
 const LogInForm = () => {
-  const { setUser } = useContext(AppContext);
   const [logInData,  setLogInData] = useState({
     username: "",
     password: "",
@@ -23,11 +20,11 @@ const LogInForm = () => {
   const handleLoginSubmit = async (event) => {
     event.preventDefault();
     try {
-      const { data } = await axios.post("/dj-rest-auth/login/", logInData);
-      console.log(data);
+      await axios.post("/dj-rest-auth/login/", logInData);
+      navigate(-1)
     } catch (error) {
-      console.log(error)
-      setErrors(error?.response.data); 
+      setErrors(error.response?.data);
+      // console.log({ errors })
     }
   };
 
@@ -35,7 +32,7 @@ const LogInForm = () => {
     <div className="hidden py-3 xl:block">
       <form onSubmit={handleLoginSubmit}>
         <div className="mb-4">
-          <label
+        <label
             htmlFor="username"
             className="text-sm font-medium text-gray-600"
           >
@@ -51,11 +48,8 @@ const LogInForm = () => {
             value={username}
             placeholder="Enter your username"
             onChange={handleInputChange}
-            required
+            // required
           />
-          {errors?.username && (
-            <p className="text-red-500 text-sm mt-1">{errors.username[0]}</p>
-          )}
         </div>
         <div className="mb-4">
           <label
@@ -73,11 +67,11 @@ const LogInForm = () => {
               errors?.password1 ? "border-red-500" : ""
             }`}
             placeholder="Enter your password"
-            required
             onChange={handleInputChange}
+            //required
           />
-          {errors?.password && (
-            <p className="text-red-500 text-sm mt-1">{errors.password[0]}</p>
+          {errors?.password?.map((message, index) => 
+            <p className="text-red-500 text-sm mt-1" key={index}>{message}</p>
           )}
         </div>
         <div>

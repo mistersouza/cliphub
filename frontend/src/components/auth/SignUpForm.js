@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Link, useHistory } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 
 const SignUpForm = () => {
@@ -10,6 +10,7 @@ const SignUpForm = () => {
     password2: "",
   });
   const { username, password1, password2 } = signUpData;
+  const navigate = useNavigate()
 
   const handleInputChange = ({ target }) => {
     setSignUpData({
@@ -23,9 +24,10 @@ const SignUpForm = () => {
 
     try {
       await axios.post("/dj-rest-auth/registration/", signUpData);
+      
     } catch (error) {
-      // console.log(error);
       setErrors(error.response?.data);
+      // console.log({ errors })
     }
   };
 
@@ -49,10 +51,10 @@ const SignUpForm = () => {
             value={username}
             placeholder="Enter your username"
             onChange={handleInputChange}
-            required
+            // required
           />
-          {errors?.username && (
-            <p className="text-red-500 text-sm mt-1">{errors.username[0]}</p>
+          {errors?.username?.map((message, index) => 
+            <p className="text-red-500 text-sm mt-1" key={index}>{message}</p>
           )}
         </div>
         <div className="mb-4">
@@ -71,8 +73,8 @@ const SignUpForm = () => {
               errors?.password1 ? "border-red-500" : ""
             }`}
             placeholder="Enter your password"
-            required
             onChange={handleInputChange}
+            //required
           />
           {errors?.password1 && (
             <p className="text-red-500 text-sm mt-1">{errors.password1[0]}</p>
@@ -94,8 +96,8 @@ const SignUpForm = () => {
               errors?.password2 ? "border-red-500" : ""
             }`}
             placeholder="Enter your password again"
-            required
             onChange={handleInputChange}
+            // required
           />
           {errors?.password2 && (
             <p className="text-red-500 text-sm mt-1">{errors.password2[0]}</p>
