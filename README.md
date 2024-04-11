@@ -133,9 +133,9 @@ Ready to embark on your learning journey? Check it live out [here.](https://clip
 
 ### The devil's in the details
 
-▷  
+▷ When you dive into a video's detail page, get ready for the thrill to kick into high gear. It's your chance to make your mark, be heard, and truly engage with the community. Say goodbye to being just a spectator – here, you're a vital player. Shower the creators with love by dropping your comments, igniting lively discussions, and being a force of positivity. Hit that like button and spread the joy to your fellow creators.
 
-![Clip detail]()
+![Clip detail](https://github.com/mistersouza/cliphub/blob/main/frontend/src/assets/images/cliphub_clip-details.png)
 
 ### If it's yours, go wild—CRUD it however you like
 
