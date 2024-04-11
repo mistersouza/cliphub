@@ -86,7 +86,7 @@ Started with a free template to hustle up our MVP launch - gotta nail those must
 
 ▷ In the initial design phase, we're rocking a grayscale palette to highlight content structure and nail that user experience. Once we've aced the UX research, we're bringing in accent colors to jazz up the design and make user interaction smoother.
 
-![Color Scheme]()
+![Color Scheme](https://github.com/mistersouza/cliphub/blob/main/frontend/src/assets/images/cliphub_color-scheme.png)
 
 ### Typography
 
