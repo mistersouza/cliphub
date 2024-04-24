@@ -83,7 +83,7 @@ const Comments = ({ setPost, post }) => {
               placeholder="Add comment..."
             />
             <button
-              onClick={() => {}}
+              type="submit"
             >
               {posting ? (
                 /* TailwindFlex code snipet */

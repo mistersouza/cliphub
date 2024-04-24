@@ -38,7 +38,7 @@ const Modal = ({ modal, handleModalClick }) => {
           {isSignedUp ? "Log in to ClipbHub" : "Sign up for ClipHub"}
         </h2>
         <div className="px-7">
-          {isSignedUp ? <LogInForm /> : <SignUpForm />}
+          {isSignedUp ? <LogInForm handleModalClick={handleModalClick} /> : <SignUpForm handleModalClick={handleModalClick} />}
         </div>
         <div className="text-xs text-gray-500 text-center p-2">
           <p>

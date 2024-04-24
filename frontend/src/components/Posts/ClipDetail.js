@@ -112,7 +112,7 @@ const ClipDetail = () => {
               ref={clipRef}
               className="h-full cursor-pointer"
               onClick={handlePlaybackClick}
-              src="https://res.cloudinary.com/dhlhrakma/video/upload/v1674824164/samples/cld-sample-video.mp4"
+              src={post.clip}
               loop
             ></video>
           </div>

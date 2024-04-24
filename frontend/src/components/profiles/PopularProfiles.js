@@ -9,13 +9,11 @@ const PopularProfiles = () => {
   const { profiles } = useContext(AppContext);
   const { popularProfiles } = profiles;
 
-  console.log("popular profiles", popularProfiles);
-
   return (
     <div className="xl:border-b-2 border-gray-200 py-3">
       <p className="text-gray-800 font-semibold pb-3.5">Popular profiles</p>
       <div className="flex flex-col">
-        {popularProfiles?.results.map((profile) => (
+        {popularProfiles?.results.slice(0, 5).map((profile) => (
           <div className="flex items-center gap-2.5 px-1.5" key={profile.id}>
             <Link to={`profiles/${profile.id}`}>
               <div
