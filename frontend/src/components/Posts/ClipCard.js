@@ -50,7 +50,7 @@ const ClipCard = ({ post }) => {
           </div>
         </div>
       </div>
-      <div className="flex gap-4 lg:ml-20">
+      <div className="flex gap-4 relative lg:ml-20">
         <div
           className="rounded-3xl"
           onMouseEnter={() => setIsHovered(true)}
