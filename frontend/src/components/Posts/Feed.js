@@ -24,8 +24,7 @@ const Feed = ({ filter='' }) => {
     setIsLoaded(false); 
     fetchData();
   }, [filter, query]);
-
-  console.log('posts', posts);
+  
   return (
     <div className="flex flex-col gap-10 h-full gap-10 w-full">
       {posts.results?.length ? (
