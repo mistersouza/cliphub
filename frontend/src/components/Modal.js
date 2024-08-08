@@ -26,7 +26,7 @@ const Modal = ({ modal, handleModalClick }) => {
   }, [modal]);
 
   return (
-    <div className="fixed inset-0 flex items-center justify-center bg-gray-800 bg-opacity-60 backdrop-blur-sm z-9">
+    <div className="fixed inset-0 flex items-center justify-center bg-gray-800 bg-opacity-60 backdrop-blur-sm z-50">
       <div
         className="flex flex-col gap-3 bg-white rounded shadow-lg w-1/5"
         ref={modalRef}
