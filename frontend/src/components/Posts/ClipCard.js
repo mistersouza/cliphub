@@ -50,7 +50,7 @@ const ClipCard = ({ post }) => {
           </div>
         </div>
       </div>
-      <div className="flex gap-4 relative lg:ml-20">
+      <div className="flex gap-4 lg:ml-20">
         <div
           className="rounded-3xl"
           onMouseEnter={() => setIsHovered(true)}
@@ -59,7 +59,7 @@ const ClipCard = ({ post }) => {
           <Link to={`/posts/${post?.id}`}>
             <video
               ref={clipRef}
-              className="lg:w-[600px] h-[300px] md:h-[400px] lg:h-[528px] w-[200px] rounded-2xl cursor-pointer bg-gray-100 z-0"
+              className="lg:w-[600px] h-[300px] md:h-[400px] lg:h-[528px] w-[200px] rounded-2xl cursor-pointer bg-gray-100"
             >
               <source src={post.clip} type="video/mp4" />
               Your browser does not support video tags :/
