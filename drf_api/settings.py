@@ -53,8 +53,9 @@ DEBUG = os.environ.get('DEBUG', '')
 
 ALLOWED_HOSTS = [
     os.environ.get('ALLOWED_HOST', ''),
-    '8000-mistersouza-cliphub-p5p9gfyuvy5.ws-eu108.gitpod.io',
-    '.localhost',
+    '.codeinstitute-ide.net',
+    'localhost',
+    '127.0.0.1'
 ]
 
 CORS_ALLOWED_ORIGINS = [
