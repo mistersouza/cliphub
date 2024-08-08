@@ -1,7 +1,6 @@
-import { useContext, useState } from "react";
-import axios from "axios";
+import { useState } from "react";
 
-const LogInForm = () => {
+const LogInForm = ({ handleModalClick }) => {
   const [logInData,  setLogInData] = useState({
     username: "",
     password: "",
@@ -21,7 +20,7 @@ const LogInForm = () => {
     event.preventDefault();
     try {
       await axios.post("/dj-rest-auth/login/", logInData);
-      navigate(-1)
+      handleModalClick();
     } catch (error) {
       setErrors(error.response?.data);
       // console.log({ errors })
@@ -76,8 +75,8 @@ const LogInForm = () => {
         </div>
         <div>
           <button
-            type="submit"
             className="w-full text-center text-lg text-gray-800 font-semibold py-2 border border-gray-800 rounded hover:bg-gray-800 hover:text-gray-50"
+            type="submit"
           >
             Log in
           </button>

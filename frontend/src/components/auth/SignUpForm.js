@@ -1,8 +1,7 @@
 import { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 
-const SignUpForm = () => {
+const SignUpForm = ({ handleModalClick }) => {
   const [errors, setErrors] = useState({});
   const [signUpData, setSignUpData] = useState({
     username: "",
@@ -10,7 +9,6 @@ const SignUpForm = () => {
     password2: "",
   });
   const { username, password1, password2 } = signUpData;
-  const navigate = useNavigate()
 
   const handleInputChange = ({ target }) => {
     setSignUpData({
@@ -24,7 +22,7 @@ const SignUpForm = () => {
 
     try {
       await axios.post("/dj-rest-auth/registration/", signUpData);
-      
+      handleModalClick();
     } catch (error) {
       setErrors(error.response?.data);
       // console.log({ errors })
