@@ -1,12 +1,18 @@
-import React from "react";
-import { aboutAndContactLinks, cliphubForGoodLinks, helpAndGuidelinesLinks } from "../utils/constants";
+import React from 'react';
+import {
+  aboutAndContactLinks,
+  cliphubForGoodLinks,
+  helpAndGuidelinesLinks,
+} from '../utils/constants';
 
 const List = ({ list }) => (
-  <div className='flex flex-wrap gap-1'>
+  <div className="flex flex-wrap gap-1">
     {list.map((item) => (
       <p
         key={item}
-        className="text-sm text-gray-800 cursor-pointer hover:underline"
+        className="
+          text-sm text-gray-800 cursor-pointer hover:underline
+        "
       >
         {item}
       </p>
@@ -20,7 +26,9 @@ const Footer = () => {
       <List list={aboutAndContactLinks} />
       <List list={cliphubForGoodLinks} />
       <List list={helpAndGuidelinesLinks} />
-      <p className='text-sm text-gray-800 font-semibold text-center'>ClipHub™ 2024</p>
+      <p className="text-sm text-gray-800 font-semibold text-center">
+        ClipHub™ 2024
+      </p>
     </div>
   );
 };

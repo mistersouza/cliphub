@@ -1,26 +1,23 @@
-import { useEffect, useState, useRef } from "react";
-import { useNavigate } from "react-router-dom";
-
-import { FaCloudUploadAlt } from "react-icons/fa";
-import { MdDelete } from "react-icons/md";
-import { axiosRequest } from "../../api/axiosDefaults";
-
-import { topics } from "../../utils/constants";
+import { useState, useEffect, useRef } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { FaCloudUploadAlt } from 'react-icons/fa';
+import { MdDelete } from 'react-icons/md';
+import { axiosRequest } from '../../api/axiosDefaults';
+import { topics } from '../../utils/constants';
 
 const ClipUpload = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [errors, setErrors] = useState({});
   const [savingClip, setSavingClip] = useState(false);
   const [postData, setPostData] = useState({
-    caption: "",
-    topic: "",
-    clip: "",
+    caption: '',
+    topic: '',
+    clip: '',
   });
   const { caption, topic, clip } = postData;
   const clipRef = useRef(null);
   const navigate = useNavigate();
 
-  // console.log('clipRef in component', clipRef);
   const handleInputChange = ({ target }) => {
     setPostData({
       ...postData,
@@ -29,7 +26,7 @@ const ClipUpload = () => {
   };
 
   useEffect(() => {
-    console.log("clipRef in useEffect", clipRef);
+    console.log('clipRef in useEffect', clipRef);
   });
 
   const handleClipChange = (event) => {
@@ -43,34 +40,24 @@ const ClipUpload = () => {
   };
 
   const handleDiscardClick = () => {
-    // Clear the clip from the state
     setPostData({
       ...postData,
-      clip: "",
+      clip: '',
     });
   };
-
-  console.log("caption", caption);
-  console.log("topic", topic);
-  console.log("clip", clip);
 
   const handleClipSubmit = async (event) => {
     event.preventDefault();
     const formData = new FormData();
+    formData.append('caption', caption);
+    formData.append('topic', topic);
+    formData.append('clip', clipRef.current.files[0]);
 
-    formData.append("caption", caption);
-    formData.append("topic", topic);
-    console.log("clipRef in handleClipSubmit", clipRef);
-    formData.append("clip", clipRef.current.files[0]);
-
-    console.log("form data", formData);
     try {
-      const { data } = await axiosRequest.post("/posts/", formData);
-      console.log("form data", data);
-      navigate("/posts");
+      const { data } = await axiosRequest.post('/posts/', formData);
+      navigate('/posts');
       setSavingClip(true);
     } catch (error) {
-      // console.log(error);
       if (error.response?.status !== 401) {
         setErrors(error.response?.data);
       }
@@ -88,7 +75,9 @@ const ClipUpload = () => {
         <div>
           <div className="flex flex-col items-center gap-1 py-5">
             <p className="text-2xl font-bold">Upload clip</p>
-            <p className="text-md text-gray-500">Post a clip to your account</p>
+            <p className="text-md text-gray-500">
+              Post a clip to your account
+            </p>
           </div>
           <div className="flex flex-col justify-center items-center border-dashed border-4 border-gray-200 rounded-xl outline-none w-[260px] h-[458px] p-3 cursor-pointer hover:border-gray-800 hover:bg-gray-100">
             {isLoading ? (
@@ -96,21 +85,13 @@ const ClipUpload = () => {
             ) : (
               <div>
                 <video
-                  className={
-                    !clip
-                      ? "hidden"
-                      : "flex flex-col justify-center h-[425px] bg-black"
-                  }
+                  className={!clip ? 'hidden' : 'flex flex-col justify-center h-[425px] bg-black'}
                 >
                   <source src={clip} type="video/mp4" />
                   Your browser does not support video tags :/
                 </video>
 
-                <div
-                  className={
-                    clip ? "hidden" : "flex items-center justify-center w-full"
-                  }
-                >
+                <div className={clip ? 'hidden' : 'flex items-center justify-center w-full'}>
                   <label htmlFor="dropzone">
                     <div className="flex flex-col items-center justify-center gap-3">
                       <FaCloudUploadAlt className="text-gray-500 text-6xl" />
@@ -119,7 +100,7 @@ const ClipUpload = () => {
                         <span>or drag and drop</span>
                       </p>
                       <p className="text-xs text-gray-500 text-center">
-                        MP4 only(MAX. 800x400px)
+                        MP4 only (MAX. 800x400px)
                       </p>
                     </div>
                   </label>
@@ -137,15 +118,15 @@ const ClipUpload = () => {
           </div>
         </div>
         <div className="flex flex-col gap-3 pb-10">
-          <label className="text-md font-medium ">Caption</label>
+          <label className="text-md font-medium">Caption</label>
           <input
             type="text"
             name="caption"
             value={caption}
-            onChange={(event) => handleInputChange(event)}
+            onChange={handleInputChange}
             className="rounded lg:after:w-650 outline-none text-md border-2 border-gray-200 p-2"
           />
-          <label className="text-md font-medium ">Choose a topic</label>
+          <label className="text-md font-medium">Choose a topic</label>
           <select
             name="topic"
             value={topic}
@@ -171,13 +152,10 @@ const ClipUpload = () => {
               Discard
             </button>
             <button
-              className={`bg-${
-                clip ? "gray-800" : "gray-500"
-              } text-white text-md font-medium p-2 rounded w-28 lg:w-44 outline-none`}
-              // disabled={clip ? false : true}
+              className={`bg-${clip ? 'gray-800' : 'gray-500'} text-white text-md font-medium p-2 rounded w-28 lg:w-44 outline-none`}
               type="submit"
             >
-              {savingClip ? "Posting..." : "Post"}
+              {savingClip ? 'Posting...' : 'Post'}
             </button>
           </div>
         </div>

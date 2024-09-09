@@ -1,13 +1,13 @@
-import { useState } from "react";
-import axios from 'axios'
+import { useState } from 'react';
+import axios from 'axios';
 
 const LogInForm = ({ handleModalClick }) => {
-  const [logInData,  setLogInData] = useState({
-    username: "",
-    password: "",
+  const [logInData, setLogInData] = useState({
+    username: '',
+    password: '',
   });
   const [errors, setErrors] = useState({});
-  const { username, password } = logInData; 
+  const { username, password } = logInData;
 
   const handleInputChange = ({ target }) => {
     setLogInData({
@@ -16,15 +16,14 @@ const LogInForm = ({ handleModalClick }) => {
     });
   };
 
-  
   const handleLoginSubmit = async (event) => {
     event.preventDefault();
     try {
-      await axios.post("/dj-rest-auth/login/", logInData);
+      await axios.post('/dj-rest-auth/login/', logInData);
       handleModalClick();
     } catch (error) {
       setErrors(error.response?.data);
-      // console.log({ errors })
+      // console.log({ errors });
     }
   };
 
@@ -32,7 +31,7 @@ const LogInForm = ({ handleModalClick }) => {
     <div className="hidden py-3 xl:block">
       <form onSubmit={handleLoginSubmit}>
         <div className="mb-4">
-        <label
+          <label
             htmlFor="username"
             className="text-sm font-medium text-gray-600"
           >
@@ -40,7 +39,7 @@ const LogInForm = ({ handleModalClick }) => {
           </label>
           <input
             className={`mt-1 p-2 w-full border rounded-md ${
-              errors?.username ? "border-red-500" : ""
+              errors?.username ? 'border-red-500' : ''
             }`}
             type="text"
             id="username"
@@ -64,19 +63,22 @@ const LogInForm = ({ handleModalClick }) => {
             name="password"
             value={password}
             className={`mt-1 p-2 w-full border rounded-md ${
-              errors?.password1 ? "border-red-500" : ""
+              errors?.password ? 'border-red-500' : ''
             }`}
             placeholder="Enter your password"
             onChange={handleInputChange}
-            //required
+            // required
           />
-          {errors?.password?.map((message, index) => 
-            <p className="text-red-500 text-sm mt-1" key={index}>{message}</p>
-          )}
+          {errors?.password?.map((message, index) => (
+            <p className="text-red-500 text-sm mt-1" key={index}>
+              {message}
+            </p>
+          ))}
         </div>
         <div>
           <button
-            className="w-full text-center text-lg text-gray-800 font-semibold py-2 border border-gray-800 rounded hover:bg-gray-800 hover:text-gray-50"
+            className="w-full text-center text-lg text-gray-800 font-semibold py-2
+            border border-gray-800 rounded hover:bg-gray-800 hover:text-gray-50"
             type="submit"
           >
             Log in

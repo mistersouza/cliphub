@@ -1,10 +1,8 @@
-import { useState, useEffect, useRef } from "react";
-
-import { Link } from "react-router-dom";
-
-import { HiVolumeUp, HiVolumeOff } from "react-icons/hi";
-import { BsPlay, BsFillPlayFill, BsFillPauseFill } from "react-icons/bs";
-import { GoVerified } from "react-icons/go";
+import { useState, useEffect, useRef } from 'react';
+import { Link } from 'react-router-dom';
+import { HiVolumeUp, HiVolumeOff } from 'react-icons/hi';
+import { BsFillPlayFill, BsFillPauseFill } from 'react-icons/bs';
+import { GoVerified } from 'react-icons/go';
 
 const ClipCard = ({ post }) => {
   const [isHovered, setIsHovered] = useState(false);
@@ -13,7 +11,7 @@ const ClipCard = ({ post }) => {
   const clipRef = useRef(null);
 
   const handlePlaybackClick = () => {
-    clipRef?.current[isPlaying ? "pause" : "play"]();
+    clipRef?.current[isPlaying ? 'pause' : 'play']();
     setIsPlaying((prev) => !prev);
   };
 
@@ -28,7 +26,7 @@ const ClipCard = ({ post }) => {
       <div>
         <div className="flex gap-3 p-2 cursor-pointer font-semibold rounded">
           <div className="w-10 h-10 md:w-10 md:h-16">
-            <Link to={"/"}>
+            <Link to={'/'}>
               <img
                 className="w-16 object-cover rounded-full"
                 src={post.profile_image}

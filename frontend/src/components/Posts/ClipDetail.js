@@ -1,16 +1,16 @@
-import { useEffect, useRef, useState, useContext } from "react";
-import { GoVerified } from "react-icons/go";
-import { Link, useNavigate, useParams } from "react-router-dom";
-import { MdOutlineCancel, MdFavorite } from "react-icons/md";
-import { FaCommentDots } from "react-icons/fa";
-import { BsFillPauseFill, BsFillPlayFill } from "react-icons/bs";
-import { HiVolumeUp, HiVolumeOff } from "react-icons/hi";
+import { useEffect, useRef, useState, useContext } from 'react';
+import { GoVerified } from 'react-icons/go';
+import { Link, useNavigate, useParams } from 'react-router-dom';
+import { MdOutlineCancel, MdFavorite } from 'react-icons/md';
+import { FaCommentDots } from 'react-icons/fa';
+import { BsFillPauseFill, BsFillPlayFill } from 'react-icons/bs';
+import { HiVolumeUp, HiVolumeOff } from 'react-icons/hi';
 
-import { axiosRequest, axiosResponse } from "../../api/axiosDefaults";
-import { AppContext } from "../../context/AppContext";
-import NoResults from "../NoResults";
-import Avatar from "../Avatar";
-import Comments from "../comments/Comments";
+import { axiosRequest, axiosResponse } from '../../api/axiosDefaults';
+import { AppContext } from '../../context/AppContext';
+import NoResults from '../NoResults';
+import Avatar from '../Avatar';
+import Comments from '../comments/Comments';
 
 const ClipDetail = () => {
   const { setPosts } = useContext(AppContext);
@@ -39,21 +39,18 @@ const ClipDetail = () => {
     comments_count: commentsCount,
   } = post;
 
-  console.log('post', post);
-
   const isLiked = !!likeId;
 
   const handleLikeClick = async () => {
     try {
-      const { data } = await axiosResponse.post("/likes/", { post: id });
-      console.log("data", data);
+      const { data } = await axiosResponse.post('/likes/', { post: id });
       setPosts((prevPosts) => ({
         ...prevPosts,
-        results: prevPosts.results.map((post) => {
-          return post.id === id
+        results: prevPosts.results.map((post) =>
+          post.id === id
             ? { ...post, likes_count: post.likes_count + 1, like_id: data.id }
-            : post;
-        }),
+            : post
+        ),
       }));
       setPost((prevPost) => ({
         ...prevPost,
@@ -70,11 +67,11 @@ const ClipDetail = () => {
       await axiosResponse.delete(`/likes/${likeId}/`);
       setPosts((prevPosts) => ({
         ...prevPosts,
-        results: prevPosts.results.map((post) => {
-          return post.id === id
+        results: prevPosts.results.map((post) =>
+          post.id === id
             ? { ...post, likes_count: post.likes_count - 1, like_id: null }
-            : post;
-        }),
+            : post
+        ),
       }));
       setPost((prevPost) => ({
         ...prevPost,
@@ -86,7 +83,7 @@ const ClipDetail = () => {
   };
 
   const handlePlaybackClick = () => {
-    clipRef?.current[isPlaying ? "pause" : "play"]();
+    clipRef?.current[isPlaying ? 'pause' : 'play']();
     setIsPlaying((prev) => !prev);
   };
 
@@ -95,7 +92,7 @@ const ClipDetail = () => {
   }, [isMuted]);
 
   if (!post)
-    return <NoResults message={"This clip is no longer avaliable :/"} />;
+    return <NoResults message={'This clip is no longer available :/'} />;
 
   return (
     <div className="fixed inset-0 bg-gray-50 flex flex-wrap lg:flex-nowrap">
@@ -129,7 +126,7 @@ const ClipDetail = () => {
               >
                 <BsFillPauseFill
                   className={`text-6xl lg:text-8xl ${
-                    isHovered ? "text-gray-200" : "text-transparent"
+                    isHovered ? 'text-gray-200' : 'text-transparent'
                   }`}
                 />
               </button>
@@ -150,7 +147,7 @@ const ClipDetail = () => {
       </div>
       <div className="relative w-3/12">
         <div className="flex items-center gap-1.5 p-3">
-          <Link to={"/"}>
+          <Link to={'/'}>
             <Avatar src={post.profile_image} size={12} />
           </Link>
           <div className="flex flex-col">
@@ -184,7 +181,11 @@ const ClipDetail = () => {
               )}
               <p>{likesCount ? likesCount : 0}</p>
               <div className="flex gap-3 items-center justify-center text-sm md:text-lg cursor-pointer">
-                <div className={`bg-gray-200 rounded-full p-1 md:p-2 ${!commentsCount ? 'text-gray-400' : ''}`}>
+                <div
+                  className={`bg-gray-200 rounded-full p-1 md:p-2 ${
+                    !commentsCount ? 'text-gray-400' : ''
+                  }`}
+                >
                   <FaCommentDots />
                 </div>
                 <p>{commentsCount ? commentsCount : 0}</p>
@@ -199,13 +200,3 @@ const ClipDetail = () => {
 };
 
 export default ClipDetail;
-
-{
-  /* <img
-              className="h-full cursor-pointer"
-              onClick={() => {}}
-              // loop
-              ref={clipRef}
-              src={results[0].clip}
-            /> */
-}

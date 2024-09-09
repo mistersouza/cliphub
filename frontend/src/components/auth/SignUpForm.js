@@ -1,12 +1,12 @@
-import { useState } from "react";
-import axios from "axios";
+import { useState } from 'react';
+import axios from 'axios';
 
 const SignUpForm = ({ handleModalClick }) => {
   const [errors, setErrors] = useState({});
   const [signUpData, setSignUpData] = useState({
-    username: "",
-    password1: "",
-    password2: "",
+    username: '',
+    password1: '',
+    password2: '',
   });
   const { username, password1, password2 } = signUpData;
 
@@ -21,11 +21,11 @@ const SignUpForm = ({ handleModalClick }) => {
     event.preventDefault();
 
     try {
-      await axios.post("/dj-rest-auth/registration/", signUpData);
+      await axios.post('/dj-rest-auth/registration/', signUpData);
       handleModalClick();
     } catch (error) {
       setErrors(error.response?.data);
-      // console.log({ errors })
+      // console.log({ errors });
     }
   };
 
@@ -41,7 +41,7 @@ const SignUpForm = ({ handleModalClick }) => {
           </label>
           <input
             className={`mt-1 p-2 w-full border rounded-md ${
-              errors?.username ? "border-red-500" : ""
+              errors?.username ? 'border-red-500' : ''
             }`}
             type="text"
             id="username"
@@ -51,13 +51,15 @@ const SignUpForm = ({ handleModalClick }) => {
             onChange={handleInputChange}
             // required
           />
-          {errors?.username?.map((message, index) => 
-            <p className="text-red-500 text-sm mt-1" key={index}>{message}</p>
-          )}
+          {errors?.username?.map((message, index) => (
+            <p className="text-red-500 text-sm mt-1" key={index}>
+              {message}
+            </p>
+          ))}
         </div>
         <div className="mb-4">
           <label
-            htmlFor="password"
+            htmlFor="password1"
             className="text-sm font-medium text-gray-600"
           >
             Password
@@ -68,11 +70,11 @@ const SignUpForm = ({ handleModalClick }) => {
             name="password1"
             value={password1}
             className={`mt-1 p-2 w-full border rounded-md ${
-              errors?.password1 ? "border-red-500" : ""
+              errors?.password1 ? 'border-red-500' : ''
             }`}
             placeholder="Enter your password"
             onChange={handleInputChange}
-            //required
+            // required
           />
           {errors?.password1 && (
             <p className="text-red-500 text-sm mt-1">{errors.password1[0]}</p>
@@ -80,7 +82,7 @@ const SignUpForm = ({ handleModalClick }) => {
         </div>
         <div className="mb-4">
           <label
-            htmlFor="password"
+            htmlFor="password2"
             className="text-sm font-medium text-gray-600"
           >
             Confirm your password
@@ -91,7 +93,7 @@ const SignUpForm = ({ handleModalClick }) => {
             name="password2"
             value={password2}
             className={`mt-1 p-2 w-full border rounded-md ${
-              errors?.password2 ? "border-red-500" : ""
+              errors?.password2 ? 'border-red-500' : ''
             }`}
             placeholder="Enter your password again"
             onChange={handleInputChange}
@@ -103,8 +105,9 @@ const SignUpForm = ({ handleModalClick }) => {
         </div>
         <div>
           <button
+            className="w-full text-center text-lg text-gray-800 font-semibold py-2
+            border border-gray-800 rounded hover:bg-gray-800 hover:text-gray-50"          
             type="submit"
-            className="w-full text-center text-lg text-gray-800 font-semibold py-2 border border-gray-800 rounded hover:bg-gray-800 hover:text-gray-50"
           >
             Sign up
           </button>

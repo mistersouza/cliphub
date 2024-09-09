@@ -1,13 +1,13 @@
-import { useState } from "react";
-import { Link } from "react-router-dom";
+import { useState } from 'react';
+import { Link } from 'react-router-dom';
 
-import { AiFillHome, AiOutlineMenu } from "react-icons/ai";
-import { ImCancelCircle } from "react-icons/im";
+import { AiFillHome, AiOutlineMenu } from 'react-icons/ai';
+import { ImCancelCircle } from 'react-icons/im';
 
-import Discover from "./Discover";
-import Footer from "./Footer";
-import PopularProfiles from "./profiles/PopularProfiles";
-import Modal from "./Modal";
+import Discover from './Discover';
+import Footer from './Footer';
+import PopularProfiles from './profiles/PopularProfiles';
+import Modal from './Modal';
 
 const Sidebar = () => {
   const [toggleSidebar, setToggleSidebar] = useState(true);
@@ -20,9 +20,11 @@ const Sidebar = () => {
 
   const styles = {
     link: {
-      base: "flex items-center gap-3 p-3 justify-center font-semibold text-gray-800 rounded xl:justify-start hover:bg-gray-200",
+      base: 'flex items-center gap-3 p-3 justify-center font-semibold ' +
+            'text-gray-800 rounded xl:justify-start hover:bg-gray-200',
       active:
-        "flex items-center gap-3 p-3 justify-center font-semibold xl:justify-start hover:bg-gray-200",
+        'flex items-center gap-3 p-3 justify-center font-semibold ' +
+        'xl:justify-start hover:bg-gray-200',
     },
   };
 
@@ -39,7 +41,10 @@ const Sidebar = () => {
         )}
       </div>
       {toggleSidebar && (
-        <div className="flex flex-col justify-start w-20 mb-10 border-r-2 border-gray-100 xl:w-full  xl:border-0 p-3">
+        <div className="
+          flex flex-col justify-start w-20 mb-10 border-r-2 border-gray-100 
+          xl:w-full xl:border-0 p-3
+        ">
           <div className="xl:border-b-2 border-gray-200 xl:pb-4">
             <Link to="/">
               <div className={styles.link.base}>
@@ -54,7 +59,11 @@ const Sidebar = () => {
                 Log in to follow educators, like videos, and view comments.
               </p>
               <Link
-                className="block text-center text-lg text-gray-800 font-semibold py-2 border border-gray-800 rounded hover:bg-gray-800 hover:text-gray-50"
+                className="
+                  block text-center text-lg text-gray-800 font-semibold py-2 
+                  border border-gray-800 rounded hover:bg-gray-800 
+                  hover:text-gray-50
+                "
                 onClick={handleModalClick}
               >
                 Log in

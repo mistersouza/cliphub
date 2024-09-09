@@ -1,17 +1,17 @@
-import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
-import Navbar from "./components/Navbar";
-import Sidebar from "./components/Sidebar";
-import Feed from "./components/Posts/Feed";
-import ClipUpload from "./components/Posts/ClipUpload";
-import ClipDetail from "./components/Posts/ClipDetail";
-import UserProfile from "./components/profiles/UserProfile";
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import Navbar from './components/Navbar';
+import Sidebar from './components/Sidebar';
+import Feed from './components/Posts/Feed';
+import ClipUpload from './components/Posts/ClipUpload';
+import ClipDetail from './components/Posts/ClipDetail';
+import UserProfile from './components/profiles/UserProfile';
 
-import { useContext } from "react";
-import { AppContext } from "./context/AppContext";
+import { useContext } from 'react';
+import { AppContext } from './context/AppContext';
 
 const App = () => {
   const { user } = useContext(AppContext);
-  const profileId = user?.profile_id || "";
+  const profileId = user?.profile_id || '';
 
   return (
     <Router>
