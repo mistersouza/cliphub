@@ -1,9 +1,9 @@
 asgiref==3.7.2
 cloudinary==1.37.0
 dj-database-url==0.5.0
-dj-rest-auth==2.1.9
-Django==3.2.23
-django-allauth==0.44.0
+dj-rest-auth==6.0.0
+Django==4.2.16
+django-allauth==64.2.1
 django-cloudinary-storage==0.3.0
 django-cors-headers==4.3.1
 django-filter==23.5
