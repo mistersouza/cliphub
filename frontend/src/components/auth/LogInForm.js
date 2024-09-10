@@ -7,6 +7,7 @@ const LogInForm = ({ handleModalClick }) => {
     password: '',
   });
   const [errors, setErrors] = useState({});
+  // Destructure `logInData` object
   const { username, password } = logInData;
 
   const handleInputChange = ({ target }) => {
@@ -22,7 +23,7 @@ const LogInForm = ({ handleModalClick }) => {
       await axios.post('/dj-rest-auth/login/', logInData);
       handleModalClick();
     } catch (error) {
-      console.log('Login errors', error?.response.data)
+      // console.log('Login errors', error?.response.data);
       setErrors(error?.response.data);
     }
   };
@@ -76,9 +77,7 @@ const LogInForm = ({ handleModalClick }) => {
           />
           <div className="text-red-500 text-xs h-3 py-1 px-2">
             {errors?.password?.map((message, index) => (
-              <p key={index}>
-                {message}
-              </p>
+              <p key={index}>{message}</p>
             ))}
             {errors.non_field_errors && (
               <p>Oops! Creds are no good. Try again</p>
@@ -88,7 +87,7 @@ const LogInForm = ({ handleModalClick }) => {
         <div>
           <button
             className="w-full text-center text-lg text-gray-800 font-semibold py-2
-            border border-gray-800 rounded hover:bg-gray-800 hover:text-gray-50"
+              border border-gray-800 rounded hover:bg-gray-800 hover:text-gray-50"
             type="submit"
           >
             Log in
