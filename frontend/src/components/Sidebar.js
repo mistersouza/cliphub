@@ -20,7 +20,7 @@ const Sidebar = () => {
 
   // Link styles
   const { base, hover, active } = {
-      base: 'flex items-center gap-3 p-3 justify-center' +
+      base: 'flex items-center gap-3 py-3 px-4 justify-center' +
             'font-semibold text-gray-800 rounded',
       hover: 'hover:bg-gray-200',
       active: 'xl:justify-start',
@@ -28,21 +28,17 @@ const Sidebar = () => {
   
   return (
     <div>
-      <div
-        className="flex justify-center py-3 xl:hidden"
-        onClick={() => setToggleSidebar((prev) => !prev)}
-      >
-        {toggleSidebar ? (
-          <ImCancelCircle className="text-2xl" />
-        ) : (
-          <AiOutlineMenu className="text-2xl" />
-        )}
+      <div 
+        className='block xl:hidden text-lg px-8'
+        onClick={() => setToggleSidebar(prev => !prev)}>
+          {toggleSidebar 
+            ? <ImCancelCircle /> 
+            : <AiOutlineMenu />}
       </div>
       {toggleSidebar && (
-        <div className="
-          flex flex-col justify-start w-20 mb-10 border-r-2 border-gray-100 
-          xl:w-full xl:border-0 p-3
-        ">
+        <div className="flex flex-col justify-start w-20 mb-10 border-r-2 
+          border-gray-100 xl:w-full xl:border-0 p-3"
+        >
           <div className="xl:border-b-2 border-gray-200 xl:pb-4">
             <Link to="/">
               <div className={`${base} ${hover} ${active}`}>
