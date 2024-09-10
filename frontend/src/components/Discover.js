@@ -5,8 +5,8 @@ import { topics } from '../utils/constants';
 const Discover = () => {
   const { search } = useLocation();
 
-  const styles = {
-    topic: {
+  // Topic styles
+  const { base, active } = {
       base: `
         flex items-center gap-2 justify-center cursor-pointer 
         text-gray-800 px-3 py-2 rounded hover:bg-gray-200 
@@ -17,7 +17,6 @@ const Discover = () => {
         bg-gray-800 text-gray-200 px-3 py-2 rounded hover:bg-gray-800 
         xl:border-2 xl-border-none xl:rounded-full
       `,
-    },
   };
 
   return (
@@ -31,8 +30,8 @@ const Discover = () => {
             <div
               className={
                 search.includes(`?topic=${topic.name}`)
-                  ? styles.topic.active
-                  : styles.topic.base
+                  ? active
+                  : base
               }
             >
               <span className="font-bold text-2xl xl:text-md">
