@@ -22,8 +22,8 @@ const LogInForm = ({ handleModalClick }) => {
       await axios.post('/dj-rest-auth/login/', logInData);
       handleModalClick();
     } catch (error) {
-      setErrors(error.response?.data);
-      // console.log({ errors });
+      console.log('Login errors', error?.response.data)
+      setErrors(error?.response.data);
     }
   };
 
@@ -49,6 +49,11 @@ const LogInForm = ({ handleModalClick }) => {
             onChange={handleInputChange}
             // required
           />
+          {errors?.username?.map((message, index) => (
+            <p className="text-red-500 text-sm mt-1" key={index}>
+              {message}
+            </p>
+          ))}
         </div>
         <div className="mb-4">
           <label
@@ -69,11 +74,16 @@ const LogInForm = ({ handleModalClick }) => {
             onChange={handleInputChange}
             // required
           />
-          {errors?.password?.map((message, index) => (
-            <p className="text-red-500 text-sm mt-1" key={index}>
-              {message}
-            </p>
-          ))}
+          <div className="text-red-500 text-xs h-3 py-1 px-2">
+            {errors?.password?.map((message, index) => (
+              <p key={index}>
+                {message}
+              </p>
+            ))}
+            {errors.non_field_errors && (
+              <p>Oops! Creds are no good. Try again</p>
+            )}
+          </div>
         </div>
         <div>
           <button
