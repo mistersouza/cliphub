@@ -53,8 +53,8 @@ const Sidebar = () => {
           </div>
           {!user && (
             <div className="hidden py-5 xl:block">
-              <p className="text-gray-500 text-center py-2">
-                Log in to follow educators, like videos, and view comments.
+              <p className="text-gray-500 text-sm text-center py-2">
+                Log in to follow educators, like videos, and comment.
               </p>
               <Link
                 className="
