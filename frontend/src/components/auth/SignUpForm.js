@@ -24,15 +24,15 @@ const SignUpForm = ({ handleModalClick }) => {
       await axios.post('/dj-rest-auth/registration/', signUpData);
       handleModalClick();
     } catch (error) {
+      console.log({ error });
       setErrors(error.response?.data);
-      // console.log({ errors });
     }
   };
 
   return (
     <div className="hidden py-3 xl:block">
       <form onSubmit={handleFormSubmit}>
-        <div className="mb-4">
+        <div className="mb-2.5">
           <label
             htmlFor="username"
             className="text-sm font-medium text-gray-600"
@@ -51,13 +51,15 @@ const SignUpForm = ({ handleModalClick }) => {
             onChange={handleInputChange}
             // required
           />
-          {errors?.username?.map((message, index) => (
-            <p className="text-red-500 text-sm mt-1" key={index}>
-              {message}
-            </p>
-          ))}
+          <div className="text-red-500 text-xs h-3 py-1 px-2">
+            {errors?.username?.map((message, index) => (
+              <p key={index}>
+                {message}
+              </p>
+            ))}
+          </div>
         </div>
-        <div className="mb-4">
+        <div className="mb-2.5">
           <label
             htmlFor="password1"
             className="text-sm font-medium text-gray-600"
@@ -76,11 +78,15 @@ const SignUpForm = ({ handleModalClick }) => {
             onChange={handleInputChange}
             // required
           />
-          {errors?.password1 && (
-            <p className="text-red-500 text-sm mt-1">{errors.password1[0]}</p>
-          )}
+          <div className="text-red-500 text-xs h-3 py-1 px-2">
+            {errors?.password1?.map((message, index) => (
+              <p key={index}>
+                {message}
+              </p>
+            ))}
+          </div>
         </div>
-        <div className="mb-4">
+        <div className="mb-5">
           <label
             htmlFor="password2"
             className="text-sm font-medium text-gray-600"
@@ -99,9 +105,18 @@ const SignUpForm = ({ handleModalClick }) => {
             onChange={handleInputChange}
             // required
           />
-          {errors?.password2 && (
-            <p className="text-red-500 text-sm mt-1">{errors.password2[0]}</p>
-          )}
+          <div className="text-red-500 text-xs h-3 py-1 px-2">
+            {errors?.password1?.map((message, index) => (
+              <p key={index}>
+                {message}
+              </p>
+            ))}
+            {errors.non_field_errors?.map((message, index) => (
+              <p key={index}>
+                {message}
+              </p>
+            ))}
+          </div>
         </div>
         <div>
           <button
