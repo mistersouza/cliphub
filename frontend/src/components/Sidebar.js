@@ -18,16 +18,14 @@ const Sidebar = () => {
     setShowAuthModal((prev) => !prev);
   };
 
-  const styles = {
-    link: {
-      base: 'flex items-center gap-3 p-3 justify-center font-semibold ' +
-            'text-gray-800 rounded xl:justify-start hover:bg-gray-200',
-      active:
-        'flex items-center gap-3 p-3 justify-center font-semibold ' +
-        'xl:justify-start hover:bg-gray-200',
-    },
-  };
-
+  // Link styles
+  const { base, hover, active } = {
+      base: 'flex items-center gap-3 p-3 justify-center' +
+            'font-semibold text-gray-800 rounded',
+      hover: 'hover:bg-gray-200',
+      active: 'xl:justify-start',
+    };
+  
   return (
     <div>
       <div
@@ -47,7 +45,7 @@ const Sidebar = () => {
         ">
           <div className="xl:border-b-2 border-gray-200 xl:pb-4">
             <Link to="/">
-              <div className={styles.link.base}>
+              <div className={`${base} ${hover} ${active}`}>
                 <AiFillHome className="text-2xl" />
                 <span className="hidden xl:block text-xl">For you</span>
               </div>
