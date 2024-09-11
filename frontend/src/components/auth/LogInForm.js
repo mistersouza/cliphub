@@ -1,7 +1,9 @@
-import { useState } from 'react';
+import { useContext, useState } from 'react';
+import { AppContext } from '../../context/AppContext';
 import axios from 'axios';
 
 const LogInForm = ({ handleModalClick }) => {
+  const { setUser } = useContext(AppContext)
   const [logInData, setLogInData] = useState({
     username: '',
     password: '',
@@ -20,14 +22,15 @@ const LogInForm = ({ handleModalClick }) => {
   const handleLoginSubmit = async (event) => {
     event.preventDefault();
     try {
-      await axios.post('/dj-rest-auth/login/', logInData);
+      // Send login request
+      const { data } = await axios.post('dj-rest-auth/login/', logInData);
+      setUser(data.user);
       handleModalClick();
     } catch (error) {
-      // console.log('Login errors', error?.response.data);
       setErrors(error?.response.data);
     }
   };
-
+  
   return (
     <div className="hidden py-3 xl:block">
       <form onSubmit={handleLoginSubmit}>
