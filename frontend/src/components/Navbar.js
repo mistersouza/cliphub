@@ -53,8 +53,8 @@ const Navbar = () => {
             value={queryInput}
             onChange={({ target }) => setQueryInput(target.value)}
             className="
-              bg-primary p-2 md:text-md font-medium border-2 
-              border-gray-100 focus:outline-none focus:border-2 
+              bg-gray-50 p-2 md:text-md font-medium border-2 
+              border-gray-50 focus:outline-none
               focus:border-gray-300 w-[300px] md:w-[350px] 
               rounded-full md:top-0
             "
