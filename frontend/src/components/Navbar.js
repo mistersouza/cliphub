@@ -34,7 +34,7 @@ const Navbar = () => {
   return (
     <div
       className="
-        flex justify-between items-center border-b-2 border-gray-200
+        flex justify-between items-center border-b-2 border-gray-200 py-1 px-3
       "
     >
       <Link to="/">
