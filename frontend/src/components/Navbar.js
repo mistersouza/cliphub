@@ -23,15 +23,13 @@ const Navbar = () => {
 
   const handleLogoutSubmit = async () => {
     try {
-      await axios.post('/dj-rest-auth/logout/');
+      await axios.post('dj-rest-auth/logout/');
       setUser(null);
-      navigate('/posts');
+      navigate('posts/');
     } catch (error) {
       console.log(error);
     }
   };
-
-  useEffect(() =>{console.log('currect logged user', user)}, [])
 
   return (
     <div
