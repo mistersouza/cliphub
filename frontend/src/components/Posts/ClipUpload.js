@@ -1,7 +1,7 @@
 import { useState, useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { FaCloudUploadAlt } from 'react-icons/fa';
-import { MdDelete } from 'react-icons/md';
+import { MdOutlineKeyboardArrowDown } from 'react-icons/md';
 import { axiosRequest } from '../../api/axiosDefaults';
 import { topics } from '../../utils/constants';
 
@@ -131,22 +131,27 @@ const ClipUpload = () => {
             className="rounded lg:after:w-650 outline-none text-md border-2 border-gray-200 p-2"
           />
           <label className="text-md font-medium">Choose a topic</label>
-          <select
-            name="topic"
-            value={topic}
-            onChange={handleInputChange}
-            className="outline-none lg:w-650 border-2 border-gray-200 text-md capitalize lg:p-4 p-1 rounded cursor-pointer"
-          >
-            {topics.map((topic) => (
-              <option
-                className="outline-none capitalize bg-white text-gray-700 text-md p-2 hover:bg-slate-300"
-                key={topic.name}
-                value={topic.name}
-              >
-                {topic.name}
-              </option>
-            ))}
-          </select>
+          <div className="relative rounded lg:w-650 border-2 border-gray-200">
+            <select
+              name="topic"
+              value={topic}
+              onChange={handleInputChange}
+              className="outline-none appearance-none w-full text-md capitalize lg:p-3 cursor-pointer pr-10"
+            >
+              {topics.map((topic) => (
+                <option
+                  className="outline-none capitalize bg-white text-gray-700 text-md p-2 hover:bg-slate-300"
+                  key={topic.name}
+                  value={topic.name}
+                >
+                  {topic.name}
+                </option>
+              ))}
+            </select>
+            <div className="absolute inset-y-0 right-0 flex items-center px-2 pointer-events-none">
+              <MdOutlineKeyboardArrowDown className="w-6 h-6 text-gray-500" />
+            </div>
+          </div>
           <div className="flex gap-6 mt-10">
             <button
               className="border-gray-300 border-2 text-md font-medium p-2 rounded w-28 lg:w-44 outline-none"
