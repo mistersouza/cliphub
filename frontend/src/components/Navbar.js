@@ -25,7 +25,7 @@ const Navbar = () => {
     try {
       await axios.post('dj-rest-auth/logout/');
       setUser(null);
-      navigate('posts/');
+      navigate('/');
     } catch (error) {
       console.log(error);
     }

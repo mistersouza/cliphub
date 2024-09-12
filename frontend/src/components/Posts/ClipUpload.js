@@ -51,7 +51,6 @@ const ClipUpload = () => {
 
     try {
       const { data } = await axiosRequest.post('/posts/', formData);
-      navigate('/');
       setSavingClip(true);
     } catch (error) {
       if (error.response?.status !== 401) {
@@ -59,6 +58,7 @@ const ClipUpload = () => {
       }
     } finally {
       setSavingClip(false);
+      navigate('/');
     }
   };
 
@@ -73,7 +73,7 @@ const ClipUpload = () => {
       >
         <div>
           <div className="flex flex-col items-center gap-1 py-5">
-            <p className="text-2xl font-bold">Upload clip</p>
+            <p className="text-2xl font-bold">Upload a clip</p>
             <p className="text-md text-gray-500">
               Post a clip to your account
             </p>
