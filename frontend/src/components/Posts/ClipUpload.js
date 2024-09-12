@@ -25,10 +25,6 @@ const ClipUpload = () => {
     });
   };
 
-  useEffect(() => {
-    console.log('clipRef in useEffect', clipRef);
-  });
-
   const handleClipChange = (event) => {
     if (event.target.files.length) {
       URL.revokeObjectURL(clip);
@@ -83,43 +79,42 @@ const ClipUpload = () => {
             {isLoading ? (
               <p>Loading...</p>
             ) : (
-              <div className="w-full h-full flex items-center justify-center">
-                {clip ? (
-                  <video
-                    className="flex h-full w-full object-contain bg-black rounded-md"
-                    controls
-                  >
-                    <source src={clip} type="video/mp4" />
-                    Your browser does not support video tags :/
-                  </video>
-                ) : (
-                  <div className="flex items-center justify-center w-full h-full">
-                    <label htmlFor="dropzone">
-                      <div className="flex flex-col items-center justify-center gap-3">
-                        <FaCloudUploadAlt className="text-gray-500 text-6xl" />
-                        <p className="flex flex-col text-sm text-gray-500">
-                          <span className="font-semibold">Click to upload</span>
-                          <span>or drag and drop</span>
-                        </p>
-                        <p className="text-xs text-gray-500 text-center">
-                          MP4 only (MAX. 800x400px)
-                        </p>
-                      </div>
-                    </label>
-                    <input
-                      className="hidden"
-                      type="file"
-                      id="dropzone"
-                      name="clip"
-                      onChange={handleClipChange}
-                      ref={clipRef}
-                    />
-                  </div>
-                )}
-              </div>
+              <div className="w-full h-full flex items-center justify-center relative">
+              {clip ? (
+                <video
+                  className="flex h-full w-full object-contain bg-black rounded-md"
+                  controls
+                >
+                  <source src={clip} type="video/mp4" />
+                  Your browser does not support video tags :/
+                </video>
+              ) : (
+                <div className="flex flex-col items-center justify-center gap-3">
+                  <label htmlFor="dropzone">
+                    <div className="flex flex-col items-center justify-center gap-3">
+                      <FaCloudUploadAlt className="text-gray-500 text-6xl" />
+                      <p className="flex flex-col text-sm text-gray-500">
+                        <span className="font-semibold">Click to upload</span>
+                        <span>or drag and drop</span>
+                      </p>
+                      <p className="text-xs text-gray-500 text-center">
+                        MP4 only (MAX. 800x400px)
+                      </p>
+                    </div>
+                  </label>
+                </div>
+              )}
+              <input
+                className="hidden"
+                type="file"
+                id="dropzone"
+                name="clip"
+                onChange={handleClipChange}
+                ref={clipRef}
+              />
+            </div>
             )}
           </div>
-
         </div>
         <div className="flex flex-col gap-3 pb-10">
           <label className="text-md font-medium">Caption</label>
