@@ -14,9 +14,9 @@ const App = () => {
   const profileId = user?.profile_id || '';
 
   return (
-    <div className="xl:w-[1200px] m-auto overflow-hidden h-[100vh]">
+    <div className="xl:w-[1200px] m-auto overflow-hidden min-h-full">
       <Navbar />
-      <div className="flex gap-6 md:gap-20 py-3">
+      <div className="flex gap-6 md:gap-20 -mt-0.5">
         <div className="h-[92vh] overflow-hidden xl:hover:overflow-auto max-w-sm">
           <Sidebar />
         </div>
