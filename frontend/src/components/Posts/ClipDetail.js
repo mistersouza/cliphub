@@ -13,33 +13,47 @@ import Avatar from '../Avatar';
 import Comments from '../comments/Comments';
 
 const ClipDetail = () => {
-  const { setPosts } = useContext(AppContext);
+  const { setPosts, user } = useContext(AppContext);
   const [post, setPost] = useState({});
   const [isPlaying, setIsPlaying] = useState(false);
   const [isMuted, setIsMuted] = useState(false);
-  const [isHovered, setIsHovered] = useState(false);
+  const [content, setContent] = useState('');
+  const [posting, setPosting] = useState(false);
   const navigate = useNavigate();
   const clipRef = useRef(null);
+  const [comments, setComments] = useState({ results: [] });
+
   const { id } = useParams();
+  const { profile_image: profileImage } = post;
 
   useEffect(() => {
-    (async () => {
+    const fetchPost = async () => {
       try {
-        const { data: post } = await axiosRequest.get(`/posts/${id}`);
-        setPost({ ...post });
+        const { data } = await axiosRequest.get(`/posts/${id}`);
+        setPost(data);
       } catch (error) {
-        console.log(error);
+        console.error(error);
       }
-    })();
+    };
+    fetchPost();
   }, [id]);
 
-  const {
-    like_id: likeId,
-    likes_count: likesCount,
-    comments_count: commentsCount,
-  } = post;
+  useEffect(() => {
+    const fetchComments = async () => {
+      try {
+        const { data } = await axiosRequest.get(`/comments/?post=${id}`);
+        setComments(data);
+      } catch (error) {
+        console.error(error);
+      } finally {
+        setPosting(false);
+      }
+    };
+    fetchComments();
+  }, [id]);
 
-  const isLiked = !!likeId;
+  const { like_id: likeId, likes_count: likesCount, comments_count: commentsCount } = post;
+  const isLiked = Boolean(likeId);
 
   const handleLikeClick = async () => {
     try {
@@ -58,7 +72,7 @@ const ClipDetail = () => {
         like_id: data.id,
       }));
     } catch (error) {
-      console.log(error);
+      console.error(error);
     }
   };
 
@@ -77,8 +91,31 @@ const ClipDetail = () => {
         ...prevPost,
         likes_count: prevPost.likes_count - 1,
       }));
-    } catch (err) {
-      console.log(err);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  const handleCommentSubmit = async (event) => {
+    event.preventDefault();
+    try {
+      const { data } = await axiosResponse.post('/comments/', {
+        content,
+        post: id,
+      });
+      setPosting(true);
+      setComments((prevComments) => ({
+        ...prevComments,
+        results: [data, ...prevComments.results],
+      }));
+      setPost({
+        ...post,
+        comments_count: post.comments_count + 1,
+      });
+    } catch (error) {
+      console.error(error);
+    } finally {
+      setPosting(false);
     }
   };
 
@@ -88,15 +125,18 @@ const ClipDetail = () => {
   };
 
   useEffect(() => {
-    if (clipRef?.current) clipRef.current.muted = isMuted;
+    if (clipRef?.current) {
+      clipRef.current.muted = isMuted;
+    }
   }, [isMuted]);
 
-  if (!post)
-    return <NoResults message={'This clip is no longer available :/'} />;
+  if (!post) {
+    return <NoResults message="This clip is no longer available :/" />;
+  }
 
   return (
-    <div className="fixed inset-0 bg-gray-50 flex flex-wrap lg:flex-nowrap">
-      <div className="relative w-9/12 flex justify-center items-center bg-gray-800 backdrop-blur-sm">
+    <div className="fixed inset-0 bg-gray-50 flex flex-col lg:flex-row lg:flex-nowrap">
+      <div className="relative w-full h-1/2 lg:w-9/12 lg:h-full flex justify-center items-center bg-gray-800 backdrop-blur-sm">
         <div className="opacity-90 absolute top-6 left-2 lg:left-6 flex cursor-pointer z-50">
           <MdOutlineCancel
             className="text-gray-500 text-3xl hover:opacity-90"
@@ -111,7 +151,7 @@ const ClipDetail = () => {
               onClick={handlePlaybackClick}
               src={post.clip}
               loop
-            ></video>
+            />
           </div>
           <div className="absolute top-[45%] left-[40%] cursor-pointer">
             {!isPlaying ? (
@@ -119,16 +159,8 @@ const ClipDetail = () => {
                 <BsFillPlayFill className="text-gray-200 text-6xl lg:text-8xl" />
               </button>
             ) : (
-              <button
-                onClick={handlePlaybackClick}
-                onMouseEnter={() => setIsHovered(true)}
-                onMouseLeave={() => setIsHovered(false)}
-              >
-                <BsFillPauseFill
-                  className={`text-6xl lg:text-8xl ${
-                    isHovered ? 'text-gray-200' : 'text-transparent'
-                  }`}
-                />
+              <button onClick={handlePlaybackClick}>
+                <BsFillPauseFill className="text-6xl lg:text-8xl text-gray-200" />
               </button>
             )}
           </div>
@@ -145,55 +177,90 @@ const ClipDetail = () => {
           )}
         </div>
       </div>
-      <div className="relative w-3/12">
-        <div className="flex items-center gap-1.5 p-3">
-          <Link to={'/'}>
-            <Avatar src={post.profile_image} size={12} />
-          </Link>
-          <div className="flex flex-col">
-            <p className="flex items-center gap-1.5">
-              <span className="text-sm text-gray-800 capitalize font-semibold">
-                {post.owner}
-              </span>
-              <GoVerified />
-            </p>
-            <p className="text-xs text-gray-500">fabio_ortega</p>
-          </div>
-        </div>
-        <p className="text-sm text-gray-800 px-5">{post.caption}</p>
-        <div>
-          <div className="flex p-4">
-            <div className="flex gap-3 items-center justify-center text-gray-800 text-sm md:text-lg cursor-pointer">
-              {!isLiked ? (
-                <button
-                  className="bg-gray-200 rounded-full p-1 md:p-2"
-                  onClick={handleLikeClick}
-                >
-                  <MdFavorite className="text-gray-400" />
-                </button>
-              ) : (
-                <button
-                  className="bg-gray-200 rounded-full p-1 md:p-2"
-                  onClick={handleUnlikeClick}
-                >
-                  <MdFavorite />
-                </button>
-              )}
-              <p>{likesCount ? likesCount : 0}</p>
-              <div className="flex gap-3 items-center justify-center text-sm md:text-lg cursor-pointer">
-                <div
-                  className={`bg-gray-200 rounded-full p-1 md:p-2 ${
-                    !commentsCount ? 'text-gray-400' : ''
-                  }`}
-                >
-                  <FaCommentDots />
-                </div>
-                <p>{commentsCount ? commentsCount : 0}</p>
-              </div>
+      <div className="relative flex flex-col h-1/2 w-full lg:w-3/12 lg:h-full">
+        <div className="h-2/6 max-h-52 flex flex-col gap-3">
+          <div className="flex items-center gap-3 px-3">
+            <Link to="/">
+              <Avatar src={post.profile_image} />
+            </Link>
+            <div className="flex flex-col">
+              <p className="flex items-center gap-1.5">
+                <span className="text-sm text-gray-800 capitalize font-semibold">
+                  {post.owner}
+                </span>
+                <GoVerified />
+              </p>
+              <p className="text-xs text-gray-500">fabio_ortega</p>
             </div>
           </div>
-          <Comments post={post} setPost={setPost} />
+          <p className="text-sm text-gray-800 text-center">{post.caption}</p>
+          <div className="flex gap-3 items-center justify-center py-3 text-gray-800 text-sm md:text-lg">
+            {!isLiked ? (
+              <button
+                className="bg-gray-200 rounded-full p-1 md:p-2"
+                onClick={handleLikeClick}
+              >
+                <MdFavorite className="text-gray-400" />
+              </button>
+            ) : (
+              <button
+                className="bg-gray-200 rounded-full p-1 md:p-2"
+                onClick={handleUnlikeClick}
+              >
+                <MdFavorite />
+              </button>
+            )}
+            <p>{likesCount || 0}</p>
+            <div className="flex gap-3 items-center">
+              <div
+                className={`bg-gray-200 rounded-full p-1 md:p-2 ${
+                  !commentsCount ? 'text-gray-400' : ''
+                }`}
+              >
+                <FaCommentDots />
+              </div>
+              <p>{commentsCount || 0}</p>
+            </div>
+          </div>
         </div>
+        <div className="flex-1 overflow-y-auto flex flex-col border-t-2 border-gray-200 bg-gray-100 lg:pb-0 pb-[100px]">
+          {comments.results.length ? (
+            comments.results.map((comment) => (
+              <div className="flex items-center gap-1.5 px-3 py-1" key={comment.id}>
+                <Avatar src={comment.profile_image || profileImage} />
+                <p>{comment.content}</p>
+              </div>
+            ))
+          ) : (
+            <NoResults message="Be the first one to leave a comment" noComments />
+          )}
+        </div>
+        {user && (
+          <div className="w-full max-h-15 self-end">
+            <div className="w-full p-3 border-t-2 border-gray-200">
+              <form className="flex gap-2.5" onSubmit={handleCommentSubmit}>
+              <input
+                className="flex-1 p-1.5 text-md border border-gray-200 rounded-lg outline-none focus:border-gray-500"
+                value={content}
+                onChange={({ target }) => setContent(target.value)}
+                placeholder="Add comment..."
+              />
+              <button type="submit" className="flex items-center bg-gray-200 justify-center p-2">
+                {posting ? (
+                  <div className="flex space-x-0.5 justify-center">
+                    <span className="sr-only">Posting...</span>
+                    <div className="w-2.5 h-2.5 bg-gray-500 rounded-full animate-bounce [animation-delay:-0.3s]"></div>
+                    <div className="w-2.5 h-2.5 bg-gray-500 rounded-full animate-bounce [animation-delay:-0.15s]"></div>
+                    <div className="w-2.5 h-2.5 bg-gray-500 rounded-full animate-bounce"></div>
+                  </div>
+                ) : (
+                  <p className="text-sm font-semibold text-gray-400">Post</p>
+                )}
+              </button>
+              </form>
+            </div>
+          </div>
+        )}
       </div>
     </div>
   );
