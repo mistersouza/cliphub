@@ -19,18 +19,20 @@ const ClipDetail = () => {
   const [isMuted, setIsMuted] = useState(false);
   const [content, setContent] = useState('');
   const [posting, setPosting] = useState(false);
+  const [isLiked, setIsLiked] = useState(false);
+
   const navigate = useNavigate();
   const clipRef = useRef(null);
   const [comments, setComments] = useState({ results: [] });
 
   const { id } = useParams();
-  const { profile_image: profileImage } = post;
 
   useEffect(() => {
     const fetchPost = async () => {
       try {
-        const { data } = await axiosRequest.get(`/posts/${id}`);
+        const { data } = await axiosRequest.get(`posts/${id}`);
         setPost(data);
+        setIsLiked(Boolean(data.like_id))
       } catch (error) {
         console.error(error);
       }
@@ -41,7 +43,7 @@ const ClipDetail = () => {
   useEffect(() => {
     const fetchComments = async () => {
       try {
-        const { data } = await axiosRequest.get(`/comments/?post=${id}`);
+        const { data } = await axiosRequest.get(`comments/?post=${id}`);
         setComments(data);
       } catch (error) {
         console.error(error);
@@ -52,12 +54,19 @@ const ClipDetail = () => {
     fetchComments();
   }, [id]);
 
-  const { like_id: likeId, likes_count: likesCount, comments_count: commentsCount } = post;
-  const isLiked = Boolean(likeId);
+  const { 
+    like_id: likeId, 
+    likes_count: likesCount, 
+    comments_count: commentsCount, 
+    profile_image: profileImage, 
+    owner 
+  } = post;
+
+  const isOwner = user?.username === owner; 
 
   const handleLikeClick = async () => {
     try {
-      const { data } = await axiosResponse.post('/likes/', { post: id });
+      const { data } = await axiosResponse.post('likes/', { post: id });
       setPosts((prevPosts) => ({
         ...prevPosts,
         results: prevPosts.results.map((post) =>
@@ -71,6 +80,7 @@ const ClipDetail = () => {
         likes_count: prevPost.likes_count + 1,
         like_id: data.id,
       }));
+      setIsLiked(!!data.id); 
     } catch (error) {
       console.error(error);
     }
@@ -78,7 +88,7 @@ const ClipDetail = () => {
 
   const handleUnlikeClick = async () => {
     try {
-      await axiosResponse.delete(`/likes/${likeId}/`);
+      await axiosResponse.delete(`likes/${likeId}/`);
       setPosts((prevPosts) => ({
         ...prevPosts,
         results: prevPosts.results.map((post) =>
@@ -91,6 +101,7 @@ const ClipDetail = () => {
         ...prevPost,
         likes_count: prevPost.likes_count - 1,
       }));
+      setIsLiked(false); 
     } catch (error) {
       console.error(error);
     }
@@ -99,7 +110,7 @@ const ClipDetail = () => {
   const handleCommentSubmit = async (event) => {
     event.preventDefault();
     try {
-      const { data } = await axiosResponse.post('/comments/', {
+      const { data } = await axiosResponse.post('comments/', {
         content,
         post: id,
       });
@@ -108,17 +119,18 @@ const ClipDetail = () => {
         ...prevComments,
         results: [data, ...prevComments.results],
       }));
-      setPost({
-        ...post,
-        comments_count: post.comments_count + 1,
-      });
+      setPost((prevPost) => ({
+        ...prevPost,
+        comments_count: prevPost.comments_count + 1,
+      }));
+      setContent('');
     } catch (error) {
       console.error(error);
     } finally {
       setPosting(false);
     }
   };
-
+  
   const handlePlaybackClick = () => {
     clipRef?.current[isPlaying ? 'pause' : 'play']();
     setIsPlaying((prev) => !prev);
@@ -136,7 +148,8 @@ const ClipDetail = () => {
 
   return (
     <div className="fixed inset-0 bg-gray-50 flex flex-col lg:flex-row lg:flex-nowrap">
-      <div className="relative w-full h-1/2 lg:w-9/12 lg:h-full flex justify-center items-center bg-gray-800 backdrop-blur-sm">
+      <div className=
+        "relative w-full h-1/2 lg:w-9/12 lg:h-full flex justify-center items-center bg-gray-800 backdrop-blur-sm">
         <div className="opacity-90 absolute top-6 left-2 lg:left-6 flex cursor-pointer z-50">
           <MdOutlineCancel
             className="text-gray-500 text-3xl hover:opacity-90"
@@ -178,7 +191,7 @@ const ClipDetail = () => {
         </div>
       </div>
       <div className="relative flex flex-col h-1/2 w-full lg:w-3/12 lg:h-full">
-        <div className="h-2/6 max-h-52 flex flex-col gap-3">
+        <div className="min-h-fit flex flex-col  py-3 gap-2 md:gap-5">
           <div className="flex items-center gap-3 px-3">
             <Link to="/">
               <Avatar src={post.profile_image} />
@@ -190,31 +203,25 @@ const ClipDetail = () => {
                 </span>
                 <GoVerified />
               </p>
-              <p className="text-xs text-gray-500">fabio_ortega</p>
+              <p className="text-sm text-gray-500">
+                {owner}_user
+              </p>
             </div>
           </div>
-          <p className="text-sm text-gray-800 text-center">{post.caption}</p>
-          <div className="flex gap-3 items-center justify-center py-3 text-gray-800 text-sm md:text-lg">
-            {!isLiked ? (
-              <button
-                className="bg-gray-200 rounded-full p-1 md:p-2"
-                onClick={handleLikeClick}
-              >
-                <MdFavorite className="text-gray-400" />
-              </button>
-            ) : (
-              <button
-                className="bg-gray-200 rounded-full p-1 md:p-2"
-                onClick={handleUnlikeClick}
-              >
-                <MdFavorite />
-              </button>
-            )}
+          <p className="text-sm text-gray-700 md:text-lg px-3.5">{post.caption}</p>
+          <div className="flex gap-2 items-center justify-center text-gray-700 text-sm py-1 md:py-3 md:mt-auto md:text-lg">
+            <button
+              className="bg-gray-200 rounded-full p-1 md:p-2"
+              onClick={isLiked ? handleUnlikeClick : handleLikeClick}
+              disabled={isOwner}
+            >
+              <MdFavorite className={isLiked ? "" : "text-gray-400"} />
+            </button>
             <p>{likesCount || 0}</p>
             <div className="flex gap-3 items-center">
               <div
                 className={`bg-gray-200 rounded-full p-1 md:p-2 ${
-                  !commentsCount ? 'text-gray-400' : ''
+                  !commentsCount ? "text-gray-400" : ""
                 }`}
               >
                 <FaCommentDots />
@@ -228,24 +235,35 @@ const ClipDetail = () => {
             comments.results.map((comment) => (
               <div className="flex items-center gap-1.5 px-3 py-1" key={comment.id}>
                 <Avatar src={comment.profile_image || profileImage} />
-                <p>{comment.content}</p>
+                <p className="text-sm font-light md:text-base lg:text-lg text-gray-800">
+                  {comment.content}
+                </p>
+
               </div>
             ))
           ) : (
-            <NoResults message="Be the first one to leave a comment" noComments />
+            <NoResults 
+              message={`${!user ? 'Log in and b' : 'B'}e the first to leave a comment`} 
+              noComments 
+            />
+
           )}
         </div>
-        {user && (
-          <div className="w-full max-h-15 self-end">
-            <div className="w-full p-3 border-t-2 border-gray-200">
-              <form className="flex gap-2.5" onSubmit={handleCommentSubmit}>
-              <input
-                className="flex-1 p-1.5 text-md border border-gray-200 rounded-lg outline-none focus:border-gray-500"
-                value={content}
-                onChange={({ target }) => setContent(target.value)}
-                placeholder="Add comment..."
-              />
-              <button type="submit" className="flex items-center bg-gray-200 justify-center p-2">
+        <div className="w-full max-h-15 self-end">
+          <div className="w-full p-3 border-t-2 border-gray-200">
+            <form className="flex gap-2.5" onSubmit={handleCommentSubmit}>
+            <input
+              className="w-full bg-gray-100 rounded-md p-2 focus:ring-0 focus:outline-none"
+              value={content}
+              onChange={({ target }) => setContent(target.value)}
+              placeholder={`${!user ? "Log in to": "Add"} comment...`}
+            />
+            {user && (
+              <button 
+                className={`bg-gray-100 text-gray-${!content.trim() ? '200' : '700'} rounded-lg p-2`}
+                disabled={!content.trim()}
+                type="submit" 
+              >
                 {posting ? (
                   <div className="flex space-x-0.5 justify-center">
                     <span className="sr-only">Posting...</span>
@@ -254,13 +272,13 @@ const ClipDetail = () => {
                     <div className="w-2.5 h-2.5 bg-gray-500 rounded-full animate-bounce"></div>
                   </div>
                 ) : (
-                  <p className="text-sm font-semibold text-gray-400">Post</p>
+                  <p>Post</p>
                 )}
               </button>
-              </form>
-            </div>
+            )}
+            </form>
           </div>
-        )}
+        </div>
       </div>
     </div>
   );
