@@ -26,7 +26,7 @@ const Feed = ({ filter = '' }) => {
   }, [filter, query]);
 
   return (
-    <div className="flex flex-col gap-10 h-full w-full">
+    <div className="flex flex-col gap-10 h-full w-full overflow-auto scrollbar-hide">
       {posts.results?.length ? (
         posts.results.map((post) => (
           <ClipCard key={post.id} post={post} />
