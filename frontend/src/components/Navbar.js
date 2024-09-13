@@ -39,9 +39,9 @@ const Navbar = () => {
     >
       <Link to="/">
         <img 
+          className="w-16 md:w-20 lg:w-28 h-auto mx-auto"
           src="/cliphub_logo.png"
           alt="cliphub logo"
-          className="w-20 md:w-32 lg:w-42 h-auto mx-auto"
         />
       </Link>
 
