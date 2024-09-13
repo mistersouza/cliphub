@@ -1,6 +1,6 @@
 # Welcome to ClipHub!
 
-![ClipHub logo]()
+![ClipHub logo](frontend/src/assets/images/cliphub_logo.png)
 
 ▷ ClipHub is your destination for educational enlightenment, blending the excitement of TikTok with the depth of educational content. Say goodbye to dull lectures and hello to captivating short clips that spark curiosity and inspire learning.
 
