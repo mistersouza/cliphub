@@ -38,10 +38,13 @@ const Navbar = () => {
       "
     >
       <Link to="/">
-        <div className="text-4xl font-bold text-gray-800 flex items-center">
-          <span>cliphub</span>
-        </div>
+        <img 
+          src="/cliphub_logo.png"
+          alt="cliphub logo"
+          className="w-20 md:w-32 lg:w-42 h-auto mx-auto"
+        />
       </Link>
+
       <div className="hidden relative md:block">
         <form
           className="
