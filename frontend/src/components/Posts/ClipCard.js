@@ -22,7 +22,7 @@ const ClipCard = ({ post }) => {
   if (!post) return null;
 
   return (
-    <div className="flex flex-col border-b-2 border-gray-200 pb-6">
+    <div className="flex flex-col pb-6">
       <div>
         <div className="flex gap-3 p-2 cursor-pointer font-semibold rounded">
           <div className="w-10 h-10 md:w-10 md:h-16">
