@@ -4,11 +4,14 @@
 
 /* Global styles or a specific module */
 .scrollbar-hide {
-    -ms-overflow-style: none; /* IE and Edge */
-    scrollbar-width: none; /* Firefox */
+    /* IE and Edge */
+    -ms-overflow-style: none;
+    /* Firefox */ 
+    scrollbar-width: none; 
 }
 
 .scrollbar-hide::-webkit-scrollbar {
-    display: none; /* Chrome, Safari, and Opera */
+    /* Chrome, Safari, and Opera */
+    display: none;
 }
   
