@@ -8,17 +8,11 @@ const Modal = ({ modal, handleModalClick }) => {
   const modalRef = useRef();
 
   const handleMousedown = ({ target }) => {
-    if (modalRef.current && !modalRef.current.contains(target))
-      handleModalClick();
+    if (modalRef.current && !modalRef.current.contains(target)) handleModalClick();
   };
 
   useEffect(() => {
-    if (modal) {
-      document.addEventListener('mousedown', handleMousedown);
-    } else {
-      document.removeEventListener('mousedown', handleMousedown);
-    }
-
+    if (modal) document.addEventListener('mousedown', handleMousedown);
     return () => {
       document.removeEventListener('mousedown', handleMousedown);
     };
