@@ -39,6 +39,7 @@ class Post(models.Model):
         choices=image_filter_choices,
         default='normal'
     )
+    views_count = models.IntegerField(default=0)
 
     class Meta:
         ordering = ['-created_at']
