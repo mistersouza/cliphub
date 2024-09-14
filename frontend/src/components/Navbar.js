@@ -1,23 +1,34 @@
-import { useContext, useEffect, useState } from 'react';
+// React imports
+import { useContext, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import axios from 'axios';
 import { Link } from 'react-router-dom';
-
-import { AppContext } from '../context/AppContext';
-
-import { AiOutlineLogout, AiOutlineLogin } from 'react-icons/ai';
+// Icons imports
+import { PiDotsThreeVerticalBold } from "react-icons/pi";
 import { BiSearch } from 'react-icons/bi';
 import { IoMdAdd } from 'react-icons/io';
+// Dependacies imports
+import axios from 'axios';
+// Components imports
 import Avatar from './Avatar';
+import AuthModal from './AuthModal';
+import DropdownMenu from './DropdownMenu'; 
+// Helpers imports
+import { AppContext } from '../context/AppContext';
+import { useAuthModal } from '../utils/helpers';
 
 const Navbar = () => {
-  const [queryInput, setQueryInput] = useState('');
+  const [ queryInput, setQueryInput ] = useState('');
+  const [ showDropdown, setShowDropdown ] = useState(false);
+  const [ showAuthModal, toggleAuthModalClick ] = useAuthModal(); 
   const { user, setUser, setQuery } = useContext(AppContext);
   const navigate = useNavigate();
 
+  const handleDropdownMenuClick = () => {
+    setShowDropdown((prev) => !prev); 
+  }
+  
   const handleSearchSubmit = (event) => {
     event.preventDefault();
-
     setQuery(queryInput);
   };
 
@@ -27,7 +38,7 @@ const Navbar = () => {
       setUser(null);
       navigate('/');
     } catch (error) {
-      console.log(error);
+      console.log('Error loging out', error);
     }
   };
 
@@ -47,9 +58,7 @@ const Navbar = () => {
 
       <div className="hidden relative md:block">
         <form
-          className="
-            absolute md:static top-10 -left-20 bg-white
-          "
+          className="absolute md:static top-10 -left-20 bg-white"
           onSubmit={() => {}}
         >
           <input
@@ -75,33 +84,56 @@ const Navbar = () => {
         </form>
       </div>
       {user ? (
-        <div className="flex items-center gap-3 md:gap-5">
+        <div className="flex items-center gap-2 md:gap-5">
           <Link to={'/upload'}>
             <button
               className="
-                border-2 px-2 md:px-4 text-md font-semibold flex 
-                items-center gap-2
+                hidden md:flex items-center justify-between bg-transparent text-lg text-gray-800 
+                border border-gray-800 rounded hover:bg-gray-800 hover:text-gray-50
               "
             >
-              <IoMdAdd className="text-2xl" />
-              <span className="hidden md:block text-lg">Upload</span>
+              <IoMdAdd className="text-xl" />
+              <span className="hidden md:block text-lg pr-1">Upload</span>
             </button>
           </Link>
-          <Link to={'/'}>
-            <Avatar src={user.profile_image} />
-          </Link>
-          <button
-            className="curser-pointer text-3xl text-gray-800"
-            onClick={handleLogoutSubmit}
+          <button 
+            className="relative"  
+            onClick={handleDropdownMenuClick}
           >
-            <AiOutlineLogout />
+            <Avatar src={user.profile_image} />
+            <DropdownMenu 
+              menu={showDropdown} 
+              handleDropdownMenu={handleDropdownMenuClick}
+              handleAuth={handleLogoutSubmit}
+            />
           </button>
         </div>
       ) : (
-        <div>
-          <button className="curser-pointer text-3xl text-gray-800">
-            <AiOutlineLogin />
+        <div className="flex gap-3 justify-center items-center">
+          <button
+            className="
+              hidden md:block bg-gray-800 text-center text-lg text-gray-50 
+              font-semibold px-5 border border-gray-800 rounded hover:bg-transparent
+              hover:text-gray-800
+            "
+            onClick={toggleAuthModalClick}
+          >
+            Log in
           </button>
+          <button
+            className='relative'
+            onClick={handleDropdownMenuClick}
+          >
+            <PiDotsThreeVerticalBold 
+              className="text-2xl text-gray-700"
+            />
+            <DropdownMenu 
+              menu={showDropdown} 
+              handleDropdownMenu={handleDropdownMenuClick}
+              handleAuth={handleLogoutSubmit}
+            />
+          </button>
+          <AuthModal modal={showAuthModal} handleModalClick={toggleAuthModalClick} />
         </div>
       )}
     </div>
