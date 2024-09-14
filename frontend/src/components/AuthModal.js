@@ -1,33 +1,31 @@
-import { useEffect, useRef, useState } from 'react';
+// React imports
+import { useState } from 'react';
+// Icons imports
 import { ImCancelCircle } from 'react-icons/im';
+// Components imports
 import SignUpForm from './auth/SignUpForm';
 import LogInForm from './auth/LogInForm';
+// Helpers imports
+import { useClickAway } from '../utils/helpers';
 
 const Modal = ({ modal, handleModalClick }) => {
   const [isSignedUp, setIsSignedUp] = useState(true);
-  const modalRef = useRef();
-
-  const handleMousedown = ({ target }) => {
-    console.log("Clicked outside the dropdown");
-    if (modalRef.current && !modalRef.current.contains(target)) handleModalClick();
-  };
-
-  useEffect(() => {
-    if (modal) document.addEventListener('mousedown', handleMousedown);
-    return () => {
-      document.removeEventListener('mousedown', handleMousedown);
-    };
-  }, [modal]);
+  const AuthModalRef = useClickAway(() => {
+    if (modal) handleModalClick();
+  });
 
   return (
     <div
-      className=
-        {`${!modal ? 'hidden' : 'fixed'} inset-0 flex items-center justify-center bg-gray-800 
-        bg-opacity-60 backdrop-blur-sm z-50`}
+      className={`
+        ${!modal ? 'hidden' : 'fixed'} inset-0 flex items-center 
+        justify-center bg-gray-800 bg-opacity-60 backdrop-blur-sm z-50
+      `}
     >
       <div
-        className="flex flex-col gap-3 bg-white rounded shadow-lg w-1/5"
-        ref={modalRef}
+        className="
+          flex flex-col gap-3 bg-white rounded shadow-lg w-1/5
+        "
+        ref={AuthModalRef}
       >
         <button
           className="self-end text-2xl p-3"
