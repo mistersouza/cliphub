@@ -18,6 +18,7 @@ urlpatterns = [
     path('api/', include('likes.urls')),
     path('api/', include('followers.urls')),
     path('api/', include('posts.urls')),
+    path('api/', include('clips.urls')), 
     path('api/', include('profiles.urls')),
 ]
 

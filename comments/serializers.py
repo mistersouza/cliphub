@@ -47,3 +47,4 @@ class CommentsDetailSerializer(CommentSerializer):
     eliminating the need for its explicit assignment during updates.
     '''
     post = serializers.ReadOnlyField(source='owner.post.id')
+    clip = serializers.ReadOnlyField(source='owner.post.id')
