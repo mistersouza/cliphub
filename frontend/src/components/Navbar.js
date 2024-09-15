@@ -3,7 +3,7 @@ import { useContext, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Link } from 'react-router-dom';
 // Icons imports
-import { PiDotsThreeVerticalBold } from "react-icons/pi";
+import { PiDotsThreeVerticalBold } from 'react-icons/pi';
 import { BiSearch } from 'react-icons/bi';
 import { IoMdAdd } from 'react-icons/io';
 // Dependacies imports
@@ -11,22 +11,22 @@ import axios from 'axios';
 // Components imports
 import Avatar from './Avatar';
 import AuthModal from './AuthModal';
-import DropdownMenu from './DropdownMenu'; 
+import DropdownMenu from './DropdownMenu';
 // Helpers imports
 import { AppContext } from '../context/AppContext';
-import { useAuthModal } from '../utils/helpers';
+import { useDisplay } from '../utils/helpers';
 
 const Navbar = () => {
-  const [ queryInput, setQueryInput ] = useState('');
-  const [ showDropdown, setShowDropdown ] = useState(false);
-  const [ showAuthModal, toggleAuthModalClick ] = useAuthModal(); 
+  const [queryInput, setQueryInput] = useState('');
+  const [showDropdown, setShowDropdown] = useState(false);
+  const [isDisplayed, toggleDisplay] = useDisplay();
   const { user, setUser, setQuery } = useContext(AppContext);
   const navigate = useNavigate();
 
   const handleDropdownMenuClick = () => {
-    setShowDropdown((prev) => !prev); 
-  }
-  
+    setShowDropdown((prev) => !prev);
+  };
+
   const handleSearchSubmit = (event) => {
     event.preventDefault();
     setQuery(queryInput);
@@ -49,7 +49,7 @@ const Navbar = () => {
       "
     >
       <Link to="/">
-        <img 
+        <img
           className="w-16 md:w-20 lg:w-28 h-auto mx-auto"
           src="/cliphub_logo.png"
           alt="cliphub logo"
@@ -96,13 +96,10 @@ const Navbar = () => {
               <span className="hidden md:block text-lg pr-1">Upload</span>
             </button>
           </Link>
-          <button 
-            className="relative"  
-            onClick={handleDropdownMenuClick}
-          >
+          <button className="relative" onClick={handleDropdownMenuClick}>
             <Avatar src={user.profile_image} />
-            <DropdownMenu 
-              menu={showDropdown} 
+            <DropdownMenu
+              menu={showDropdown}
               handleDropdownMenu={handleDropdownMenuClick}
               handleAuth={handleLogoutSubmit}
             />
@@ -116,24 +113,19 @@ const Navbar = () => {
               font-semibold px-5 border border-gray-800 rounded hover:bg-transparent
               hover:text-gray-800
             "
-            onClick={toggleAuthModalClick}
+            onClick={toggleDisplay}
           >
             Log in
           </button>
-          <button
-            className='relative'
-            onClick={handleDropdownMenuClick}
-          >
-            <PiDotsThreeVerticalBold 
-              className="text-2xl text-gray-700"
-            />
-            <DropdownMenu 
-              menu={showDropdown} 
+          <button className="relative" onClick={handleDropdownMenuClick}>
+            <PiDotsThreeVerticalBold className="text-2xl text-gray-700" />
+            <DropdownMenu
+              menu={showDropdown}
               handleDropdownMenu={handleDropdownMenuClick}
               handleAuth={handleLogoutSubmit}
             />
           </button>
-          <AuthModal modal={showAuthModal} handleModalClick={toggleAuthModalClick} />
+          <AuthModal modal={isDisplayed} handleModalClick={toggleDisplay} />
         </div>
       )}
     </div>
