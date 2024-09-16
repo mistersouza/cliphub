@@ -1,5 +1,6 @@
 from rest_framework import serializers
 from .models import Clip
+from flags.models import Flag
 from likes.models import Like
 
 class ClipSerializer(serializers.ModelSerializer):
@@ -10,7 +11,8 @@ class ClipSerializer(serializers.ModelSerializer):
     like_id = serializers.SerializerMethodField()
     comments_count = serializers.ReadOnlyField()
     likes_count = serializers.ReadOnlyField()
-    views_count = serializers.ReadOnlyField()  # ReadOnlyField for views count
+    views_count = serializers.ReadOnlyField()
+    flag_reason = serializers.SerializerMethodField()
 
     def validate_clip(self, value):    
         if value.size > 1024 * 1024 * 50:  # 50MB limit for clips
@@ -24,26 +26,19 @@ class ClipSerializer(serializers.ModelSerializer):
     def get_like_id(self, obj):
         user = self.context['request'].user
         if user.is_authenticated:
-            like = Like.objects.filter(owner=user, clip=obj).first()  # Updated to reference 'clip'
+            like = Like.objects.filter(owner=user, clip=obj).first()
             return like.id if like else None
+        return None
+    
+    def get_flag_reason(self, obj):
+        flag = Flag.objects.filter(clip=obj).first()
+        return flag.reason if flag else None
         return None
 
     class Meta:
         model = Clip
         fields = [
-            'id',
-            'owner',
-            'is_owner',
-            'profile_id',
-            'like_id',
-            'profile_image',
-            'created_at',
-            'updated_at',
-            'caption',
-            'topic',
-            'clip',
-            'clip_filter',
-            'comments_count',
-            'likes_count',
-            'views_count',
+            'id', 'owner', 'is_owner', 'profile_id', 'profile_image',
+            'like_id', 'comments_count', 'likes_count', 'views_count',
+            'flag_reason', 'clip', 
         ]
