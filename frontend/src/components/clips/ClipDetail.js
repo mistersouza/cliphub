@@ -10,20 +10,18 @@ import { FaCommentDots } from 'react-icons/fa';
 import { BsFillPauseFill, BsFillPlayFill } from 'react-icons/bs';
 import { HiVolumeUp, HiVolumeOff } from 'react-icons/hi';
 import { PiFlagPennantLight } from 'react-icons/pi';
-
+import { LuEye } from "react-icons/lu";
 // Components imports
 import Avatar from '../Avatar';
 // import Comments from '../comments/Comments';
 import NoResults from '../NoResults';
-import DropdownMenu from '../DropdownMenu';
 // Helpers imports
 import { axiosRequest, axiosResponse } from '../../api/axiosDefaults';
 import { AppContext } from '../../context/AppContext';
-import { useDisplay } from '../../utils/helpers';
+import { useClickAway, useDisplay } from '../../utils/helpers';
 
 const ClipDetail = () => {
   const { user, setClips } = useContext(AppContext);
-  const [isDropdownMenuDisplayed, toggleDropdownMenuDisplay] = useDisplay();
   const [clip, setClip] = useState({});
   const [isPlaying, setIsPlaying] = useState(false);
   const [isViewed, setIsViewed] = useState(false);
@@ -32,26 +30,26 @@ const ClipDetail = () => {
   const [posting, setPosting] = useState(false);
   const [isLiked, setIsLiked] = useState(false);
   const [reasons, setReasons] = useState([]);
-
+  const [isFlagReasonsDisplayed, toggleFlagReasons] = useDisplay();
+  const flagReasonsRef = useClickAway(() => {
+    if (isFlagReasonsDisplayed) toggleFlagReasons();
+  });
   const navigate = useNavigate();
   const clipRef = useRef(null);
-  const [comments, setComments] = useState({ results: [] });
 
+  const [comments, setComments] = useState({ results: [] });
   const { id } = useParams();
 
   useEffect(() => {
-    const fetchClip = async () => {
+    (async () => {
       try {
         const { data } = await axiosRequest.get(`clips/${id}`);
-        console.log('Clip details', data);
-
         setClip(data);
         setIsLiked(Boolean(data.like_id));
       } catch (error) {
         console.error(error);
       }
-    };
-    fetchClip();
+    })();
   }, [id]);
 
   useEffect(() => {
@@ -73,7 +71,7 @@ const ClipDetail = () => {
     profile_image: profileImage,
     likes_count: likesCount,
     like_id: likeId,
-    // views_count: viewsCount,
+    views_count: viewsCount,
     owner,
   } = clip;
 
@@ -95,7 +93,6 @@ const ClipDetail = () => {
         likes_count: prevClip.likes_count + 1,
         like_id: data.id,
       }));
-      setIsLiked(!!data.id);
     } catch (error) {
       console.error(error);
     }
@@ -147,7 +144,6 @@ const ClipDetail = () => {
   };
 
   const handlePlaybackClick = async () => {
-    // Toggle play/pause
     clipRef?.current[isPlaying ? 'pause' : 'play']();
     setIsPlaying((prev) => !prev);
     // Increment views only once per session
@@ -165,13 +161,23 @@ const ClipDetail = () => {
     (async () => {
       try {
         const { data } = await axiosResponse.get('flag/reasons/');
-        setReasons(data);
-        data.reasons.forEach((reason) => console.log(reason));
+        setReasons(data.reasons);
       } catch (error) {
         console.log('Error fetching reasons', error);
       }
     })();
   }, []);
+
+  const handleFlagSubmit = async (reason) => {
+    try {
+      const { status } = await axiosResponse.post(`flag/clip/${id}/`, {
+        reason,
+      });
+      if (status === 201) console.log('Clip flagged', reason);
+    } catch (error) {
+      console.log('Failed flagging clip', error);
+    }
+  };
 
   useEffect(() => {
     if (clipRef?.current) {
@@ -211,17 +217,38 @@ const ClipDetail = () => {
               loop
             />
           </div>
-          <div
-            className="absolute top-24 right-3 text-white font-bold text-3xl 
-            cursor-pointer"
-          >
-            <button onClick={toggleDropdownMenuDisplay}>
-              <PiFlagPennantLight className="opacity-50" />
-              <DropdownMenu
-                menu={isDropdownMenuDisplayed}
-                handleDropdownMenu={toggleDropdownMenuDisplay}
-              />
-            </button>
+          <div className="absolute top-24 right-3 cursor-pointer">
+            <PiFlagPennantLight
+              onMouseEnter={toggleFlagReasons}
+              className="text-white font-bold text-3xl"
+            />
+            <div
+              className={`z-10 ${isFlagReasonsDisplayed ? 'absolute right-0 top-9' : 'hidden'} 
+                bg-white divide-y divide-gray-100 rounded shadow 
+                w-32`}
+              id="dropdownDivider"
+              ref={flagReasonsRef}
+            >
+              <ul
+                className="py-2 text-sm text-gray-700 capitalize dark:text-gray-200"
+                aria-labelledby="dropdownDividerButton"
+              >
+                {reasons?.map((reason) => (
+                  <li
+                    className="
+                    flex w-full justify-between items-center px-3 py-2 
+                    hover:bg-gray-100 dark:hover:bg-gray-600          
+                    "
+                    key={reason}
+                    onClick={() => {
+                      handleFlagSubmit(reason);
+                    }}
+                  >
+                    {reason}
+                  </li>
+                ))}
+              </ul>
+            </div>
           </div>
           <div className="absolute top-[45%] left-[40%] cursor-pointer">
             <button onClick={handlePlaybackClick}>
@@ -265,18 +292,20 @@ const ClipDetail = () => {
             {clip.caption}
           </p>
           <div
-            className="flex gap-2 items-center justify-center text-gray-700 
+            className="flex gap-5 items-center justify-center text-gray-700 
             text-sm py-1 md:py-3 md:mt-auto md:text-lg"
           >
-            <button
-              className="bg-gray-200 rounded-full p-1 md:p-2"
-              onClick={isLiked ? handleUnlikeClick : handleLikeClick}
-              disabled={isOwner}
-            >
-              <MdFavorite className={isLiked ? '' : 'text-gray-400'} />
-            </button>
-            <p>{likesCount || 0}</p>
-            <div className="flex gap-3 items-center">
+            <div className="flex flex-col gap-1 items-center">
+              <button
+                className="bg-gray-200 rounded-full p-1 md:p-2"
+                onClick={isLiked ? handleUnlikeClick : handleLikeClick}
+                disabled={isOwner}
+              >
+                <MdFavorite className={isLiked ? '' : 'text-gray-400'} />
+              </button>
+              <p className="text-xs">{likesCount || 0}</p>
+            </div>
+            <div className="flex flex-col gap-1 items-center">
               <div
                 className={`bg-gray-200 rounded-full p-1 md:p-2 ${
                   !commentsCount ? 'text-gray-400' : ''
@@ -284,7 +313,17 @@ const ClipDetail = () => {
               >
                 <FaCommentDots />
               </div>
-              <p>{commentsCount || 0}</p>
+              <p className="text-xs">{commentsCount || 0}</p>
+            </div>
+            <div className="flex flex-col gap-1 items-center">
+              <di
+                className={`bg-gray-200 rounded-full p-1 md:p-2 ${
+                  !viewsCount ? 'text-gray-400' : ''
+                }`}
+              >
+                <LuEye />
+              </di>
+              <p className="text-xs">{viewsCount || ''}</p>
             </div>
           </div>
         </div>
@@ -326,9 +365,18 @@ const ClipDetail = () => {
                   {posting ? (
                     <div className="flex space-x-0.5 justify-center">
                       <span className="sr-only">Posting...</span>
-                      <div className="w-2.5 h-2.5 bg-gray-500 rounded-full animate-bounce [animation-delay:-0.3s]"></div>
-                      <div className="w-2.5 h-2.5 bg-gray-500 rounded-full animate-bounce [animation-delay:-0.15s]"></div>
-                      <div className="w-2.5 h-2.5 bg-gray-500 rounded-full animate-bounce"></div>
+                      <div
+                        className="w-2.5 h-2.5 bg-gray-500 rounded-full 
+                        animate-bounce [animation-delay:-0.3s]"
+                      ></div>
+                      <div
+                        className="w-2.5 h-2.5 bg-gray-500 rounded-full 
+                        animate-bounce [animation-delay:-0.15s]"
+                      ></div>
+                      <div
+                        className="w-2.5 h-2.5 bg-gray-500 rounded-full 
+                        animate-bounce"
+                      ></div>
                     </div>
                   ) : (
                     <p>Post</p>
