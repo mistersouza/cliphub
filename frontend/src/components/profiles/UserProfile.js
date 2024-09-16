@@ -4,7 +4,6 @@ import { GoVerified } from 'react-icons/go';
 import { BsPlay } from 'react-icons/bs';
 import { Link } from 'react-router-dom';
 
-import ClipCard from '../Posts/ClipCard';
 import NoResults from '../NoResults';
 import { axiosRequest } from '../../api/axiosDefaults';
 
@@ -68,8 +67,9 @@ const UserProfile = () => {
           <p
             className={`
               text-xl cursor-pointer text-gray-500 px-3.5 py-1.5 
-              hover:text-gray-800 ${tab && clipsActive ? 
-              'border-b-2 border-gray-800' : ''}
+              hover:text-gray-800 ${
+                tab && clipsActive ? 'border-b-2 border-gray-800' : ''
+              }
             `}
             onClick={() => setTab('clips')}
             onMouseEnter={() => {
@@ -122,9 +122,7 @@ const UserProfile = () => {
                       <span className="text-lg">55K</span>
                     </div>
                   </div>
-                  <p className="p-1.5 text-sm text-gray-500">
-                    {clip.caption}
-                  </p>
+                  <p className="p-1.5 text-sm text-gray-500">{clip.caption}</p>
                 </Link>
               ))}
             </div>

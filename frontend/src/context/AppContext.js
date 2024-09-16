@@ -6,10 +6,10 @@ import axios from 'axios';
 const AppContext = createContext();
 
 const AppProvider = ({ children }) => {
-  const navigate = useNavigate(); 
+  const navigate = useNavigate();
   const [query, setQuery] = useState('');
   const [user, setUser] = useState(null);
-  const [posts, setPosts] = useState({ results: [] });
+  const [clips, setClips] = useState({ results: [] });
   const [profiles, setProfiles] = useState({
     pageProfile: { results: [] },
     popularProfiles: { results: [] },
@@ -43,7 +43,7 @@ const AppProvider = ({ children }) => {
         } catch (err) {
           setUser((prevUser) => {
             if (prevUser) {
-              navigate("/signin");
+              navigate('/signin');
             }
             return null;
           });
@@ -69,7 +69,7 @@ const AppProvider = ({ children }) => {
             // If refreshing the token fails, log out the user
             setUser((prevUser) => {
               if (prevUser) {
-                navigate("/signin");
+                navigate('/signin');
               }
               return null;
             });
@@ -85,17 +85,13 @@ const AppProvider = ({ children }) => {
     setUser,
     profiles,
     setProfiles,
-    posts,
-    setPosts,
+    clips,
+    setClips,
     query,
     setQuery,
   };
 
-  return (
-    <AppContext.Provider value={context}>
-      {children}
-    </AppContext.Provider>
-  );
+  return <AppContext.Provider value={context}>{children}</AppContext.Provider>;
 };
 
 export { AppContext, AppProvider };
