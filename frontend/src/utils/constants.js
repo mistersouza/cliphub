@@ -8,6 +8,9 @@ import {
   FaPalette,
   FaUtensils,
 } from 'react-icons/fa';
+import { GrMoney } from 'react-icons/gr';
+import { CgProfile } from 'react-icons/cg';
+import { RiPresentationLine } from 'react-icons/ri';
 
 export const topics = [
   { name: 'coding', icon: <BsCode /> },
@@ -45,4 +48,10 @@ export const helpAndGuidelinesLinks = [
   'Privacy',
   'Creator Portal',
   'Community Guidelines',
+];
+
+export const dropdownMenuLinks = [
+  { name: 'Profile', icon: <CgProfile /> },
+  { name: 'DIY', icon: <RiPresentationLine /> },
+  { name: 'Earnings', icon: <GrMoney /> },
 ];
