@@ -10,17 +10,13 @@ const Avatar = ({ id, src, size = 10 }) => {
       `}
       style={{ backgroundImage: `url(${src})` }}
     ></div>
-  ); 
+  );
 
   // Render Link if there's an id, else button
   return id ? (
-    <Link to={`profiles/${id}`}>
-      {avatar}
-    </Link>
+    <Link to={`/profiles/${id}`}>{avatar}</Link>
   ) : (
-    <button>
-      {avatar}
-    </button>
+    <button>{avatar}</button>
   );
 };
 
