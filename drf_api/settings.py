@@ -87,12 +87,12 @@ INSTALLED_APPS = [
     'allauth.socialaccount',
     'dj_rest_auth.registration',
 
-    'profiles',
     'clips',
-    'posts',
     'comments',
-    'likes',
+    'flags',
     'followers',
+    'profiles',
+    'likes',
 ]
 
 SITE_ID = 1
