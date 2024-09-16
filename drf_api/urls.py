@@ -14,11 +14,11 @@ urlpatterns = [
         'api/dj-rest-auth/registration/', 
         include('dj_rest_auth.registration.urls')
     ),
-    path('api/', include('comments.urls')), 
-    path('api/', include('likes.urls')),
-    path('api/', include('followers.urls')),
-    path('api/', include('posts.urls')),
     path('api/', include('clips.urls')), 
+    path('api/', include('comments.urls')), 
+    path('api/', include('flags.urls')), 
+    path('api/', include('followers.urls')),
+    path('api/', include('likes.urls')),
     path('api/', include('profiles.urls')),
 ]
 
