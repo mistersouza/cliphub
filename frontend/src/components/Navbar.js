@@ -18,14 +18,10 @@ import { useDisplay } from '../utils/helpers';
 
 const Navbar = () => {
   const [queryInput, setQueryInput] = useState('');
-  const [showDropdown, setShowDropdown] = useState(false);
-  const [isDisplayed, toggleDisplay] = useDisplay();
+  const [isAuthModalDisplayed, toggleAuthModalDisplay] = useDisplay();
+  const [isDropdownMenuDisplayed, toggleDropdownMenuDisplay] = useDisplay();
   const { user, setUser, setQuery } = useContext(AppContext);
   const navigate = useNavigate();
-
-  const handleDropdownMenuClick = () => {
-    setShowDropdown((prev) => !prev);
-  };
 
   const handleSearchSubmit = (event) => {
     event.preventDefault();
@@ -96,11 +92,11 @@ const Navbar = () => {
               <span className="hidden md:block text-lg pr-1">Upload</span>
             </button>
           </Link>
-          <button className="relative" onClick={handleDropdownMenuClick}>
+          <button className="relative" onClick={toggleDropdownMenuDisplay}>
             <Avatar src={user.profile_image} />
             <DropdownMenu
-              menu={showDropdown}
-              handleDropdownMenu={handleDropdownMenuClick}
+              menu={isDropdownMenuDisplayed}
+              handleDropdownMenu={toggleDropdownMenuDisplay}
               handleAuth={handleLogoutSubmit}
             />
           </button>
@@ -113,19 +109,22 @@ const Navbar = () => {
               font-semibold px-5 border border-gray-800 rounded hover:bg-transparent
               hover:text-gray-800
             "
-            onClick={toggleDisplay}
+            onClick={toggleAuthModalDisplay}
           >
             Log in
           </button>
-          <button className="relative" onClick={handleDropdownMenuClick}>
+          <button className="relative" onClick={toggleDropdownMenuDisplay}>
             <PiDotsThreeVerticalBold className="text-2xl text-gray-700" />
             <DropdownMenu
-              menu={showDropdown}
-              handleDropdownMenu={handleDropdownMenuClick}
+              menu={isDropdownMenuDisplayed}
+              handleDropdownMenu={toggleDropdownMenuDisplay}
               handleAuth={handleLogoutSubmit}
             />
           </button>
-          <AuthModal modal={isDisplayed} handleModalClick={toggleDisplay} />
+          <AuthModal
+            modal={isAuthModalDisplayed}
+            handleModalClick={toggleAuthModalDisplay}
+          />
         </div>
       )}
     </div>
