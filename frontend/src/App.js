@@ -1,12 +1,15 @@
+// React imports
+import { useContext } from 'react';
+// Dependencies imports
 import { Route, Routes } from 'react-router-dom';
+// Components imports
 import Navbar from './components/Navbar';
 import Sidebar from './components/Sidebar';
-import Feed from './components/Posts/Feed';
-import ClipUpload from './components/Posts/ClipUpload';
-import ClipDetail from './components/Posts/ClipDetail';
+import Feed from './components/clips/Feed';
+import ClipUpload from './components/clips/ClipUpload';
+import ClipDetail from './components/clips/ClipDetail';
 import UserProfile from './components/profiles/UserProfile';
-
-import { useContext } from 'react';
+// Helpers imports
 import { AppContext } from './context/AppContext';
 
 const App = () => {
@@ -30,7 +33,7 @@ const App = () => {
                 />
               }
             />
-            <Route path="/posts/:id" element={<ClipDetail />} />
+            <Route path="/clips/:id" element={<ClipDetail />} />
             <Route path="/upload" element={<ClipUpload />} />
             <Route path="/profiles/:id" element={<UserProfile />} />
           </Routes>
