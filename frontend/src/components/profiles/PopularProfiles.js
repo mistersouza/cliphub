@@ -1,5 +1,5 @@
 // React imports
-import { useContext, useEffect } from 'react';
+import { useContext } from 'react';
 // Icons imports
 import { GoVerified } from 'react-icons/go';
 import { AppContext } from '../../context/AppContext';
@@ -9,10 +9,6 @@ import Avatar from '../Avatar';
 const PopularProfiles = () => {
   const { profiles } = useContext(AppContext);
   const { popularProfiles } = profiles;
-
-  useEffect(() => {
-    console.log('profile detail', popularProfiles?.results);
-  });
 
   return (
     <div className="xl:border-b-2 border-gray-200 py-3">
