@@ -1,7 +1,10 @@
+// React imports
 import { createContext, useEffect, useState, useMemo } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { axiosRequest, axiosResponse } from '../api/axiosDefaults';
+// Dependacies imports
 import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
+// Helpes imports
+import { axiosRequest, axiosResponse } from '../api/axiosDefaults';
 
 const AppContext = createContext();
 
