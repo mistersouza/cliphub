@@ -17,7 +17,7 @@ class CommentList(generics.ListCreateAPIView):
         DjangoFilterBackend
     ]
     filterset_fields = [
-        'post'
+        'clip'
     ]
 
 class CommentDetail(generics.RetrieveUpdateDestroyAPIView):

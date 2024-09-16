@@ -34,7 +34,7 @@ class CommentSerializer(serializers.ModelSerializer):
             'is_owner',
             'profile_id',
             'profile_image',
-            'post',
+            'clip',
             'created_at',
             'updated_at',
             'content'
@@ -43,8 +43,7 @@ class CommentSerializer(serializers.ModelSerializer):
 class CommentsDetailSerializer(CommentSerializer):
     '''
     The Comment model serializer is utilized within the Detail view. 
-    The 'Post' field is designated as read-only,
+    The clip field is designated as read-only,
     eliminating the need for its explicit assignment during updates.
     '''
-    post = serializers.ReadOnlyField(source='owner.post.id')
-    clip = serializers.ReadOnlyField(source='owner.post.id')
+    clip = serializers.ReadOnlyField(source='owner.clip.id')
