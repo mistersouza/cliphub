@@ -1,7 +1,5 @@
 // React imports
 import { useContext, useEffect } from 'react';
-// Dependacies imports
-import { Link } from 'react-router-dom';
 // Icons imports
 import { GoVerified } from 'react-icons/go';
 import { AppContext } from '../../context/AppContext';
@@ -22,9 +20,7 @@ const PopularProfiles = () => {
       <div className="flex flex-col">
         {popularProfiles?.results.slice(0, 5).map((profile) => (
           <div className="flex items-center gap-2.5 px-1.5" key={profile.id}>
-            <Link to={`/profiles/${profile.id}`}>
-              <Avatar src={profile.image} />
-            </Link>
+            <Avatar src={profile.image} id={profile.id} />
             <div className="hidden xl:flex flex-col">
               <span
                 className="
