@@ -53,9 +53,7 @@ const SignUpForm = ({ handleModalClick }) => {
           />
           <div className="text-red-500 text-xs h-3 py-1 px-2">
             {errors?.username?.map((message, index) => (
-              <p key={index}>
-                {message}
-              </p>
+              <p key={index}>{message}</p>
             ))}
           </div>
         </div>
@@ -80,9 +78,7 @@ const SignUpForm = ({ handleModalClick }) => {
           />
           <div className="text-red-500 text-xs h-3 py-1 px-2">
             {errors?.password1?.map((message, index) => (
-              <p key={index}>
-                {message}
-              </p>
+              <p key={index}>{message}</p>
             ))}
           </div>
         </div>
@@ -107,21 +103,17 @@ const SignUpForm = ({ handleModalClick }) => {
           />
           <div className="text-red-500 text-xs h-3 py-1 px-2">
             {errors?.password1?.map((message, index) => (
-              <p key={index}>
-                {message}
-              </p>
+              <p key={index}>{message}</p>
             ))}
             {errors.non_field_errors?.map((message, index) => (
-              <p key={index}>
-                {message}
-              </p>
+              <p key={index}>{message}</p>
             ))}
           </div>
         </div>
         <div>
           <button
             className="w-full text-center text-lg text-gray-800 font-semibold py-2
-            border border-gray-800 rounded hover:bg-gray-800 hover:text-gray-50"          
+            border border-gray-800 rounded hover:bg-gray-800 hover:text-gray-50"
             type="submit"
           >
             Sign up
