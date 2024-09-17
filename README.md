@@ -122,8 +122,24 @@ Ready to embark on your learning journey? Check it live out [here.](https://clip
 
 ### Home
 
-▷ 
-![Home]()
+![Home](https://github.com/mistersouza/cliphub/blob/main/frontend/src/assets/images/cliphub_home.png)
+
+▷ Welcome to the ClipHub home screen—your one-stop destination for everything clips! Here's how this clean and interactive layout works:
+
+- __ANavigation Made Easy:__ 
+
+    The left sidebar offers quick access to your favorite categories, allowing you to discover new clips with ease. 
+
+    - __Sidebar:__ Navigate through various sections such as home, music, or profile—always within reach.
+    - __Popular Profiles & Topics:__ Easily browse trending topics or profiles, keeping you updated with what's hot.
+
+- __Upload Your Clips:__ Ready to share your content? Just click the "Upload" button, and you'll be able to contribute your own video clips to the ClipHub community. A smooth and seamless experience for all creators!
+- __Explore & Engage:__ Dive into individual clips by clicking on them, which opens up the detailed view. Each clip is beautifully presented with controls to engage, watch, and interact.
+- __Explore & Engage:__ Dive into individual clips by clicking on them, which opens up the detailed view. Each clip is beautifully presented with controls to engage, watch, and interact.
+- __Log in and out:__ To fully engage with ClipHub, you'll need to sign in. This ensures a personalized experience and secure management of your uploads and interactions. Log in or create an account to get started
+
+The layout is both functional and stylish, ensuring you can focus on what matters—enjoying learning new things 🎥
+
 
 ### All in
 
