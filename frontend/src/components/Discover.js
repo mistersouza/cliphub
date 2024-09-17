@@ -7,12 +7,12 @@ const Discover = () => {
 
   // Topic styles
   const { base, active } = {
-      base: `
+    base: `
         flex items-center gap-2 justify-center cursor-pointer 
         text-gray-800 px-3 py-2 rounded hover:bg-gray-200 
         xl:border-2 xl-border-gray-200 xl:rounded-full
       `,
-      active: `
+    active: `
         flex items-center gap-2 justify-center cursor-pointer 
         bg-gray-800 text-gray-200 px-3 py-2 rounded hover:bg-gray-800 
         xl:border-2 xl-border-none xl:rounded-full
@@ -29,9 +29,7 @@ const Discover = () => {
           <Link to={`/?topic=${topic.name}`} key={topic.name}>
             <div
               className={
-                search.includes(`?topic=${topic.name}`)
-                  ? active
-                  : base
+                search.includes(`?topic=${topic.name}`) ? active : base
               }
             >
               <span className="font-bold text-2xl xl:text-md">
