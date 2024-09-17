@@ -27,10 +27,7 @@ const Modal = ({ modal, handleModalClick }) => {
         "
         ref={AuthModalRef}
       >
-        <button
-          className="self-end text-2xl p-3"
-          onClick={handleModalClick}
-        >
+        <button className="self-end text-2xl p-3" onClick={handleModalClick}>
           <ImCancelCircle />
         </button>
         <h2 className="flex-1 text-3xl text-center font-semibold">
@@ -45,11 +42,11 @@ const Modal = ({ modal, handleModalClick }) => {
         </div>
         <div className="text-xs text-gray-500 text-center p-2">
           <p>
-            By continuing, you agree to ClipHub's{' '}
+            By continuing, you agree to cliphub`&apos;`s{' '}
             <span className="text-gray-800 underline cursor-pointer">
               Terms of Service
             </span>{' '}
-            and confirm that you have read ClipHub's{' '}
+            and confirm that you have read cliphub`&apos;`s{' '}
             <span className="text-gray-800 underline cursor-pointer">
               Privacy Policy
             </span>
@@ -57,9 +54,7 @@ const Modal = ({ modal, handleModalClick }) => {
         </div>
         <div className="border-t border-gray-500 text-sm text-center py-5">
           <p>
-            {isSignedUp
-              ? "Don't have an account?"
-              : 'Already have an account?'}{' '}
+            {isSignedUp ? "Don't have an account?" : 'Already have an account?'}{' '}
             <span
               onClick={() => setIsSignedUp((prev) => !prev)}
               className="
