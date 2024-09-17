@@ -112,7 +112,7 @@ Ready to embark on your learning journey? Check it live out [here.](https://clip
     - __Header Display:__ 
     - __Conditional Content:__ 
     - __Search Bar:__ 
-    - __Page Title:__ F
+    - __Page Title:__ 
 
 ![Hero - Home]()
 ![Hero - Items]()
@@ -147,9 +147,9 @@ Ready to embark on your learning journey? Check it live out [here.](https://clip
 
 ▷ Ready to make the world smarter, one clip at a time? Log in, and flex those creator muscles by uploading your masterpiece. It's as easy as drag, drop, and boom—your clip is live!
 
-__Iconic Entry:__ A cloud upload icon that practically begs to be clicked.
-__Video Preview:__ Don't just upload—preview in style before sharing.
-__Validation Matters:__ MP4 files only, because we like to keep it crisp.
+- __Iconic Entry:__ A cloud upload icon that practically begs to be clicked.
+- __Video Preview:__ Don't just upload—preview in style before sharing.
+- __Validation Matters:__ MP4 files only, because we like to keep it crisp.
 
 ![Deleting]()
 
