@@ -1,11 +1,11 @@
-import React from 'react';
+// Dependacies imports
 import { Link } from 'react-router-dom';
 
-const Avatar = ({ id, src, size = 10 }) => {
+const Avatar = ({ id, src }) => {
   const avatar = (
     <div
       className={`
-        size-${size} bg-no-repeat bg-center bg-cover rounded-full 
+        size-10 bg-no-repeat bg-center bg-cover rounded-full 
         cursor-pointer
       `}
       style={{ backgroundImage: `url(${src})` }}
