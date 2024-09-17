@@ -1,11 +1,14 @@
+// React imports
 import { useState, useEffect } from 'react';
+// Dependacies imports
 import { useParams } from 'react-router-dom';
+// Icons imports
 import { GoVerified } from 'react-icons/go';
-import { BsPlay } from 'react-icons/bs';
 import { Link } from 'react-router-dom';
-
-import NoResults from '../NoResults';
 import { axiosRequest } from '../../api/axiosDefaults';
+// Components imports
+import NoResults from '../NoResults';
+import ClipPreview from '../clips/ClipPreview';
 
 const UserProfile = () => {
   const [profile, setProfile] = useState({});
@@ -18,22 +21,29 @@ const UserProfile = () => {
   useEffect(() => {
     (async () => {
       try {
-        const [
-          { data: profile },
-          { data: allClips },
-          { data: profileClips },
-          { data: likedClips },
-        ] = await Promise.all([
-          axiosRequest.get(`profiles/${id}/`),
-          axiosRequest.get('posts/'),
-          axiosRequest.get(`posts/?owner__profile=${id}`),
-          axiosRequest.get(`likes/?owner__profile=${id}`),
-        ]);
+        const { data: profile } = await axiosRequest.get(`profiles/${id}/`);
         setProfile(profile);
-        if (tab === 'clips') setProfileClips(profileClips);
+
+        if (tab === 'clips') {
+          const { data: profileClips } = await axiosRequest.get(
+            `clips/?owner__profile=${id}`
+          );
+          setProfileClips(profileClips);
+        }
         if (tab === 'liked') {
-          console.log('tab', tab);
-          setProfileClips({ results: [] });
+          const { data: likedClipsIds } = await axiosRequest.get(
+            `likes/?owner__profile=${id}`
+          );
+          // Shoutout to ChatGPT for the assist on this snazzy API-fetching magic.
+          const likedClips = await Promise.all(
+            likedClipsIds.results.map(async (clipId) => {
+              const { data: clipDetails } = await axiosRequest.get(
+                `clips/${clipId.clip}/`
+              );
+              return clipDetails;
+            })
+          );
+          setProfileClips({ results: likedClips });
         }
       } catch (error) {
         console.log('Error fetching user profile:', error);
@@ -41,12 +51,10 @@ const UserProfile = () => {
     })();
   }, [id, tab]);
 
-  console.log('liked', profileClips);
-
   return (
     <div>
       <div className="flex items-center py-5">
-        <Link to={`profiles/${id}`}>
+        <Link to={`/profiles/${id}`}>
           <div
             className="
               size-20 bg-no-repeat bg-center bg-cover rounded-full 
@@ -107,23 +115,9 @@ const UserProfile = () => {
         </div>
         <div className="flex flex-col gap-10 h-full py-10">
           {profileClips.results.length ? (
-            <div className="grid grid-cols-4 gap-3">
+            <div className="grid grid-cols-1 p-2 justify-center sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3">
               {profileClips.results.map((clip) => (
-                <Link key={clip.id}>
-                  <div
-                    className="
-                      flex flex-col justify-end bg-cover bg-center h-60 
-                      rounded-lg p-2
-                    "
-                    style={{ backgroundImage: `url(${clip.clip})` }}
-                  >
-                    <div className="flex items-center">
-                      <BsPlay className="text-2xl" />
-                      <span className="text-lg">55K</span>
-                    </div>
-                  </div>
-                  <p className="p-1.5 text-sm text-gray-500">{clip.caption}</p>
-                </Link>
+                <ClipPreview key={clip.id} clip={clip} />
               ))}
             </div>
           ) : (
