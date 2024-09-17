@@ -3,7 +3,7 @@ import { AppContext } from '../../context/AppContext';
 import axios from 'axios';
 
 const LogInForm = ({ handleModalClick }) => {
-  const { setUser } = useContext(AppContext)
+  const { setUser } = useContext(AppContext);
   const [logInData, setLogInData] = useState({
     username: '',
     password: '',
@@ -30,7 +30,7 @@ const LogInForm = ({ handleModalClick }) => {
       setErrors(error?.response.data);
     }
   };
-  
+
   return (
     <div className="hidden py-3 xl:block">
       <form onSubmit={handleLoginSubmit}>
