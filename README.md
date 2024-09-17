@@ -105,7 +105,6 @@ Ready to embark on your learning journey? Check it live out [here.](https://clip
     - __Menus:__ 
     - __User-Friendly Touch:__ 
     - __One-Click Wonders:__ 
-    - __Cart at a Glance:__ 
 
 ![Navbar dropdown]()
 
@@ -142,9 +141,15 @@ Ready to embark on your learning journey? Check it live out [here.](https://clip
 - __Add Item (Authenticated Sellers Only):__ 
 - __Edit Item (Owner Access Only):__ 
 
-![Adding and Editing]()
+![Uploading clip](https://github.com/mistersouza/cliphub/blob/main/frontend/src/assets/images/cliphub_upload.png)
 
-- __Delete Item (Owner Privilege Required):__ 
+- __Bring it on (Owner Privilege Required):__ 
+
+▷ Ready to make the world smarter, one clip at a time? Log in, and flex those creator muscles by uploading your masterpiece. It's as easy as drag, drop, and boom—your clip is live!
+
+__Iconic Entry:__ A cloud upload icon that practically begs to be clicked.
+__Video Preview:__ Don't just upload—preview in style before sharing.
+__Validation Matters:__ MP4 files only, because we like to keep it crisp.
 
 ![Deleting]()
 
