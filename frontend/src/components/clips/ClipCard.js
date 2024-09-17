@@ -6,6 +6,8 @@ import { Link } from 'react-router-dom';
 import { HiVolumeUp, HiVolumeOff } from 'react-icons/hi';
 import { BsFillPlayFill, BsFillPauseFill } from 'react-icons/bs';
 import { GoVerified } from 'react-icons/go';
+// Components imports
+import Avatar from '../Avatar';
 
 const ClipCard = ({ clip }) => {
   const [isHovered, setIsHovered] = useState(false);
@@ -28,26 +30,16 @@ const ClipCard = ({ clip }) => {
     <div className="flex flex-col pb-6">
       <div>
         <div className="flex gap-3 p-2 cursor-pointer font-semibold rounded">
-          <div className="w-10 h-10 md:w-10 md:h-16">
-            <Link to={'/'}>
-              <img
-                className="w-16 object-cover rounded-full"
-                src={clip.profile_image}
-                alt={`${clip.owner}'s profile`}
-              />
-            </Link>
-          </div>
+          <Avatar src={clip.profile_image} id={clip.profile_id} />
           <div>
-            <Link to="/">
-              <div>
-                <p className="flex gap-2 items-center md:text-md font-bold text-primary">
-                  {clip.owner} <GoVerified className="text-gray-800 text-md" />
-                </p>
-                <p className="capitalize font-medium text-xs text-gray-500 hidden md:block">
-                  {clip.owner}
-                </p>
-              </div>
-            </Link>
+            <div>
+              <p className="capitalize flex gap-2 items-center md:text-md font-bold text-primary">
+                {clip.owner} <GoVerified className="text-gray-800 text-md" />
+              </p>
+              <p className="font-medium text-xs text-gray-500 hidden md:block">
+                @{clip.owner}
+              </p>
+            </div>
           </div>
         </div>
       </div>
