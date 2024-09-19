@@ -126,7 +126,7 @@ Ready to embark on your learning journey? Check it live out [here.](https://clip
 
 ▷ Welcome to the ClipHub home screen—your one-stop destination for everything clips! Here's how this clean and interactive layout works:
 
-- __ANavigation Made Easy:__ 
+- __A Navigation Made Easy:__ 
 
     The left sidebar offers quick access to your favorite categories, allowing you to discover new clips with ease. 
 
@@ -197,7 +197,7 @@ The layout is both functional and stylish, ensuring you can focus on what matter
 
 ▷ Check it out—the backstage of our database magic! This diagram reveals the intricate web of connections between our database models. It's a snapshot of simplicity and power. But hey, there's a deeper story to each model. Take a closer peek to unravel their secrets and see how they all come together!
 
-![DBDiagram]()
+![DBDiagram](https://github.com/mistersouza/cliphub/blob/main/frontend/src/assets/images/cliphub_db.png)
 
 ## Coming Soon: The Cool Features!
 
