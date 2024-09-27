@@ -1,6 +1,6 @@
 // React imports
 import { useEffect, useRef, useState, useContext } from 'react';
-import { Link, useNavigate, useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 // Dependencies imports
 import axios from 'axios';
 // Icons imports
@@ -54,6 +54,7 @@ const ClipDetail = () => {
 
   const {
     comments_count: commentsCount,
+    profile_id: profileId,
     profile_image: profileImage,
     likes_count: likesCount,
     like_id: likeId,
@@ -223,8 +224,9 @@ const ClipDetail = () => {
           </div>
           <div className="absolute top-24 right-3 cursor-pointer">
             <PiFlagPennantLight
-              onMouseEnter={toggleFlagReasons}
               className="text-white font-bold text-3xl"
+              aria-label="Flag clip"
+              onMouseEnter={toggleFlagReasons}
             />
             <div
               className={`z-10 ${isFlagReasonsDisplayed ? 'absolute right-0 top-9' : 'hidden'} 
@@ -232,6 +234,7 @@ const ClipDetail = () => {
                 w-32`}
               id="dropdownDivider"
               ref={flagReasonsRef}
+              aria-label="Select flag reason"
             >
               <ul
                 className="py-2 text-sm text-gray-700 capitalize dark:text-gray-200"
@@ -254,34 +257,46 @@ const ClipDetail = () => {
               </ul>
             </div>
           </div>
+          {/* Play/Pause button */}
           <div className="absolute top-[45%] left-[40%] cursor-pointer">
-            <button onClick={handlePlaybackClick}>
+            <button
+              aria-label={isPlaying ? 'Pause' : 'Play'}
+              onClick={handlePlaybackClick}
+            >
               {isPlaying ? (
-                <BsFillPauseFill className="text-gray-200 text-6xl lg:text-8xl" />
+                <BsFillPauseFill
+                  className="text-gray-200 text-6xl lg:text-8xl"
+                  aria-hidden="true"
+                />
               ) : (
-                <BsFillPlayFill className="text-gray-200 text-6xl lg:text-8xl" />
+                <BsFillPlayFill
+                  className="text-gray-200 text-6xl lg:text-8xl"
+                  aria-hidden="true"
+                />
               )}
             </button>
           </div>
         </div>
+        {/* Mute/Unmute button */}
         <div className="absolute bottom-5 right-5 cursor-pointer lg:bottom-3 lg:right-5">
-          {isMuted ? (
-            <button onClick={() => setIsMuted((prev) => !prev)}>
+          <button
+            onClick={() => setIsMuted((prev) => !prev)}
+            aria-label={isMuted ? 'Unmute' : 'Mute'}
+          >
+            {isMuted ? (
               <HiVolumeOff className="text-gray-200 text-2xl lg:text-4xl" />
-            </button>
-          ) : (
-            <button onClick={() => setIsMuted((prev) => !prev)}>
+            ) : (
               <HiVolumeUp className="text-gray-200 text-2xl lg:text-4xl" />
-            </button>
-          )}
+            )}
+          </button>
         </div>
       </div>
+      {/* Details section */}
       <div className="relative flex flex-col h-1/2 w-full lg:w-3/12 lg:h-full">
         <div className="min-h-fit flex flex-col py-3 gap-2 md:gap-5">
+          {/* User details */}
           <div className="flex items-center gap-3 px-3">
-            <Link to="/">
-              <Avatar src={profileImage} />
-            </Link>
+            <Avatar id={profileId} src={profileImage} />
             <div className="flex flex-col">
               <p className="flex items-center gap-1.5">
                 <span className="text-sm text-gray-800 capitalize font-semibold">
@@ -292,7 +307,9 @@ const ClipDetail = () => {
               <p className="text-sm text-gray-500">{owner}_user</p>
             </div>
           </div>
+          {/* Clip details */}
           <p className="text-sm text-gray-700 md:text-lg px-3.5">{caption}</p>
+          {/* Likes, comments, views */}
           <div
             className="flex gap-5 items-center justify-center text-gray-700 
             text-sm py-1 md:py-3 md:mt-auto md:text-lg"
@@ -300,6 +317,7 @@ const ClipDetail = () => {
             <div className="flex flex-col gap-1 items-center">
               <button
                 className="bg-gray-200 rounded-full p-1 md:p-2"
+                aria-label={isLiked ? 'Unlike this clip' : 'Like this clip'}
                 onClick={isLiked ? handleUnlikeClick : handleLikeClick}
                 disabled={isOwner}
               >
@@ -312,19 +330,21 @@ const ClipDetail = () => {
                 className={`bg-gray-200 rounded-full p-1 md:p-2 ${
                   !commentsCount ? 'text-gray-400' : ''
                 }`}
+                aria-label="Comments count"
               >
                 <FaCommentDots />
               </div>
               <p className="text-xs">{commentsCount || 0}</p>
             </div>
             <div className="flex flex-col gap-1 items-center">
-              <di
+              <div
                 className={`bg-gray-200 rounded-full p-1 md:p-2 ${
                   !viewsCount ? 'text-gray-400' : ''
                 }`}
+                aria-label="Views count"
               >
                 <LuEye />
-              </di>
+              </div>
               <p className="text-xs">{viewsCount || 0}</p>
             </div>
           </div>
