@@ -10,7 +10,7 @@ import { FaCommentDots } from 'react-icons/fa';
 import { BsFillPauseFill, BsFillPlayFill } from 'react-icons/bs';
 import { HiVolumeUp, HiVolumeOff } from 'react-icons/hi';
 import { PiFlagPennantLight } from 'react-icons/pi';
-import { LuEye } from "react-icons/lu";
+import { LuEye } from 'react-icons/lu';
 // Components imports
 import Avatar from '../Avatar';
 // import Comments from '../comments/Comments';
@@ -52,8 +52,18 @@ const ClipDetail = () => {
     })();
   }, [id]);
 
+  const {
+    comments_count: commentsCount,
+    profile_image: profileImage,
+    likes_count: likesCount,
+    like_id: likeId,
+    views_count: viewsCount,
+    owner,
+    caption,
+  } = clip;
+
   useEffect(() => {
-    const fetchComments = async () => {
+    (async () => {
       try {
         const { data } = await axiosRequest.get(`comments/?clip=${id}`);
         setComments(data);
@@ -62,18 +72,8 @@ const ClipDetail = () => {
       } finally {
         setPosting(false);
       }
-    };
-    fetchComments();
+    })();
   }, [id]);
-
-  const {
-    comments_count: commentsCount,
-    profile_image: profileImage,
-    likes_count: likesCount,
-    like_id: likeId,
-    views_count: viewsCount,
-    owner,
-  } = clip;
 
   const isOwner = user?.username === owner;
 
@@ -150,6 +150,10 @@ const ClipDetail = () => {
     if (!isPlaying && !isViewed) {
       try {
         await axios.post(`clips/${id}/play/`);
+        setClip((prevClip) => ({
+          ...prevClip,
+          views_count: prevClip.views_count + 1,
+        }));
         setIsViewed(true);
       } catch (error) {
         console.log('Error incrementing views', error);
@@ -276,21 +280,19 @@ const ClipDetail = () => {
         <div className="min-h-fit flex flex-col py-3 gap-2 md:gap-5">
           <div className="flex items-center gap-3 px-3">
             <Link to="/">
-              <Avatar src={clip.profile_image} />
+              <Avatar src={profileImage} />
             </Link>
             <div className="flex flex-col">
               <p className="flex items-center gap-1.5">
                 <span className="text-sm text-gray-800 capitalize font-semibold">
-                  {clip.owner}
+                  {owner}
                 </span>
                 <GoVerified />
               </p>
               <p className="text-sm text-gray-500">{owner}_user</p>
             </div>
           </div>
-          <p className="text-sm text-gray-700 md:text-lg px-3.5">
-            {clip.caption}
-          </p>
+          <p className="text-sm text-gray-700 md:text-lg px-3.5">{caption}</p>
           <div
             className="flex gap-5 items-center justify-center text-gray-700 
             text-sm py-1 md:py-3 md:mt-auto md:text-lg"
@@ -323,7 +325,7 @@ const ClipDetail = () => {
               >
                 <LuEye />
               </di>
-              <p className="text-xs">{viewsCount || ''}</p>
+              <p className="text-xs">{viewsCount || 0}</p>
             </div>
           </div>
         </div>
@@ -331,10 +333,10 @@ const ClipDetail = () => {
           {comments.results.length ? (
             comments.results.map((comment) => (
               <div
-                className="flex items-center gap-1.5 px-3 py-1"
+                className="flex items-center gap-1.5 px-3 py-1.5"
                 key={comment.id}
               >
-                <Avatar src={comment.profile_image || profileImage} />
+                <Avatar src={comment.profile_image} id={comment.profile_id} />
                 <p className="text-sm font-light md:text-base lg:text-lg text-gray-800">
                   {comment.content}
                 </p>
