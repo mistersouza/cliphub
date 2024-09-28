@@ -219,12 +219,12 @@ const ClipDetail = () => {
               className="h-full cursor-pointer"
               onClick={handlePlaybackClick}
               src={clip.clip}
-              loop
+              aria-hidden="true"
             />
           </div>
-          <div className="absolute top-24 right-3 cursor-pointer">
+          <div className="absolute top-[30%] md:top-28 lg:top-36 right-3 cursor-pointer">
             <PiFlagPennantLight
-              className="text-white font-bold text-3xl"
+              className="text-white font-bold text-2xl md:text-3xl"
               aria-label="Flag clip"
               onMouseEnter={toggleFlagReasons}
             />
@@ -330,22 +330,31 @@ const ClipDetail = () => {
                 className={`bg-gray-200 rounded-full p-1 md:p-2 ${
                   !commentsCount ? 'text-gray-400' : ''
                 }`}
-                aria-label="Comments count"
+                role="img"
+                aria-hidden="true"
               >
                 <FaCommentDots />
               </div>
-              <p className="text-xs">{commentsCount || 0}</p>
+              <p className="text-xs">
+                <span className="sr-only">Comments count: </span>
+                {commentsCount || 0}
+              </p>
             </div>
+
             <div className="flex flex-col gap-1 items-center">
               <div
                 className={`bg-gray-200 rounded-full p-1 md:p-2 ${
                   !viewsCount ? 'text-gray-400' : ''
                 }`}
-                aria-label="Views count"
+                role="img"
+                aria-hidden="true"
               >
                 <LuEye />
               </div>
-              <p className="text-xs">{viewsCount || 0}</p>
+              <p className="text-xs">
+                <span className="sr-only">Views count: </span>
+                {viewsCount || 0}
+              </p>
             </div>
           </div>
         </div>
