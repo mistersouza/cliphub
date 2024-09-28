@@ -1,7 +1,8 @@
+// Dependencies imports
 import { Link } from 'react-router-dom';
-
+// Icons imports
 import { AiFillHome } from 'react-icons/ai';
-
+// Components imports
 import Discover from './Discover';
 import Footer from './Footer';
 import PopularProfiles from './profiles/PopularProfiles';
