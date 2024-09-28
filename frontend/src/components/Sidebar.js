@@ -24,9 +24,10 @@ const Sidebar = () => {
       aria-label="Journey Hub"
     >
       <div className="xl:border-b-2 border-gray-200 xl:pb-4">
-        <Link to="/" aria-label="Your Personalized Journey">
+        <Link to="/" aria-label="Your personalized journey">
           <div
             className={`${base} ${hover} ${active}`}
+            aria-label="Check out what's in store for you"
             role="button"
             tabIndex={0}
           >
