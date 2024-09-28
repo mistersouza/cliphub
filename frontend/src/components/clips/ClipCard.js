@@ -49,32 +49,49 @@ const ClipCard = ({ clip }) => {
           onMouseEnter={() => setIsHovered(true)}
           onMouseLeave={() => setIsHovered(false)}
         >
-          <Link to={`/clips/${clip?.id}`}>
+          <Link
+            to={`/clips/${clip?.id}`}
+            aria-label={`Join the conversation and show love for ${clip.id}`}
+            title={clip.id}
+          >
             <video
               ref={clipRef}
               className="lg:w-[600px] h-[300px] md:h-[400px] lg:h-[528px] w-[200px] rounded-2xl cursor-pointer bg-gray-100"
+              aria-labelledby={`clip-${clip.id}-title`}
             >
               <source src={clip.clip} type="video/mp4" />
+              <track
+                kind="captions"
+                srcLang="en"
+                src={`data:text/vtt;charset=utf-8,${clip.caption}`}
+                label="English"
+              />
               Your browser does not support video tags :/
             </video>
           </Link>
           {isHovered && (
             <div className="absolute bottom-6 cursor-pointer left-8 md:left-14 lg:left-0 flex gap-10 lg:justify-between w-[100px] md:w-[50px] lg:w-[600px] p-3">
               {isPlaying ? (
-                <button onClick={handlePlaybackClick}>
+                <button onClick={handlePlaybackClick} aria-label="Pause video">
                   <BsFillPauseFill className="text-2xl text-gray-800 lg:text-4xl" />
                 </button>
               ) : (
-                <button onClick={handlePlaybackClick}>
+                <button onClick={handlePlaybackClick} aria-label="Play video">
                   <BsFillPlayFill className="text-2xl text-gray-800 lg:text-4xl" />
                 </button>
               )}
               {isMuted ? (
-                <button onClick={() => setIsMuted((prev) => !prev)}>
+                <button
+                  onClick={() => setIsMuted((prev) => !prev)}
+                  aria-label="Unmute video"
+                >
                   <HiVolumeOff className="text-gray-800 text-2xl lg:text-4xl" />
                 </button>
               ) : (
-                <button onClick={() => setIsMuted((prev) => !prev)}>
+                <button
+                  onClick={() => setIsMuted((prev) => !prev)}
+                  aria-label="Mute video"
+                >
                   <HiVolumeUp className="text-gray-800 text-2xl lg:text-4xl" />
                 </button>
               )}
