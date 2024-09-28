@@ -40,5 +40,5 @@ class ClipSerializer(serializers.ModelSerializer):
         fields = [
             'id', 'owner', 'is_owner', 'profile_id', 'profile_image',
             'like_id', 'comments_count', 'likes_count', 'views_count',
-            'flag_reason', 'clip', 
+            'flag_reason', 'caption', 'clip', 
         ]
