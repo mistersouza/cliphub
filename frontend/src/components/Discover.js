@@ -20,19 +20,29 @@ const Discover = () => {
   };
 
   return (
-    <div className="xl:border-b-2 xl:border-gray-200 py-3">
-      <p className="hidden xl:block text-gray-800 font-semibold pb-3.5">
+    <div
+      className="xl:border-b-2 xl:border-gray-200 py-3"
+      aria-label="Everyone's favourite topics"
+    >
+      <h2 className="hidden xl:block text-gray-800 font-semibold pb-3.5">
         Popular topics
-      </p>
+      </h2>
       <div className="flex flex-wrap gap-3 px-1.5">
         {topics?.map((topic) => (
-          <Link to={`/?topic=${topic.name}`} key={topic.name}>
+          <Link
+            to={`/?topic=${topic.name}`}
+            key={topic.name}
+            aria-label={`Explore ${topic.name} topic`}
+          >
             <div
               className={
                 search.includes(`?topic=${topic.name}`) ? active : base
               }
             >
-              <span className="font-bold text-2xl xl:text-md">
+              <span
+                className="font-bold text-2xl xl:text-md"
+                aria-hidden="true"
+              >
                 {topic.icon}
               </span>
               <span className="hidden xl:block text-md font-medium">
