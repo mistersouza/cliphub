@@ -26,6 +26,7 @@ const Navbar = () => {
   const handleSearchSubmit = (event) => {
     event.preventDefault();
     setQuery(queryInput);
+    setQuery('');
   };
 
   const handleLogoutSubmit = async () => {
