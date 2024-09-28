@@ -1,4 +1,3 @@
-// Dependacies imports
 import { Link } from 'react-router-dom';
 
 const Avatar = ({ id, src }) => {
@@ -9,14 +8,17 @@ const Avatar = ({ id, src }) => {
         cursor-pointer
       `}
       style={{ backgroundImage: `url(${src})` }}
+      aria-hidden="true"
     ></div>
   );
 
   // Render Link if there's an id, else button
   return id ? (
-    <Link to={`/profiles/${id}`}>{avatar}</Link>
+    <Link to={`/profiles/${id}`} aria-label={`View user profile`}>
+      {avatar}
+    </Link>
   ) : (
-    <button>{avatar}</button>
+    <button aria-label="User avatar">{avatar}</button>
   );
 };
 
