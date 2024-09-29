@@ -26,24 +26,15 @@ const UserProfile = () => {
 
         if (tab === 'clips') {
           const { data: profileClips } = await axiosRequest.get(
-            `clips/?owner__profile=${id}`
+            `clips/?owner__profile=${profile.id}`
           );
           setProfileClips(profileClips);
         }
         if (tab === 'liked') {
-          const { data: likedClipsIds } = await axiosRequest.get(
-            `likes/?owner__profile=${id}`
+          const { data: likedClips } = await axiosRequest.get(
+            `clips/?likes__owner__profile=${profile.id}&ordering=-likes__created_at&`
           );
-          // Shoutout to ChatGPT for the assist on this snazzy API-fetching magic.
-          const likedClips = await Promise.all(
-            likedClipsIds.results.map(async (clipId) => {
-              const { data: clipDetails } = await axiosRequest.get(
-                `clips/${clipId.clip}/`
-              );
-              return clipDetails;
-            })
-          );
-          setProfileClips({ results: likedClips });
+          setProfileClips(likedClips);
         }
       } catch (error) {
         console.log('Error fetching user profile:', error);
@@ -115,7 +106,10 @@ const UserProfile = () => {
         </div>
         <div className="flex flex-col gap-10 h-full py-10">
           {profileClips.results.length ? (
-            <div className="grid grid-cols-1 p-2 justify-center sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3">
+            <div
+              className="grid grid-cols-1 p-2 justify-center 
+                sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3"
+            >
               {profileClips.results.map((clip) => (
                 <ClipPreview key={clip.id} clip={clip} />
               ))}
