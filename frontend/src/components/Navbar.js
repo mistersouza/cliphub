@@ -1,7 +1,6 @@
 // React imports
-import { useContext, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { Link } from 'react-router-dom';
+import { useContext } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
 // Icons imports
 import { PiDotsThreeVerticalBold } from 'react-icons/pi';
 import { BiSearch } from 'react-icons/bi';
@@ -17,16 +16,13 @@ import { AppContext } from '../context/AppContext';
 import { useDisplay } from '../utils/helpers';
 
 const Navbar = () => {
-  const [queryInput, setQueryInput] = useState('');
   const [isAuthModalDisplayed, toggleAuthModalDisplay] = useDisplay();
   const [isDropdownMenuDisplayed, toggleDropdownMenuDisplay] = useDisplay();
-  const { user, setUser, setQuery } = useContext(AppContext);
+  const { user, setUser, query, setQuery } = useContext(AppContext);
   const navigate = useNavigate();
 
   const handleSearchSubmit = (event) => {
     event.preventDefault();
-    setQuery(queryInput);
-    setQuery('');
   };
 
   const handleLogoutSubmit = async () => {
@@ -56,7 +52,7 @@ const Navbar = () => {
       <div className="hidden relative md:block">
         <form
           className="absolute md:static top-10 -left-20 bg-white"
-          onSubmit={() => {}}
+          onSubmit={(event) => event.preventDefault()}
         >
           <label htmlFor="search-clips" className="sr-only">
             Search clips
@@ -69,8 +65,8 @@ const Navbar = () => {
             rounded-full md:top-0
             "
             id="search-clips"
-            onChange={({ target }) => setQueryInput(target.value)}
-            value={queryInput}
+            onChange={({ target }) => setQuery(target.value)}
+            value={query}
             placeholder="Search clips"
           />
           <button

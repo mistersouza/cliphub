@@ -1,12 +1,11 @@
-import { useState, useEffect, useContext } from 'react';
+import { useEffect, useContext } from 'react';
 import { axiosRequest } from '../../api/axiosDefaults';
 import NoResults from '../NoResults';
 import ClipCard from './ClipCard';
 import { AppContext } from '../../context/AppContext';
 
 const Feed = ({ filter = '' }) => {
-  const { user, clips, setClips, query } = useContext(AppContext);
-  const [isLoaded, setIsLoaded] = useState(false);
+  const { clips, setClips, query } = useContext(AppContext);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -14,18 +13,18 @@ const Feed = ({ filter = '' }) => {
         let url = `clips/?${filter}`;
         if (query) url += `search=${query}`;
         const { data } = await axiosRequest.get(url);
-        console.log('Clips list', data);
-
         setClips(data);
-        setIsLoaded(true);
+        // console.log('Clips list', data);
       } catch (error) {
         console.log(error);
       }
     };
-
-    setIsLoaded(false);
-    fetchData();
-  }, [filter, query, setClips]);
+    // Debounce the API call
+    const timeoutId = setTimeout(() => {
+      fetchData();
+    }, 1000);
+    return () => clearTimeout(timeoutId);
+  }, [filter, query]);
 
   return (
     <div className="flex flex-col gap-10 h-full w-full overflow-auto scrollbar-hide">
