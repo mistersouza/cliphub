@@ -9,10 +9,11 @@ import { MdOutlineCancel, MdFavorite } from 'react-icons/md';
 import { FaCommentDots } from 'react-icons/fa';
 import { BsFillPauseFill, BsFillPlayFill } from 'react-icons/bs';
 import { HiVolumeUp, HiVolumeOff } from 'react-icons/hi';
-import { PiFlagPennantLight } from 'react-icons/pi';
+import { PiFlagPennantLight, PiDotsThreeVerticalBold } from 'react-icons/pi';
 import { LuEye } from 'react-icons/lu';
 // Components imports
 import Avatar from '../Avatar';
+import SmallDropdownMenu from '../dropdowns/SmallDropdownMenu';
 // import Comments from '../comments/Comments';
 import NoResults from '../NoResults';
 // Helpers imports
@@ -29,10 +30,9 @@ const ClipDetail = () => {
   const [content, setContent] = useState('');
   const [posting, setPosting] = useState(false);
   const [isLiked, setIsLiked] = useState(false);
-  const [reasons, setReasons] = useState([]);
-  const [isFlagReasonsDisplayed, toggleFlagReasons] = useDisplay();
-  const flagReasonsRef = useClickAway(() => {
-    if (isFlagReasonsDisplayed) toggleFlagReasons();
+  const [isDropdownMenuDisplayed, toggleDropdownMenu] = useDisplay();
+  const dropdownMenuRef = useClickAway(() => {
+    if (isDropdownMenuDisplayed) toggleDropdownMenu();
   });
   const navigate = useNavigate();
   const clipRef = useRef(null);
@@ -162,25 +162,12 @@ const ClipDetail = () => {
     }
   };
 
-  useEffect(() => {
-    (async () => {
-      try {
-        const { data } = await axiosResponse.get('flag/reasons/');
-        setReasons(data.reasons);
-      } catch (error) {
-        console.log('Error fetching reasons', error);
-      }
-    })();
-  }, []);
-
-  const handleFlagSubmit = async (reason) => {
+  const handleDeleteClick = async () => {
     try {
-      const { status } = await axiosResponse.post(`flag/clip/${id}/`, {
-        reason,
-      });
-      if (status === 201) console.log('Clip flagged', reason);
+      const { status } = await axiosRequest.delete(`clips/${id}/`);
+      if (status === 204) navigate(-1);
     } catch (error) {
-      console.log('Failed flagging clip', error);
+      console.log('Error deleting clip', error);
     }
   };
 
@@ -223,39 +210,26 @@ const ClipDetail = () => {
             />
           </div>
           <div className="absolute top-[30%] md:top-28 lg:top-36 right-3 cursor-pointer">
-            <PiFlagPennantLight
-              className="text-white font-bold text-2xl md:text-3xl"
-              aria-label="Flag clip"
-              onMouseEnter={toggleFlagReasons}
+            {isOwner ? (
+              <PiDotsThreeVerticalBold
+                className="text-white font-bold text-2xl md:text-3xl"
+                aria-label="Dropdown menu"
+                onMouseEnter={toggleDropdownMenu}
+              />
+            ) : (
+              <PiFlagPennantLight
+                className="text-white font-bold text-2xl md:text-3xl"
+                aria-label="Flag clip"
+                onMouseEnter={toggleDropdownMenu}
+              />
+            )}
+            <SmallDropdownMenu
+              dropdownMenuRef={dropdownMenuRef}
+              id={id}
+              isDropdownMenuDisplayed={isDropdownMenuDisplayed}
+              isOwner={isOwner}
+              handleDelete={handleDeleteClick}
             />
-            <div
-              className={`z-10 ${isFlagReasonsDisplayed ? 'absolute right-0 top-9' : 'hidden'} 
-                bg-white divide-y divide-gray-100 rounded shadow 
-                w-32`}
-              id="dropdownDivider"
-              ref={flagReasonsRef}
-              aria-label="Select flag reason"
-            >
-              <ul
-                className="py-2 text-sm text-gray-700 capitalize dark:text-gray-200"
-                aria-labelledby="dropdownDividerButton"
-              >
-                {reasons?.map((reason) => (
-                  <li
-                    className="
-                    flex w-full justify-between items-center px-3 py-2 
-                    hover:bg-gray-100 dark:hover:bg-gray-600          
-                    "
-                    key={reason}
-                    onClick={() => {
-                      handleFlagSubmit(reason);
-                    }}
-                  >
-                    {reason}
-                  </li>
-                ))}
-              </ul>
-            </div>
           </div>
           {/* Play/Pause button */}
           <div className="absolute top-[45%] left-[40%] cursor-pointer">
@@ -358,7 +332,10 @@ const ClipDetail = () => {
             </div>
           </div>
         </div>
-        <div className="flex-1 overflow-y-auto flex flex-col border-t-2 border-gray-200 bg-gray-100 lg:pb-0 pb-[100px]">
+        <div
+          className="flex-1 overflow-y-auto flex flex-col border-t-2 
+            border-gray-200 bg-gray-100 lg:pb-0 pb-[100px]"
+        >
           {comments.results.length ? (
             comments.results.map((comment) => (
               <div
@@ -373,7 +350,11 @@ const ClipDetail = () => {
             ))
           ) : (
             <NoResults
-              message={`${!user ? 'Log in and be the first to leave a comment' : 'Be the first to leave a comment'}`}
+              message={`${
+                !user
+                  ? 'Log in and be the first to leave a comment'
+                  : 'Be the first to leave a comment'
+              }`}
               noComments
             />
           )}

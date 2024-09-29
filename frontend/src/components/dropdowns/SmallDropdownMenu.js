@@ -4,10 +4,11 @@ import { useState, useEffect } from 'react';
 import { axiosResponse } from '../../api/axiosDefaults';
 
 const SmallDropdownMenu = ({
-  isOwner,
-  isDropdownMenuDisplayed,
   dropdownMenuRef,
+  isDropdownMenuDisplayed,
+  isOwner,
   id,
+  handleDelete,
 }) => {
   const [reasons, setReasons] = useState([]);
 
@@ -49,9 +50,7 @@ const SmallDropdownMenu = ({
                 flex w-full justify-between items-center px-3 py-2 
                 hover:bg-gray-100 dark:hover:bg-gray-600          
             "
-            onClick={() => {
-              // Add logic for delete/edit actions
-            }}
+            onClick={handleDelete}
           >
             delete
           </li>
