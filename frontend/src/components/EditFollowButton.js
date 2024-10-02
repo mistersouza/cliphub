@@ -1,6 +1,8 @@
+// React imports
 import { useContext } from 'react';
-
+// Icons imports
 import { SlUserFollowing } from 'react-icons/sl';
+// Helpers imports
 import { AppContext } from '../context/AppContext';
 
 const EditFollowButton = ({ isOwner, profileId, followingId }) => {
@@ -21,15 +23,16 @@ const EditFollowButton = ({ isOwner, profileId, followingId }) => {
 
   const getButtonStyles = () => {
     const baseStyles =
-      'flex items-center justify-between max-w-fit border rounded text-lg';
+      'flex items-center justify-between px-2.5 py-1 max-w-fit border rounded text-base';
+    const ownerStyles =
+      'bg-gray-800 text-gray-50 border-gray-800 hover:bg-transparent hover:text-gray-800';
 
-    if (isOwner)
-      return `${baseStyles} bg-gray-800 text-gray-50 border-gray-800 hover:bg-transparent hover:text-gray-800`;
+    if (isOwner) return `${baseStyles} ${ownerStyles}`;
 
     return `${baseStyles} ${
       isFollowed
         ? 'bg-gray-200 text-gray-600 hover:bg-gray-300'
-        : 'bg-gray-800 text-gray-50 border-gray-800 hover:bg-transparent hover:text-gray-800'
+        : `${ownerStyles}`
     }`;
   };
 
@@ -40,18 +43,17 @@ const EditFollowButton = ({ isOwner, profileId, followingId }) => {
       onClick={handleButtonClick}
     >
       {isOwner ? (
-        <span className="text-xs px-2.5 py-1">Edit profile</span>
+        'Edit profile'
       ) : (
-        <>
+        <span className="flex gap-1.5 items-center">
           {isFollowed ? (
-            <span className="flex gap-1 items-center text-xs px-2.5 py-1">
-              <SlUserFollowing className="text-sm" />
-              Following
-            </span>
+            <>
+              <SlUserFollowing /> Following
+            </>
           ) : (
-            <span className="text-xs px-2.5 py-1">Follow</span>
+            'Follow'
           )}
-        </>
+        </span>
       )}
     </button>
   );
