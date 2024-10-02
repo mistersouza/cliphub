@@ -1,4 +1,4 @@
-import React from 'react';
+// Misc imports
 import {
   aboutAndContactLinks,
   cliphubForGoodLinks,

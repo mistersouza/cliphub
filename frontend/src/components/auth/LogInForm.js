@@ -1,6 +1,9 @@
+// React imports
 import { useContext, useState } from 'react';
-import { AppContext } from '../../context/AppContext';
+// Dependencies imports
 import axios from 'axios';
+// Helpers imports
+import { AppContext } from '../../context/AppContext';
 
 const LogInForm = ({ handleModalClick }) => {
   const { setUser } = useContext(AppContext);

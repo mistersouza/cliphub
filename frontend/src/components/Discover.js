@@ -1,5 +1,6 @@
-import React from 'react';
+// Dependacies imoprts
 import { Link, useLocation } from 'react-router-dom';
+// Misc imports
 import { topics } from '../utils/constants';
 
 const Discover = () => {

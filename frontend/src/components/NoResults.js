@@ -1,4 +1,4 @@
-import React from 'react';
+// Icons imports
 import { MdOutlineVideocamOff } from 'react-icons/md';
 import { BiCommentX } from 'react-icons/bi';
 

@@ -1,4 +1,6 @@
+// React imports
 import { useState } from 'react';
+// Dependencies imports
 import axios from 'axios';
 
 const SignUpForm = ({ handleModalClick }) => {
@@ -24,7 +26,7 @@ const SignUpForm = ({ handleModalClick }) => {
       await axios.post('/dj-rest-auth/registration/', signUpData);
       handleModalClick();
     } catch (error) {
-      console.log({ error });
+      console.error('Error signing up', error);
       setErrors(error.response?.data);
     }
   };

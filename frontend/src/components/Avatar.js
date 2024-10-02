@@ -1,3 +1,4 @@
+// Dependacies imoprts
 import { Link } from 'react-router-dom';
 
 const Avatar = ({ id, src }) => {

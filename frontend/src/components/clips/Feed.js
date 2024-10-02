@@ -1,8 +1,11 @@
+// React imports
 import { useEffect, useContext } from 'react';
-import { axiosRequest } from '../../api/axiosDefaults';
+// Components imports
 import NoResults from '../NoResults';
 import ClipCard from './ClipCard';
+// Helpers imports
 import { AppContext } from '../../context/AppContext';
+import { axiosRequest } from '../../api/axiosDefaults';
 
 const Feed = ({ filter = '' }) => {
   const { clips, setClips, query } = useContext(AppContext);
