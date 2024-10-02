@@ -94,6 +94,7 @@ const ClipDetail = () => {
         likes_count: prevClip.likes_count + 1,
         like_id: data.id,
       }));
+      setIsLiked(true);
     } catch (error) {
       console.error(error);
     }
