@@ -5,18 +5,17 @@ import { useParams } from 'react-router-dom';
 import { Link } from 'react-router-dom';
 // Icons imports
 import { GoVerified } from 'react-icons/go';
-import { SlUserFollowing } from 'react-icons/sl';
 // Components imports
-import NoResults from '../NoResults';
 import ClipPreview from '../clips/ClipPreview';
+import EditFollowButton from '../EditFollowButton';
+import NoResults from '../NoResults';
 // Helpers imports
 import { AppContext } from '../../context/AppContext';
 import { axiosRequest } from '../../api/axiosDefaults';
 
 const UserProfile = () => {
   const { id } = useParams();
-  const { profiles, setProfiles, handleFollowClick, handleUnfollowClick } =
-    useContext(AppContext);
+  const { profiles, setProfiles } = useContext(AppContext);
   const [profileClips, setProfileClips] = useState({ results: [] });
   const [clipsActive, setClipsActive] = useState(true);
   const [likedActive, setLikedActive] = useState(false);
@@ -59,7 +58,6 @@ const UserProfile = () => {
     name,
     owner,
   } = profiles.pageProfile.results[0] || {};
-  const isFollowed = !isOwner && followingId;
 
   return (
     <div>
@@ -80,31 +78,11 @@ const UserProfile = () => {
             </span>
             <span className="text-sm text-gray-400">{name}</span>
           </div>
-          {!isOwner && (
-            <button
-              className={`flex items-center justify-between max-w-fit border rounded text-lg
-                ${
-                  isFollowed
-                    ? 'bg-gray-200 text-gray-600 hover:bg-gray-300'
-                    : 'bg-gray-800 text-gray-50 border-gray-800 hover:bg-transparent hover:text-gray-800'
-                }`}
-              aria-label={isFollowed ? 'Unfollow profile' : 'Follow profile'}
-              onClick={() =>
-                isFollowed
-                  ? handleUnfollowClick(followingId)
-                  : handleFollowClick(profileId)
-              }
-            >
-              {isFollowed ? (
-                <span className="flex gap-1 items-center text-xs px-2.5 py-1">
-                  <SlUserFollowing className="text-sm" />
-                  Following
-                </span>
-              ) : (
-                <span className="text-xs px-2.5 py-1">Follow</span>
-              )}
-            </button>
-          )}
+          <EditFollowButton
+            isOwner={isOwner}
+            profileId={profileId}
+            followingId={followingId}
+          />
           <div className="flex gap-2 text-xs text-gray-500">
             <p>
               <strong className="text-gray-800">{followersCount || 0}</strong>{' '}
