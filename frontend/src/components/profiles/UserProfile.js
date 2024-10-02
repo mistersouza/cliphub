@@ -1,6 +1,6 @@
 // React imports
 import { useState, useEffect, useContext } from 'react';
-// Dependacies imports
+// Dependencies imports
 import { useParams } from 'react-router-dom';
 import { Link } from 'react-router-dom';
 // Icons imports
@@ -14,13 +14,11 @@ import { AppContext } from '../../context/AppContext';
 import { axiosRequest } from '../../api/axiosDefaults';
 
 const UserProfile = () => {
-  const { user, profiles, setProfiles, handleFollowClick } =
-    useContext(AppContext);
   const { id } = useParams();
-  const [tab, setTab] = useState('clips');
-  const [clipsActive, setClipsActive] = useState(true);
-  const [likedActive, setLikedActive] = useState(false);
+  const { profiles, setProfiles, handleFollowClick, handleUnfollowClick } =
+    useContext(AppContext);
   const [profileClips, setProfileClips] = useState({ results: [] });
+  const [tab, setTab] = useState('clips');
 
   useEffect(() => {
     (async () => {
@@ -48,16 +46,18 @@ const UserProfile = () => {
       }
     })();
   }, [id, tab]);
-
-  const { pageProfile } = profiles;
-  const [profile] = pageProfile.results;
-
-  const isOwner = user?.username === profile?.owner;
-  const isFollowed = !isOwner && profile?.following_id;
-
-  useEffect(() => {
-    console.log('User profile', profile);
-  });
+  // Destructure page profile
+  const {
+    followers_count: followersCount,
+    following_count: followingCount,
+    following_id: followingId,
+    image,
+    id: profileId,
+    is_owner: isOwner,
+    name,
+    owner,
+  } = profiles.pageProfile.results[0] || {};
+  const isFollowed = !isOwner && followingId;
 
   return (
     <div>
@@ -68,15 +68,15 @@ const UserProfile = () => {
               size-28 bg-no-repeat bg-center bg-cover rounded-full 
               cursor-pointer
             "
-            style={{ backgroundImage: `url(${profile?.image})` }}
+            style={{ backgroundImage: `url(${image})` }}
           ></div>
         </Link>
         <div className="flex flex-col gap-2">
           <div className="flex flex-col text-lg md:text-xl tracking-wider">
             <span className="flex items-center gap-1 font-semibold text-gray-800">
-              @{profile?.owner} <GoVerified className="text-sm md:text-lg" />
+              @{owner} <GoVerified className="text-sm md:text-lg" />
             </span>
-            <span className="text-sm text-gray-400">{profile?.name}</span>
+            <span className="text-sm text-gray-400">{name}</span>
           </div>
           {!isOwner && (
             <button
@@ -86,8 +86,12 @@ const UserProfile = () => {
                     ? 'bg-gray-200 text-gray-600 hover:bg-gray-300'
                     : 'bg-gray-800 text-gray-50 border-gray-800 hover:bg-transparent hover:text-gray-800'
                 }`}
-              aria-hidden={isFollowed ? 'Unfollow profile' : 'Follow profile'}
-              onClick={() => handleFollowClick(Number(id))}
+              aria-label={isFollowed ? 'Unfollow profile' : 'Follow profile'}
+              onClick={() =>
+                isFollowed
+                  ? handleUnfollowClick(followingId)
+                  : handleFollowClick(profileId)
+              }
             >
               {isFollowed ? (
                 <span className="flex gap-1 items-center text-xs px-2.5 py-1">
@@ -101,77 +105,48 @@ const UserProfile = () => {
           )}
           <div className="flex gap-2 text-xs text-gray-500">
             <p>
-              <strong className="text-gray-800">
-                {profile?.following_count || 0}
-              </strong>{' '}
-              <span>Follwing</span>
+              <strong className="text-gray-800">{followingCount || 0}</strong>{' '}
+              <span>Following</span>
             </p>
             <p>
-              <strong className="text-gray-800">
-                {profile?.followers_count || 0}
-              </strong>{' '}
-              <span>Follwers</span>
+              <strong className="text-gray-800">{followersCount || 0}</strong>{' '}
+              <span>Followers</span>
             </p>
           </div>
         </div>
       </div>
-      <div>
-        <div className="flex gap-2 border-b border-gray-200">
-          <p
-            className={`
-              text-xl cursor-pointer text-gray-500 px-3.5 py-1.5 
-              hover:text-gray-800 ${
-                tab && clipsActive ? 'border-b-2 border-gray-800' : ''
-              }
-            `}
-            onClick={() => setTab('clips')}
-            onMouseEnter={() => {
-              setClipsActive(true);
-              setLikedActive(false);
-            }}
-            onMouseLeave={() => {
-              if (tab !== 'clips') {
-                setClipsActive(false);
-                setLikedActive(true);
-              }
-            }}
+      <div className="flex gap-2 border-b border-gray-200">
+        <p
+          className={`text-xl cursor-pointer text-gray-500 px-3.5 py-1.5 hover:text-gray-800 ${
+            tab === 'clips' ? 'border-b-2 border-gray-800' : ''
+          }`}
+          onClick={() => setTab('clips')}
+        >
+          Clips
+        </p>
+        <p
+          className={`text-xl cursor-pointer text-gray-500 px-3.5 py-1.5 ${
+            tab === 'liked' ? 'border-b-2 border-gray-800' : ''
+          }`}
+          onClick={() => setTab('liked')}
+        >
+          Liked
+        </p>
+      </div>
+
+      <div className="flex flex-col gap-10 h-full py-10">
+        {profileClips.results.length ? (
+          <div
+            className="grid grid-cols-1 p-2 justify-center 
+              sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3"
           >
-            Clips
-          </p>
-          <p
-            className={`
-              text-xl cursor-pointer text-gray-500 px-3.5 py-1.5 
-              ${tab && likedActive ? 'border-b-2 border-gray-800' : ''}
-            `}
-            onClick={() => setTab('liked')}
-            onMouseEnter={() => {
-              setClipsActive(false);
-              setLikedActive(true);
-            }}
-            onMouseLeave={() => {
-              if (tab === 'clips') {
-                setClipsActive(true);
-                setLikedActive(false);
-              }
-            }}
-          >
-            Liked
-          </p>
-        </div>
-        <div className="flex flex-col gap-10 h-full py-10">
-          {profileClips.results.length ? (
-            <div
-              className="grid grid-cols-1 p-2 justify-center 
-                sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3"
-            >
-              {profileClips.results.map((clip) => (
-                <ClipPreview key={clip.id} clip={clip} />
-              ))}
-            </div>
-          ) : (
-            <NoResults message="No videos just yet :/" noClips />
-          )}
-        </div>
+            {profileClips.results.map((clip) => (
+              <ClipPreview key={clip.id} clip={clip} />
+            ))}
+          </div>
+        ) : (
+          <NoResults message="No videos just yet :/" noClips />
+        )}
       </div>
     </div>
   );

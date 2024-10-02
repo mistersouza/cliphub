@@ -23,26 +23,45 @@ const AppProvider = ({ children }) => {
       const { data } = await axiosResponse.post('/followers/', {
         followed_by: profileId,
       });
-      setProfiles((prevProfiles) => {
-        return {
+      setProfiles((prevProfiles) => ({
+        ...prevProfiles,
+        pageProfile: {
+          ...prevProfiles.pageProfile,
+          results: prevProfiles.pageProfile.results.map((profile) => ({
+            ...profile,
+            followers_count: profile.followers_count + 1,
+            following_id: data.id,
+          })),
+        },
+      }));
+    } catch (error) {
+      console.error('Error following profile', error.response || error);
+    }
+  };
+
+  const handleUnfollowClick = async (followingId) => {
+    if (!followingId) return;
+    try {
+      const { status } = await axiosRequest.delete(
+        `/followers/${followingId}/`
+      );
+      if (status === 204) {
+        setProfiles((prevProfiles) => ({
           ...prevProfiles,
           pageProfile: {
             ...prevProfiles.pageProfile,
-            results: prevProfiles.pageProfile.results.map((profile) => {
-              if (profile.id === profileId) {
-                return {
-                  ...profile,
-                  followers_count: profile.followers_count + 1,
-                  following_id: data.id,
-                };
-              }
-              return profile;
-            }),
+            results: prevProfiles.pageProfile.results.map((profile) => ({
+              ...profile,
+              followers_count: profile.followers_count - 1,
+              following_id: null,
+            })),
           },
-        };
-      });
+        }));
+      }
+      if (status !== 204)
+        console.warn(`Whoa! Status ${status} received instead of 204.`);
     } catch (error) {
-      console.error('Error following profile', error);
+      console.error('Error unfollowing profile', error.response || error);
     }
   };
 
@@ -121,6 +140,7 @@ const AppProvider = ({ children }) => {
     query,
     setQuery,
     handleFollowClick,
+    handleUnfollowClick,
   };
 
   return <AppContext.Provider value={context}>{children}</AppContext.Provider>;
