@@ -18,6 +18,11 @@ const AppProvider = ({ children }) => {
     popularProfiles: { results: [] },
   });
 
+  /**
+   * Handles the follow action for a user profile.
+   * @param {string} profileId - The profile ID to follow.
+   * @returns {Promise<void>} A promise that resolves when the follow action is completed.
+   */
   const handleFollowClick = async (profileId) => {
     try {
       const { data } = await axiosResponse.post('/followers/', {
@@ -39,6 +44,11 @@ const AppProvider = ({ children }) => {
     }
   };
 
+  /**
+   * Handles the unfollow action for a user profile.
+   * @param {string} followingId - The profile ID to unfollow.
+   * @returns {Promise<void>} A promise that resolves when the unfollow action is completed.
+   */
   const handleUnfollowClick = async (followingId) => {
     if (!followingId) return;
     try {
