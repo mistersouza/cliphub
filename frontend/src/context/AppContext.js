@@ -18,6 +18,34 @@ const AppProvider = ({ children }) => {
     popularProfiles: { results: [] },
   });
 
+  const handleFollowClick = async (profileId) => {
+    try {
+      const { data } = await axiosResponse.post('/followers/', {
+        followed_by: profileId,
+      });
+      setProfiles((prevProfiles) => {
+        return {
+          ...prevProfiles,
+          pageProfile: {
+            ...prevProfiles.pageProfile,
+            results: prevProfiles.pageProfile.results.map((profile) => {
+              if (profile.id === profileId) {
+                return {
+                  ...profile,
+                  followers_count: profile.followers_count + 1,
+                  following_id: data.id,
+                };
+              }
+              return profile;
+            }),
+          },
+        };
+      });
+    } catch (error) {
+      console.error('Error following profile', error);
+    }
+  };
+
   useEffect(() => {
     (async () => {
       try {
@@ -33,7 +61,7 @@ const AppProvider = ({ children }) => {
           popularProfiles: profiles,
         }));
       } catch (error) {
-        console.log('Error fetching profiles:', error);
+        console.error('Error fetching profiles:', error);
       }
     })();
   }, []);
@@ -92,6 +120,7 @@ const AppProvider = ({ children }) => {
     setClips,
     query,
     setQuery,
+    handleFollowClick,
   };
 
   return <AppContext.Provider value={context}>{children}</AppContext.Provider>;

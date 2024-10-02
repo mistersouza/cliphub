@@ -1,28 +1,35 @@
 // React imports
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useContext } from 'react';
 // Dependacies imports
 import { useParams } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 // Icons imports
 import { GoVerified } from 'react-icons/go';
-import { Link } from 'react-router-dom';
-import { axiosRequest } from '../../api/axiosDefaults';
+import { SlUserFollowing } from 'react-icons/sl';
 // Components imports
 import NoResults from '../NoResults';
 import ClipPreview from '../clips/ClipPreview';
+// Helpers imports
+import { AppContext } from '../../context/AppContext';
+import { axiosRequest } from '../../api/axiosDefaults';
 
 const UserProfile = () => {
-  const [profile, setProfile] = useState({});
+  const { user, profiles, setProfiles, handleFollowClick } =
+    useContext(AppContext);
+  const { id } = useParams();
   const [tab, setTab] = useState('clips');
   const [clipsActive, setClipsActive] = useState(true);
   const [likedActive, setLikedActive] = useState(false);
   const [profileClips, setProfileClips] = useState({ results: [] });
-  const { id } = useParams();
 
   useEffect(() => {
     (async () => {
       try {
-        const { data: profile } = await axiosRequest.get(`profiles/${id}/`);
-        setProfile(profile);
+        const { data: profile } = await axiosRequest.get(`/profiles/${id}/`);
+        setProfiles((prevProfiles) => ({
+          ...prevProfiles,
+          pageProfile: { results: [profile] },
+        }));
 
         if (tab === 'clips') {
           const { data: profileClips } = await axiosRequest.get(
@@ -42,23 +49,70 @@ const UserProfile = () => {
     })();
   }, [id, tab]);
 
+  const { pageProfile } = profiles;
+  const [profile] = pageProfile.results;
+
+  const isOwner = user?.username === profile?.owner;
+  const isFollowed = !isOwner && profile?.following_id;
+
+  useEffect(() => {
+    console.log('User profile', profile);
+  });
+
   return (
     <div>
       <div className="flex items-center py-5">
         <Link to={`/profiles/${id}`}>
           <div
             className="
-              size-20 bg-no-repeat bg-center bg-cover rounded-full 
+              size-28 bg-no-repeat bg-center bg-cover rounded-full 
               cursor-pointer
             "
-            style={{ backgroundImage: `url(${profile.image})` }}
+            style={{ backgroundImage: `url(${profile?.image})` }}
           ></div>
         </Link>
-        <div className="flex flex-col text-lg md:text-xl tracking-wider">
-          <span className="flex items-center gap-1 font-semibold text-gray-800">
-            @{profile.owner} <GoVerified className="text-sm md:text-lg" />
-          </span>
-          <span className="text-sm text-gray-400">{profile.name}</span>
+        <div className="flex flex-col gap-2">
+          <div className="flex flex-col text-lg md:text-xl tracking-wider">
+            <span className="flex items-center gap-1 font-semibold text-gray-800">
+              @{profile?.owner} <GoVerified className="text-sm md:text-lg" />
+            </span>
+            <span className="text-sm text-gray-400">{profile?.name}</span>
+          </div>
+          {!isOwner && (
+            <button
+              className={`flex items-center justify-between max-w-fit border rounded text-lg
+                ${
+                  isFollowed
+                    ? 'bg-gray-200 text-gray-600 hover:bg-gray-300'
+                    : 'bg-gray-800 text-gray-50 border-gray-800 hover:bg-transparent hover:text-gray-800'
+                }`}
+              aria-hidden={isFollowed ? 'Unfollow profile' : 'Follow profile'}
+              onClick={() => handleFollowClick(Number(id))}
+            >
+              {isFollowed ? (
+                <span className="flex gap-1 items-center text-xs px-2.5 py-1">
+                  <SlUserFollowing className="text-sm" />
+                  Following
+                </span>
+              ) : (
+                <span className="text-xs px-2.5 py-1">Follow</span>
+              )}
+            </button>
+          )}
+          <div className="flex gap-2 text-xs text-gray-500">
+            <p>
+              <strong className="text-gray-800">
+                {profile?.following_count || 0}
+              </strong>{' '}
+              <span>Follwing</span>
+            </p>
+            <p>
+              <strong className="text-gray-800">
+                {profile?.followers_count || 0}
+              </strong>{' '}
+              <span>Follwers</span>
+            </p>
+          </div>
         </div>
       </div>
       <div>
