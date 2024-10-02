@@ -18,6 +18,8 @@ const UserProfile = () => {
   const { profiles, setProfiles, handleFollowClick, handleUnfollowClick } =
     useContext(AppContext);
   const [profileClips, setProfileClips] = useState({ results: [] });
+  const [clipsActive, setClipsActive] = useState(true);
+  const [likedActive, setLikedActive] = useState(false);
   const [tab, setTab] = useState('clips');
 
   useEffect(() => {
@@ -105,48 +107,73 @@ const UserProfile = () => {
           )}
           <div className="flex gap-2 text-xs text-gray-500">
             <p>
-              <strong className="text-gray-800">{followingCount || 0}</strong>{' '}
+              <strong className="text-gray-800">{followersCount || 0}</strong>{' '}
               <span>Following</span>
             </p>
             <p>
-              <strong className="text-gray-800">{followersCount || 0}</strong>{' '}
+              <strong className="text-gray-800">{followingCount || 0}</strong>{' '}
               <span>Followers</span>
             </p>
           </div>
         </div>
       </div>
-      <div className="flex gap-2 border-b border-gray-200">
-        <p
-          className={`text-xl cursor-pointer text-gray-500 px-3.5 py-1.5 hover:text-gray-800 ${
-            tab === 'clips' ? 'border-b-2 border-gray-800' : ''
-          }`}
-          onClick={() => setTab('clips')}
-        >
-          Clips
-        </p>
-        <p
-          className={`text-xl cursor-pointer text-gray-500 px-3.5 py-1.5 ${
-            tab === 'liked' ? 'border-b-2 border-gray-800' : ''
-          }`}
-          onClick={() => setTab('liked')}
-        >
-          Liked
-        </p>
-      </div>
-
-      <div className="flex flex-col gap-10 h-full py-10">
-        {profileClips.results.length ? (
-          <div
-            className="grid grid-cols-1 p-2 justify-center 
-              sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3"
+      <div>
+        <div className="flex gap-2 border-b border-gray-200">
+          <p
+            className={`
+              text-xl cursor-pointer text-gray-500 px-3.5 py-1.5 
+              hover:text-gray-800 ${
+                tab && clipsActive ? 'border-b-2 border-gray-800' : ''
+              }
+            `}
+            onClick={() => setTab('clips')}
+            onMouseEnter={() => {
+              setClipsActive(true);
+              setLikedActive(false);
+            }}
+            onMouseLeave={() => {
+              if (tab !== 'clips') {
+                setClipsActive(false);
+                setLikedActive(true);
+              }
+            }}
           >
-            {profileClips.results.map((clip) => (
-              <ClipPreview key={clip.id} clip={clip} />
-            ))}
-          </div>
-        ) : (
-          <NoResults message="No videos just yet :/" noClips />
-        )}
+            Clips
+          </p>
+          <p
+            className={`
+              text-xl cursor-pointer text-gray-500 px-3.5 py-1.5 
+              ${tab && likedActive ? 'border-b-2 border-gray-800' : ''}
+            `}
+            onClick={() => setTab('liked')}
+            onMouseEnter={() => {
+              setClipsActive(false);
+              setLikedActive(true);
+            }}
+            onMouseLeave={() => {
+              if (tab === 'clips') {
+                setClipsActive(true);
+                setLikedActive(false);
+              }
+            }}
+          >
+            Liked
+          </p>
+        </div>
+        <div className="flex flex-col gap-10 h-full py-10">
+          {profileClips.results.length ? (
+            <div
+              className="grid grid-cols-1 p-2 justify-center 
+                sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3"
+            >
+              {profileClips.results.map((clip) => (
+                <ClipPreview key={clip.id} clip={clip} />
+              ))}
+            </div>
+          ) : (
+            <NoResults message="No videos just yet :/" noClips />
+          )}
+        </div>
       </div>
     </div>
   );
