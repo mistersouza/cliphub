@@ -12,7 +12,6 @@ import { topics } from '../../utils/constants';
 
 const ClipUpload = () => {
   const [isLoading, setIsLoading] = useState(false);
-  const [errors, setErrors] = useState({});
   const [savingClip, setSavingClip] = useState(false);
   const [clipData, setClipData] = useState({
     caption: '',
@@ -31,6 +30,7 @@ const ClipUpload = () => {
   };
 
   const handleClipChange = (event) => {
+    setIsLoading(true);
     if (event.target.files.length) {
       URL.revokeObjectURL(clip);
       setClipData((prevState) => ({
@@ -55,11 +55,11 @@ const ClipUpload = () => {
     formData.append('clip', clipRef.current.files[0]);
 
     try {
-      const { data } = await axiosRequest.post('/clips/', formData);
+      await axiosRequest.post('/clips/', formData);
       setSavingClip(true);
     } catch (error) {
       if (error.response?.status !== 401) {
-        setErrors(error.response?.data);
+        console.error('Error uploading clip', error.response?.data || error);
       }
     } finally {
       setSavingClip(false);
