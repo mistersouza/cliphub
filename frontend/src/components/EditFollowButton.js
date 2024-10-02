@@ -21,6 +21,13 @@ const EditFollowButton = ({ isOwner, profileId, followingId }) => {
       ? 'Unfollow profile'
       : 'Follow profile';
 
+  /**
+   * Returns the appropriate button styles based on ownership and follow status.
+   * @function getButtonStyles
+   * @returns {string} - A string of Tailwind CSS utility classes.
+   * Base styles are always included, with additional styles applied conditionally
+   */
+
   const getButtonStyles = () => {
     const baseStyles =
       'flex items-center justify-between px-2.5 py-1 max-w-fit border rounded text-base';
