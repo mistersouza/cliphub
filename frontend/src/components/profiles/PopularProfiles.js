@@ -1,5 +1,5 @@
 // React imports
-import { useContext } from 'react';
+import { useContext, useMemo } from 'react';
 // Icons imports
 import { GoVerified } from 'react-icons/go';
 import { AppContext } from '../../context/AppContext';
@@ -9,12 +9,17 @@ import Avatar from '../Avatar';
 const PopularProfiles = () => {
   const { profiles } = useContext(AppContext);
   const { popularProfiles } = profiles;
+  // Memoize the sliced array
+  const featuredPopularProfiles = useMemo(
+    () => popularProfiles?.results.slice(0, 5),
+    [popularProfiles]
+  );
 
   return (
     <div className="xl:border-b-2 border-gray-200 py-3">
       <p className="text-gray-800 font-semibold pb-3.5">Popular profiles</p>
       <div className="flex flex-col">
-        {popularProfiles?.results.slice(0, 5).map((profile) => (
+        {featuredPopularProfiles.map((profile) => (
           <div className="flex items-center gap-2.5 px-1.5" key={profile.id}>
             <Avatar src={profile.image} id={profile.id} />
             <div className="hidden xl:flex flex-col">

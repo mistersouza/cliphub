@@ -1,16 +1,18 @@
 // React imports
-import { useContext } from 'react';
+import { useContext, lazy, Suspense } from 'react';
 // Dependencies imports
 import { Route, Routes } from 'react-router-dom';
 // Components imports
 import Navbar from './components/Navbar';
 import Sidebar from './components/Sidebar';
-import Feed from './components/clips/Feed';
-import ClipUpload from './components/clips/ClipUpload';
-import ClipDetail from './components/clips/ClipDetail';
-import UserProfile from './components/profiles/UserProfile';
+import AsyncLoader from './components/AsyncLoader';
 // Helpers imports
 import { AppContext } from './context/AppContext';
+// Lazy load components
+const Feed = lazy(() => import('./components/clips/Feed'));
+const ClipUpload = lazy(() => import('./components/clips/ClipUpload'));
+const ClipDetail = lazy(() => import('./components/clips/ClipDetail'));
+const UserProfile = lazy(() => import('./components/profiles/UserProfile'));
 
 const App = () => {
   const { user } = useContext(AppContext);
@@ -24,19 +26,21 @@ const App = () => {
           <Sidebar />
         </div>
         <div className="flex flex-col flex-1 gap-10 overflow-auto h-[88vh] videos">
-          <Routes>
-            <Route
-              path="/"
-              element={
-                <Feed
-                  filter={`owner__followed__owner__profile=${profileId}&`}
-                />
-              }
-            />
-            <Route path="/clips/:id" element={<ClipDetail />} />
-            <Route path="/upload" element={<ClipUpload />} />
-            <Route path="/profiles/:id" element={<UserProfile />} />
-          </Routes>
+          <Suspense fallback={<AsyncLoader />}>
+            <Routes>
+              <Route
+                path="/"
+                element={
+                  <Feed
+                    filter={`owner__followed__owner__profile=${profileId}&`}
+                  />
+                }
+              />
+              <Route path="/clips/:id" element={<ClipDetail />} />
+              <Route path="/upload" element={<ClipUpload />} />
+              <Route path="/profiles/:id" element={<UserProfile />} />
+            </Routes>
+          </Suspense>
         </div>
       </div>
     </div>

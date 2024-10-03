@@ -1,7 +1,8 @@
+import { memo } from 'react';
 // Dependacies imoprts
 import { Link } from 'react-router-dom';
 
-const Avatar = ({ id, src }) => {
+const Avatar = memo(({ id, src }) => {
   const avatar = (
     <div
       className={`
@@ -10,6 +11,7 @@ const Avatar = ({ id, src }) => {
       `}
       style={{ backgroundImage: `url(${src})` }}
       aria-hidden="true"
+      loading="lazy"
     ></div>
   );
 
@@ -21,6 +23,7 @@ const Avatar = ({ id, src }) => {
   ) : (
     <button aria-label="User avatar">{avatar}</button>
   );
-};
-
+});
+// Ensures the component has a clear name in React DevTools and satisfy ESLint's react/display-name rule.
+Avatar.displayName = 'Avatar';
 export default Avatar;

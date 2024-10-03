@@ -1,20 +1,32 @@
 // React imports
-import { useEffect, useContext } from 'react';
+import { useEffect, useContext, useMemo } from 'react';
 // Components imports
 import NoResults from '../NoResults';
 import ClipCard from './ClipCard';
 // Helpers imports
 import { AppContext } from '../../context/AppContext';
 import { axiosRequest } from '../../api/axiosDefaults';
+import { useDebounce } from '../../utils/helpers';
 
 const Feed = ({ filter = '' }) => {
   const { clips, setClips, query } = useContext(AppContext);
+  // Debouce API Calls
+  const debouncedQuery = useDebounce(query, 500);
+
+  const url = useMemo(() => {
+    let baseUrl = `clips/?${filter}`;
+    if (debouncedQuery) baseUrl += `search=${query}`;
+    return baseUrl;
+  }, [filter, debouncedQuery]);
+
+  const featuredClips = useMemo(
+    () => clips.results?.map((clip) => <ClipCard key={clip.id} clip={clip} />),
+    [clips.results]
+  );
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        let url = `clips/?${filter}`;
-        if (query) url += `search=${query}`;
         const { data } = await axiosRequest.get(url);
         setClips(data);
         // console.log('Clips list', data);
@@ -22,17 +34,13 @@ const Feed = ({ filter = '' }) => {
         console.log(error);
       }
     };
-    // Debounce the API call
-    const timeoutId = setTimeout(() => {
-      fetchData();
-    }, 1000);
-    return () => clearTimeout(timeoutId);
+    fetchData();
   }, [filter, query]);
 
   return (
     <div className="flex flex-col gap-10 h-full w-full overflow-auto scrollbar-hide">
       {clips.results?.length ? (
-        clips.results.map((clip) => <ClipCard key={clip.id} clip={clip} />)
+        featuredClips
       ) : (
         <NoResults message="No videos just yet :/" noClips />
       )}
