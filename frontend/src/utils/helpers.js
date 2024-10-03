@@ -38,5 +38,23 @@ const useClickAway = (handler) => {
 
   return ref;
 };
+/**
+ * Custom hook that debounces a value after the specified delay.
+ * @param {any} value - The value to be debounced.
+ * @param {number} delay - The delay in milliseconds.
+ * @returns {any} - The debounced value.
+ */
+const useDebounce = (value, delay) => {
+  const [debouncedValue, setDebouncedValue] = useState(value);
 
-export { useDisplay, useClickAway };
+  useEffect(() => {
+    const timeoutId = setTimeout(() => {
+      setDebouncedValue(value);
+    }, delay);
+    return () => clearInterval(timeoutId);
+  }, [value, delay]);
+
+  return debouncedValue;
+};
+
+export { useDisplay, useClickAway, useDebounce };
