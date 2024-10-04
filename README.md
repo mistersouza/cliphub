@@ -172,8 +172,9 @@ The layout is both functional and stylish, ensuring you can focus on what matter
 ### Access Granted: Let's Dive In
 
 - Alright, here's the backstage pass: We're rocking the show with allauth for login/register magic.
-- we've got these cool decorators—making sure the right folks access the right stuff on the site. 
-- And hey, we've sprinkled some magic in the HTML to make your user journey feel just right. It's all about that personal touch!
+![AuthModal - new user](https://github.com/mistersouza/cliphub/blob/main/frontend/src/assets/images/cliphub-signup.png)
+![AuthModal - log in](https://github.com/mistersouza/cliphub/blob/main/frontend/src/assets/images/cliphub-login.png)
+- Our 🔑 tokens make sure only the right folks access the right stuff. Secure, seamless, and always behind the scenes.
 
 ![Navbar - loggedin]()
 ![Navbar - loggedout]()
