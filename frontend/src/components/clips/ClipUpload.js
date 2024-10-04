@@ -5,6 +5,8 @@ import { useNavigate } from 'react-router-dom';
 // Icons imports
 import { FaCloudUploadAlt } from 'react-icons/fa';
 import { MdOutlineKeyboardArrowDown } from 'react-icons/md';
+// Components imports
+import AsyncLoader from '../AsyncLoader';
 // Helpers
 import { axiosRequest } from '../../api/axiosDefaults';
 // Misc imports
@@ -38,6 +40,7 @@ const ClipUpload = () => {
         clip: URL.createObjectURL(event.target.files[0]),
       }));
     }
+    setIsLoading(false);
   };
 
   const handleDiscardClick = () => {
@@ -88,7 +91,7 @@ const ClipUpload = () => {
             p-3 cursor-pointer hover:border-gray-800 hover:bg-gray-100"
           >
             {isLoading ? (
-              <p>Loading...</p>
+              <AsyncLoader size={'md'} />
             ) : (
               <div className="w-full h-full flex items-center justify-center relative">
                 {clip ? (
