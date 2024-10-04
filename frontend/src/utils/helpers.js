@@ -65,7 +65,7 @@ const useDebounce = (value, delay) => {
  */
 const setTokenTimestamp = (data) => {
   if (data?.refresh_token) {
-    const refreshTokenTimestamp = jwtDecode(data.refresh_token).exp;
+    const refreshTokenTimestamp = jwtDecode(data?.refresh_token).exp;
     localStorage.setItem('refreshTokenTimestamp', refreshTokenTimestamp);
   }
 };

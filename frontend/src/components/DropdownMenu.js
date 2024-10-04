@@ -35,7 +35,7 @@ const DropdownMenu = ({ menu, handleDropdownMenu, handleAuth }) => {
                 hover:bg-gray-100 dark:hover:bg-gray-600 
                 dark:hover:text-white           
               "
-              to={link.to} // Make sure to provide the correct link destination
+              to={link.to}
             >
               {link.name}
               <span className="text-lg">{link.icon}</span>

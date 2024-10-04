@@ -102,29 +102,29 @@ const AppProvider = ({ children }) => {
         if (shouldRefreshToken()) {
           try {
             await axios.post('dj-rest-auth/token/refresh/');
-          } catch (err) {
+          } catch (error) {
             setUser((prevUser) => {
               if (prevUser) {
                 navigate('/signin');
               }
               return null;
             });
+            removeTokenTimestamp();
             return config;
           }
-          removeTokenTimestamp();
         }
         return config;
       },
-      (err) => Promise.reject(err)
+      (error) => Promise.reject(error)
     );
 
     const responseInterceptor = axiosResponse.interceptors.response.use(
       (response) => response,
-      async (err) => {
-        if (err.response?.status === 401) {
+      async (error) => {
+        if (error.response?.status === 401) {
           try {
             await axios.post('dj-rest-auth/token/refresh/');
-            return axios(err.config);
+            return axios(error.config);
           } catch (error) {
             setUser((prevUser) => {
               if (prevUser) {
@@ -135,7 +135,7 @@ const AppProvider = ({ children }) => {
             removeTokenTimestamp();
           }
         }
-        return Promise.reject(err);
+        return axios(error.config);
       }
     );
 

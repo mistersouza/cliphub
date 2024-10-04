@@ -27,6 +27,7 @@ const LogInForm = ({ handleModalClick }) => {
     event.preventDefault();
     try {
       const { data } = await axios.post('dj-rest-auth/login/', logInData);
+      console.log('Login data', data);
       setTokenTimestamp(data);
       setUser(data.user);
       handleModalClick();

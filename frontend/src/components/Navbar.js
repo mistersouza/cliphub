@@ -13,7 +13,7 @@ import AuthModal from './AuthModal';
 import DropdownMenu from './DropdownMenu';
 // Helpers imports
 import { AppContext } from '../context/AppContext';
-import { useDisplay } from '../utils/helpers';
+import { removeTokenTimestamp, useDisplay } from '../utils/helpers';
 
 const Navbar = () => {
   const [isAuthModalDisplayed, toggleAuthModalDisplay] = useDisplay();
@@ -29,6 +29,7 @@ const Navbar = () => {
     try {
       await axios.post('dj-rest-auth/logout/');
       setUser(null);
+      removeTokenTimestamp();
       navigate('/');
     } catch (error) {
       console.log('Error logging out', error);
