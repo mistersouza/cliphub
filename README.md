@@ -264,6 +264,15 @@ All the tests in one [place](testing.md)
 
 ▷ Getting your app ready
 
+- Fire up a terminal window and navigate to the root directory.
+    - Integrate WhiteNoise to seamlessly serve static files for your React app and Django Admin on deployment
+         ```bash
+        $ pip3 install whitenoise==6.4.0
+        ```
+    - Craft a fresh `staticfiles` folder in the root directory
+        ```bash
+        $ mkdir staticfiles
+        ```
 - Open up your settings.py file 
     - Setup databse
         ```python
@@ -280,30 +289,154 @@ All the tests in one [place](testing.md)
     - Update Allowed Hosts
         ```python
         ALLOWED_HOSTS = ['.herokuapp.com', 'localhost']
+    - In `INSTALLED_APPS`, slide `cloudinary_storage` beneath `django.contrib.staticfiles` to let WhiteNoise take charge of your static files.
+        ```python
+            INSTALLED_APPS = [
+                ... # Other apps
+                'django.contrib.staticfiles',
+                'cloudinary_storage',
+                'cloudinary',
+                ... # And more apps
+            ]
         ```
-
-- On the CL
+    - In the `MIDDLEWARE` list, slot WhiteNoise in just below `SecurityMiddleware` and right above `SessionMiddleware`.
+        ```python
+            MIDDLEWARE = [
+            'django.middleware.security.SecurityMiddleware', 
+            'corsheaders.middleware.CorsMiddleware',
+            'whitenoise.middleware.WhiteNoiseMiddleware',
+            ... # Other middlewares
+            ]
+        ```
+    - In the `TEMPLATES` list, tweak the `DIRS` key to point Django and WhiteNoise to your React `index.html` during deployment:
+        ```python
+            TEMPLATES = [
+                {
+                    'BACKEND': 'django.template.backends.django.DjangoTemplates',
+                    'DIRS': [os.path.join(BASE_DIR, 'staticfiles', 'build')], # 🔍 Check this out!
+                    'APP_DIRS': True,
+                    'OPTIONS': {
+                        'context_processors': [
+                            'django.template.context_processors.debug',
+                            'django.template.context_processors.request',
+                            'django.contrib.auth.context_processors.auth',
+                            'django.contrib.messages.context_processors.messages',
+                        ],
+                    },
+                },
+            ]
+        ```
+    - In the static files section, define `STATIC_ROOT` and `WHITENOISE_ROOT` to direct Django and WhiteNoise to your admin and React static files for deployment.
+        ```python
+        STATIC_ROOT = BASE_DIR / 'staticfiles'
+        WHITENOISE_ROOT = BASE_DIR / 'staticfiles' / 'build'
+        ```
+- Back on the CL
     - Create a requirements. This file tells Heroku what your app needs to run smoothly.
         ```bash
-        pip3 freeze --local > requirements.txt
+        $ pip3 freeze --local > requirements.txt
         ```
     - Craft a Procfile. This tells Heroku how to run your app. Think of it as the main instruction manual.
         ```bash
-        echo web: python app.py > Procfile
+        $ echo web: python app.py > Procfile
         ```
-    - Shift models to ElephantSQL.
+    - Shift models to remote DB.
         ```bash
-        python3 manage.py makemigrations
-        python3 manage.py migrate
+        $ python3 manage.py migrate
         ```
+- The React front end will serve from the domain's root URL, so let's make sure it takes precedence over the DRF interface. 
 
-▷ The site first brewed up in GitPod and then landed in this remote [GitHub repository]().And let's talk GIT – the commands that made the magic real.
+    - In the **project's urls.py** get rid of `path('', root_route)` 
+    ```python
+    urlpatterns = [
+        path('', root_route), # ❌ Later 🐊
+        path('admin/', admin.site.urls),
+        ... # Lots other paths follow
+    ]
+    ```
+    - Import `TempleteView` from `django.views.generic `
+    ```python
+    from django.contrib import admin
+    from django.urls import path, include
+    from django.views.generic import TemplateView # 🌟 Bring it in!
+    from .views import logout_route, root_route
+    ```
+    - Switch it up with this line: `path('', TemplateView.as_view(template_name='index.html'))` 🚀
+    ```python
+    urlpatterns = [
+        path('', TemplateView.as_view(template_name='index.html')),
+        path('admin/', admin.site.urls),
+        ... # Lots other paths follow
+    ]
+    ```
+    - Prefix api/ to all the API URLs, except for the home page and admin panel paths! 🚀 And don’t miss this key line: `handler404 = TemplateView.as_view(template_name='index.html')`—be sure to add it at the bottom! 🔑 And your setup should look pretty much like this:
+    ```python
+    from django.contrib import admin
+    from django.urls import path, include
+    from django.views.generic import TemplateView
+    from .views import logout_route, root_route
 
-- **git status** >> It's like peeking into the project's mood board - shows any changes or new stuff.
-- **git add --all** >> The "get ready to party" move - stages files for the big commit.
-- **git commit -m " "** >> The official seal of approval - commits all the files.
-- **git push** >> The grand finale - sends everything to the master branch up there on GitHub. Boom!
+    urlpatterns = [
+        path('', TemplateView.as_view(template_name='index.html')), 
+        path('admin/', admin.site.urls), 
+        path('api/api-auth/', include('rest_framework.urls')), 
+        path('api/dj-rest-auth/logout/', logout_route), # Logout route gotta match up first❗️
+        path('api/dj-rest-auth/', include('dj_rest_auth.urls')), 
+        path('api/dj-rest-auth/registration/', include('dj_rest_auth.registration.urls')),
+        path('api/', include('clips.urls')),
+        path('api/', include('comments.urls')),
+        path('api/', include('flags.urls')),
+        path('api/', include('followers.urls')),
+        path('api/', include('likes.urls')),
+        path('api/', include('profiles.urls')),
+    ]
 
+
+    handler404 = TemplateView.as_view(template_name='index.html')
+
+- Last up. On the react app load ` Open the axiosDefaults.js` file on your VS code, set `axios.defaults.baseURL` to `/api`. 
+    
+    ```javascript
+    import axios from 'axios';
+
+    axios.defaults.baseURL = '/api'; // Set the base URL to API heaven 😇
+    axios.defaults.headers.post['Content-Type'] = 'multipart/form-data';
+    axios.defaults.withCredentials = true;
+
+    export const axiosRequest = axios.create();
+    export const axiosResponse = axios.create();
+    ```
+- Now that we've set up static file collection, let's bundle all static files from Django admin and React into the staticfiles folder for deployment. 🚀 Fire up your CL in the Django project directory, and go on typing 
+    ```bash
+    $ python3 manage.py collectstatic
+    ```
+- Next, let's build the React app and transfer the files to the `staticfiles` folder. 🚀 Open a new terminal and `cd` into the frontend directory, and run 
+    ```bash
+    $ npm run build && mv build ../staticfiles/.
+    ```
+- You gotta rerun this command every time you deploy changes to your static files, including React code ✨ But to replace the old files, just keep running the following command 🔄
+    ```bash
+    $ npm run build && rm -rf ../staticfiles/build && mv build ../staticfiles/.
+    ```
+- Still in you dango project's root directory, make sure Heroku uses the right Python version for your project! 🚀 
+    ```bash
+    $ echo "python-3.9.16" > runtime.txt
+    ```
+▷ The site first brewed up in GitPod and then landed in this remote [GitHub repository](https://github.com/mistersouza/cliphub.git).
+
+- And let's talk GIT – the commands that made the magic real.
+    ```bash
+    git status # 👀 Peek at changes or new stuff — your project’s mood board.
+    ```
+    ```bash
+    git add --all # 🎯 Get everything prepped — stage files for the big commit.
+    ```
+    ```bash
+    git commit -m " " # ✅ Seal of approval — commit the changes.
+    ```
+    ```bash
+    git push # 🚀 Grand finale — send it all to GitHub’s master branch. Boom!
+    ```
 ### Heroku 
 
 ▷ After all that hustle, it's time to set this project free in the wild, wild web world. Let it spread its wings and conquer the digital realm! 

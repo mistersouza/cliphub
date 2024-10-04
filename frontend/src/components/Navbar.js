@@ -5,7 +5,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { PiDotsThreeVerticalBold } from 'react-icons/pi';
 import { BiSearch } from 'react-icons/bi';
 import { IoMdAdd } from 'react-icons/io';
-// Dependacies imports
+// Dependencies imports
 import axios from 'axios';
 // Components imports
 import Avatar from './Avatar';
@@ -31,16 +31,12 @@ const Navbar = () => {
       setUser(null);
       navigate('/');
     } catch (error) {
-      console.log('Error loging out', error);
+      console.log('Error logging out', error);
     }
   };
 
   return (
-    <div
-      className="
-        flex justify-between items-center border-b-2 border-gray-200 py-1 px-3
-      "
-    >
+    <div className="flex justify-between items-center border-b-2 border-gray-200 py-1 px-3">
       <Link to="/" aria-label="Back to the homepage - ClipHub">
         <img
           className="w-16 md:w-20 lg:w-28 h-auto mx-auto"
@@ -52,17 +48,17 @@ const Navbar = () => {
       <div className="hidden relative md:block">
         <form
           className="absolute md:static top-10 -left-20 bg-white"
-          onSubmit={(event) => event.preventDefault()}
+          onSubmit={handleSearchSubmit}
         >
           <label htmlFor="search-clips" className="sr-only">
             Search clips
           </label>
           <input
             className="
-            bg-gray-50 p-2 md:text-md font-medium border-2 
-            border-gray-50 focus:outline-none
-            focus:border-gray-300 w-[300px] md:w-[350px] 
-            rounded-full md:top-0
+              bg-gray-50 p-2 md:text-md font-medium border-2 
+              border-gray-50 focus:outline-none
+              focus:border-gray-300 w-[300px] md:w-[350px] 
+              rounded-full md:top-0
             "
             id="search-clips"
             onChange={({ target }) => setQuery(target.value)}
@@ -71,8 +67,8 @@ const Navbar = () => {
           />
           <button
             className="
-            absolute md:right-5 right-6 top-2.5 border-l-2 
-            border-gray-300 pl-4 text-2xl text-gray-400
+              absolute md:right-5 right-6 top-2.5 border-l-2 
+              border-gray-300 pl-4 text-2xl text-gray-400
             "
             aria-label="Search"
             onClick={handleSearchSubmit}
@@ -83,17 +79,18 @@ const Navbar = () => {
       </div>
       {user ? (
         <div className="flex items-center gap-2 md:gap-5">
-          <Link to={'/upload'} aria-label="Upload a new clip" role="button">
-            <button
+          <Link to={'/upload'} aria-label="Upload a new clip">
+            <span
               className="
                 hidden md:flex items-center justify-between bg-transparent text-lg text-gray-800 
                 border border-gray-800 rounded hover:bg-gray-800 hover:text-gray-50
+                cursor-pointer
               "
-              aria-hidden="true"
+              role="button"
             >
               <IoMdAdd className="text-xl" />
               <span className="hidden md:block text-lg pr-1">Upload</span>
-            </button>
+            </span>
           </Link>
           <button
             className="relative"

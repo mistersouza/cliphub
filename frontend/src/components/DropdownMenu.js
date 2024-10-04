@@ -35,7 +35,7 @@ const DropdownMenu = ({ menu, handleDropdownMenu, handleAuth }) => {
                 hover:bg-gray-100 dark:hover:bg-gray-600 
                 dark:hover:text-white           
               "
-              to={''}
+              to={link.to} // Make sure to provide the correct link destination
             >
               {link.name}
               <span className="text-lg">{link.icon}</span>
@@ -45,18 +45,19 @@ const DropdownMenu = ({ menu, handleDropdownMenu, handleAuth }) => {
       </ul>
       {user && (
         <div className="py-2">
-          <button
+          <div
             onClick={handleAuth}
             className="
               flex w-full justify-between items-center px-3 py-2 
               text-sm text-gray-700 hover:bg-gray-100 
               dark:hover:bg-gray-600 dark:text-gray-200 
-              dark:hover:text-white
+              dark:hover:text-white cursor-pointer // Add cursor style for better UX
             "
+            aria-label="Logout"
           >
             Logout
             <AiOutlineLogout className="text-lg" />
-          </button>
+          </div>
         </div>
       )}
     </div>
