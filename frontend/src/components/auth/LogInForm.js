@@ -4,6 +4,7 @@ import { useContext, useState } from 'react';
 import axios from 'axios';
 // Helpers imports
 import { AppContext } from '../../context/AppContext';
+import { setTokenTimestamp } from '../../utils/helpers';
 
 const LogInForm = ({ handleModalClick }) => {
   const { setUser } = useContext(AppContext);
@@ -25,8 +26,8 @@ const LogInForm = ({ handleModalClick }) => {
   const handleLoginSubmit = async (event) => {
     event.preventDefault();
     try {
-      // Send login request
       const { data } = await axios.post('dj-rest-auth/login/', logInData);
+      setTokenTimestamp(data);
       setUser(data.user);
       handleModalClick();
     } catch (error) {

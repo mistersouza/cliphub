@@ -1,10 +1,11 @@
 // React imports
-import { createContext, useEffect, useState, useMemo } from 'react';
+import { createContext, useEffect, useState } from 'react';
 // Dependacies imports
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 // Helpes imports
 import { axiosRequest, axiosResponse } from '../api/axiosDefaults';
+import { removeTokenTimestamp, shouldRefreshToken } from '../utils/helpers';
 
 const AppContext = createContext();
 
@@ -95,49 +96,54 @@ const AppProvider = ({ children }) => {
     })();
   }, []);
 
-  useMemo(() => {
-    axiosRequest.interceptors.request.use(
+  useEffect(() => {
+    const requestInterceptor = axiosRequest.interceptors.request.use(
       async (config) => {
-        try {
-          await axios.post('dj-rest-auth/token/refresh/');
-        } catch (err) {
-          setUser((prevUser) => {
-            if (prevUser) {
-              navigate('/signin');
-            }
-            return null;
-          });
-          return config;
-        }
-        return config;
-      },
-      (err) => {
-        return Promise.reject(err);
-      }
-    );
-
-    axiosResponse.interceptors.response.use(
-      (response) => response,
-      async (err) => {
-        if (err.response?.status === 401) {
+        if (shouldRefreshToken()) {
           try {
-            // Attempt to refresh the token
             await axios.post('dj-rest-auth/token/refresh/');
-            // Retry the original request
-            return axios(err.config);
-          } catch (error) {
-            // If refreshing the token fails, log out the user
+          } catch (err) {
             setUser((prevUser) => {
               if (prevUser) {
                 navigate('/signin');
               }
               return null;
             });
+            return config;
+          }
+          removeTokenTimestamp();
+        }
+        return config;
+      },
+      (err) => Promise.reject(err)
+    );
+
+    const responseInterceptor = axiosResponse.interceptors.response.use(
+      (response) => response,
+      async (err) => {
+        if (err.response?.status === 401) {
+          try {
+            await axios.post('dj-rest-auth/token/refresh/');
+            return axios(err.config);
+          } catch (error) {
+            setUser((prevUser) => {
+              if (prevUser) {
+                navigate('/signin');
+              }
+              return null;
+            });
+            removeTokenTimestamp();
           }
         }
         return Promise.reject(err);
       }
     );
+
+    // Remove interceptors when component unmounts
+    return () => {
+      axiosRequest.interceptors.request.eject(requestInterceptor);
+      axiosResponse.interceptors.response.eject(responseInterceptor);
+    };
   }, [navigate]);
 
   const context = {
