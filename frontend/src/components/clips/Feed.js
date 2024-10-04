@@ -13,12 +13,6 @@ const Feed = ({ filter = '' }) => {
   // Debouce API Calls
   const debouncedQuery = useDebounce(query, 500);
 
-  const url = useMemo(() => {
-    let baseUrl = `clips/?${filter}`;
-    if (debouncedQuery) baseUrl += `search=${query}`;
-    return baseUrl;
-  }, [filter, debouncedQuery]);
-
   const featuredClips = useMemo(
     () => clips.results?.map((clip) => <ClipCard key={clip.id} clip={clip} />),
     [clips.results]
@@ -26,15 +20,17 @@ const Feed = ({ filter = '' }) => {
 
   useEffect(() => {
     (async () => {
+      let url = `clips/?${filter}`;
+      if (debouncedQuery) url += `search=${query}`;
+
       try {
         const { data } = await axiosRequest.get(url);
         setClips(data);
-        // console.log('Clips list', data);
       } catch (error) {
         console.error('Error fetching clips', error);
       }
     })();
-  }, [filter, query]);
+  }, [filter, debouncedQuery]);
 
   return (
     <div className="flex flex-col gap-10 h-full w-full overflow-auto scrollbar-hide">
