@@ -1,7 +1,7 @@
 from django.contrib import admin
 from django.urls import path, include
 from django.views.generic import TemplateView
-from .views import logout_route, root_route
+from .views import logout_route
 
 urlpatterns = [
     path('', TemplateView.as_view(template_name='index.html')),
@@ -14,7 +14,7 @@ urlpatterns = [
         include('dj_rest_auth.registration.urls')
     ),
     path('api/', include('clips.urls')), 
-    path('api/', include('comments.urls')), 
+    path('api/', include('comments.urls')),
     path('api/', include('flags.urls')), 
     path('api/', include('followers.urls')),
     path('api/', include('likes.urls')),
