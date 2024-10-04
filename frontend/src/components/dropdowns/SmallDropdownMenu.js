@@ -17,7 +17,7 @@ const SmallDropdownMenu = ({
       await axiosResponse.post(`flag/clip/${id}/`, { reason });
       // if (status === 201) console.log('Clip flagged', reason);
     } catch (error) {
-      console.log('Failed flagging clip', error);
+      console.error('Failed flagging clip', error);
     }
   };
 
@@ -27,7 +27,7 @@ const SmallDropdownMenu = ({
         const { data } = await axiosResponse.get('flag/reasons/');
         setReasons(data.reasons);
       } catch (error) {
-        console.log('Error fetching reasons', error);
+        console.error('Error fetching reasons', error);
       }
     })();
   }, []);
