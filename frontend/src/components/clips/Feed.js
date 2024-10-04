@@ -25,16 +25,15 @@ const Feed = ({ filter = '' }) => {
   );
 
   useEffect(() => {
-    const fetchData = async () => {
+    (async () => {
       try {
         const { data } = await axiosRequest.get(url);
         setClips(data);
         // console.log('Clips list', data);
       } catch (error) {
-        console.log(error);
+        console.error('Error fetching clips', error);
       }
-    };
-    fetchData();
+    })();
   }, [filter, query]);
 
   return (
