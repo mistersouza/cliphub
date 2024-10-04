@@ -29,6 +29,7 @@ const ClipPreview = ({ clip }) => {
           ref={clipRef}
           className="w-full max-w-[200px] h-full object-cover rounded"
           loop
+          preload={'auto'}
         >
           <source src={clip.clip} type="video/mp4" />
           Your browser does not support video tags :/

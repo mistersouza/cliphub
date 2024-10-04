@@ -208,6 +208,7 @@ const ClipDetail = () => {
               onClick={handlePlaybackClick}
               src={clip.clip}
               aria-hidden="true"
+              preload={'auto'}
             />
           </div>
           <div className="absolute top-[30%] md:top-28 lg:top-36 right-3 cursor-pointer">
