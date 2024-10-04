@@ -42,11 +42,11 @@ const Modal = ({ modal, handleModalClick }) => {
         </div>
         <div className="text-xs text-gray-500 text-center p-2">
           <p>
-            By continuing, you agree to cliphub`&apos;`s{' '}
+            By continuing, you agree to cliphub&apos;s{' '}
             <span className="text-gray-800 underline cursor-pointer">
               Terms of Service
             </span>{' '}
-            and confirm that you have read cliphub`&apos;`s{' '}
+            and confirm that you have read cliphub&apos;s{' '}
             <span className="text-gray-800 underline cursor-pointer">
               Privacy Policy
             </span>
