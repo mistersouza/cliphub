@@ -27,12 +27,16 @@ const LogInForm = ({ handleModalClick }) => {
     event.preventDefault();
     try {
       const { data } = await axios.post('dj-rest-auth/login/', logInData);
-      console.log('Login data', data);
       setTokenTimestamp(data);
       setUser(data.user);
       handleModalClick();
     } catch (error) {
-      setErrors(error?.response.data);
+      const { status, data: fieldError } = error.response;
+      if (status === 400) setErrors(fieldError);
+      if (status !== 400)
+        setErrors({
+          detail: 'Something went wrong :/ Please try again later.',
+        });
     }
   };
 

@@ -158,7 +158,7 @@ const ClipDetail = () => {
         }));
         setIsViewed(true);
       } catch (error) {
-        console.log('Error incrementing views', error);
+        console.error('Error incrementing views', error);
       }
     }
   };
@@ -168,7 +168,7 @@ const ClipDetail = () => {
       const { status } = await axiosRequest.delete(`clips/${id}/`);
       if (status === 204) navigate(-1);
     } catch (error) {
-      console.log('Error deleting clip', error);
+      console.error('Error deleting clip', error);
     }
   };
 

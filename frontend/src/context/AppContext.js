@@ -82,7 +82,7 @@ const AppProvider = ({ children }) => {
         const { data } = await axiosResponse.get('dj-rest-auth/user/');
         setUser(data);
       } catch (error) {
-        console.log('Error fetching user:', error);
+        console.error('Error fetching user:', error);
       }
       try {
         const { data: profiles } = await axiosRequest.get('profiles/');

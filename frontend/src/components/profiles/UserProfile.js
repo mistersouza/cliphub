@@ -43,7 +43,7 @@ const UserProfile = () => {
           setProfileClips(likedClips);
         }
       } catch (error) {
-        console.log('Error fetching user profile:', error);
+        console.error('Error fetching user profile:', error);
       }
     })();
   }, [id, tab]);
