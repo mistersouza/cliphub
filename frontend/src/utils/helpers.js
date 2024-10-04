@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from 'react';
+import { jwtDecode } from 'jwt-decode';
 
 /**
  * Custom hook to manage the display state of any component.
@@ -22,7 +23,6 @@ const useDisplay = (initialState = false) => {
  * @param {Function} handler
  * @returns {Object} The ref object
  */
-
 const useClickAway = (handler) => {
   const ref = useRef(null);
 
@@ -38,6 +38,7 @@ const useClickAway = (handler) => {
 
   return ref;
 };
+
 /**
  * Custom hook that debounces a value after the specified delay.
  * @param {any} value - The value to be debounced.
@@ -57,4 +58,37 @@ const useDebounce = (value, delay) => {
   return debouncedValue;
 };
 
-export { useDisplay, useClickAway, useDebounce };
+/**
+ * Stores the expiration timestamp of the JWT refresh token in local storage.
+ * @param {Object} data - The data containing the JWT refresh token.
+ * @param {string} data.refresh_token - The refresh token to decode.
+ */
+const setTokenTimestamp = (data) => {
+  if (data?.refresh_token) {
+    const refreshTokenTimestamp = jwtDecode(data.refresh_token).exp;
+    localStorage.setItem('refreshTokenTimestamp', refreshTokenTimestamp);
+  }
+};
+
+/**
+ * Checks if a refresh token timestamp exists in local storage.
+ * @returns {boolean} - Returns true if the refresh token timestamp exists,
+ *                      otherwise false.
+ */
+const shouldRefreshToken = () =>
+  Boolean(localStorage.getItem('refreshTokenTimestamp'));
+
+/**
+ * Removes the refresh token timestamp from local storage.
+ */
+const removeTokenTimestamp = () =>
+  localStorage.removeItem('refreshTokenTimestamp');
+
+export {
+  useDisplay,
+  useClickAway,
+  useDebounce,
+  setTokenTimestamp,
+  shouldRefreshToken,
+  removeTokenTimestamp,
+};
