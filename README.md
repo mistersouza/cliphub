@@ -81,18 +81,6 @@ Each user story is translated into GitHub issues, which are attached to the [pro
 ![Navbar - loggedout](https://github.com/mistersouza/cliphub/blob/main/frontend/src/assets/images/cliphub_loggedout.png)
 ![Navbar - loggedout dropdown](https://github.com/mistersouza/cliphub/blob/main/frontend/src/assets/images/cliphub_loggeout-dropdown.png)
 
-- Hero
-    - __Header Display:__ 
-    - __Conditional Content:__ 
-    - __Search Bar:__ 
-    - __Page Title:__ 
-
-![Hero - Home]()
-![Hero - Items]()
-
-- Footer
-    - A standard footer section with dark background styling and padding to ensure visual consistency.
-
 ### Home
 
 ![Home](https://github.com/mistersouza/cliphub/blob/main/frontend/src/assets/images/cliphub_home.png)
@@ -111,13 +99,9 @@ Each user story is translated into GitHub issues, which are attached to the [pro
 - __Explore & Engage:__ Dive into individual clips by clicking on them, which opens up the detailed view. Each clip is beautifully presented with controls to engage, watch, and interact.
 - __Log in and out:__ To fully engage with ClipHub, you'll need to sign in. This ensures a personalized experience and secure management of your uploads and interactions. Log in or create an account to get started
 
-The layout is both functional and stylish, ensuring you can focus on what matters—enjoying learning new things 🎥
+The layout is both functional and stylish, ensuring you can focus on what matters—enjoying enjoying all things beuatiful 🎥
 
-
-### All in
-
-▷ 
-![All Items]()
+![sidbar](https://github.com/mistersouza/cliphub/blob/main/frontend/src/assets/images/cliphub_sidebar.png)
 
 ### The devil's in the details
 
@@ -161,15 +145,6 @@ The layout is both functional and stylish, ensuring you can focus on what matter
 - __likes:__ Your quick nod of approval
 - __profiles:__ Your digital identity, front and center
 
-▷ To keep this smooth ride even more epic, we've equipped ClipHub with some essential tools. On the front-end, we’re powered by:
-
-- __React:__ The framework that makes our app dynamic and interactive.
-- __React Router:__ Enabling seamless navigation throughout the application.
-- __Axios:__ For effortless API communication.
-- __Tailwind CSS:__ Crafting a slick and responsive UI.
-- __React Icons:__ Adding that extra flair to our interface.
-- __JWT Decode:__ Keeping things secure under the hood.
-
 ▷ And to make this journey even smoother, we've got some powerful Django packages on the backend:
 
 - __cloudinary:__ Handling seamless media uploads.
@@ -183,15 +158,12 @@ The layout is both functional and stylish, ensuring you can focus on what matter
 
 ## Coming Soon: The Cool Features!
 
-▷ We're cooking up some cool stuff! Currently in the code lab, we've got some features brewing as we speak. And that's not all! Our UX exploration is uncovering needs and desires, fueling the fire for even more awesome things to come. Right now, our focus is on bringing to life:
+▷ While ClipHub is fully functional, we're dedicated to elevating the user experience even further. Our team is hard at work, focusing on improvements and rolling out exciting new features. Here’s what we have cooking in the code lab:
 
-- __About Page:__ 
-- __Store:__ 
-- __Inbox:__ 
-- __Ratings:__ 
-- __Reviews:__ 
-- __Cart:__ 
-- __Payment:__ 
+- __Profile Customization:__ Personalize your profile to showcase your unique style and interests.
+- __Share Clips:__ Easily share your favorite clips across various social media platforms.
+- __Inbox:__ A seamless messaging feature for enhanced communication.
+- __Trending Section:__ Discover the hottest clips trending within the community.
 
 ## Testing
 
@@ -210,6 +182,7 @@ All the tests in one [place](testing.md)
 ### Framework used and abused
 
 - [Django](https://www.djangoproject.com/). The web wizard behind this project's magic. It's the sleek toolkit that makes building powerful and secure websites a breeze.
+- [React](https://react.dev/). The engine behind our interactive vibes! This slick library powers our UI, making it easy to create stunning, responsive experiences that keep you engaged.
 
 ### Storage trusted
 
@@ -222,8 +195,11 @@ All the tests in one [place](testing.md)
 
 ### Libraries
 
-- [Bootstrap](). The hero behind our site's responsive design, stylish elements, and navbar magic.
-- [Font Awesome](https://fontawesome.com/). The secret sauce sprinkled across our site, giving every element that visual edge with its array of icons.
+- [React Router](https://reactrouter.com/en/main).The master navigator, guiding you through ClipHub's dynamic landscape with seamless transitions.
+- [React Icons](https://react-icons.github.io/react-icons/).The style enhancer, adding that extra flair to our interface with a delightful array of icons.
+- [Tailwind CSS](https://tailwindcss.com/). The design magician, conjuring up a sleek and responsive UI that dazzles on every screen.
+- [Axios](https://axios-http.com/). The communication wizard, ensuring our app connects effortlessly to APIs without breaking a sweat.
+- [JWT Decode](https://github.com/auth0/jwt-decode). The security sentinel, working behind the scenes to keep your data safe and sound.
 - [Google Fonts](https://fonts.google.com/). Working its magic with the Roboto font family, giving our site that unique typography and unmistakable flair.
 
 ## Toolbox Essentials
@@ -426,7 +402,7 @@ All the tests in one [place](testing.md)
 - Started fresh on Heroku and gave our app a European vibe.
 - Swiped right for GitHub as our deployment wingman.
 - Dropped in some super-secret config vars for that behind-the-scenes magic. Check out the cool settings
-![Config Vars](https://github.com/mistersouza/localle/blob/main/static/assets/images/localle_heroku-vars.png)
+![Config Vars](https://github.com/mistersouza/localle/blob/main/static/assets/images/cliphub_heroku-vars.png)
 - Finally hit that deploy button and let the awesomeness unfold
 
 ## Big Ups
@@ -436,7 +412,6 @@ All the tests in one [place](testing.md)
 ### Bits 'n' Bobs 
 
 - I've scavenged all the beautiful free images and pictures from [Unsplash](https://unsplash.com/)
-- I got this project rolling with a boost from [Start Bootstrap](https://startbootstrap.com/)
 
 ### Borrowed Brilliance
 
