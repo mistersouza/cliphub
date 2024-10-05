@@ -76,10 +76,10 @@ Each user story is translated into GitHub issues, which are attached to the [pro
     - __User-Friendly Touch:__ A clean design with a search bar for quick access to clips and a visually appealing avatar for profile access.
     - __One-Click Wonders:__ Quick actions like uploading clips and toggling authentication options with just a click.
 
-![Navbar - loggedout](https://github.com/mistersouza/cliphub/blob/main/frontend/src/assets/images/cliphub_loggedout.png)
-![Navbar- loggeddout dropdown](https://github.com/mistersouza/cliphub/blob/main/frontend/src/assets/images/cliphub_loggedout-dropdown.png)
 ![Navbar - loggedin](https://github.com/mistersouza/cliphub/blob/main/frontend/src/assets/images/cliphub_loggedin.png)
-![Navbar loggedin dropdown](https://github.com/mistersouza/cliphub/blob/main/frontend/src/assets/images/cliphub_loggedin-dropdown.png)
+![Navbar - loggedin dropdown](https://github.com/mistersouza/cliphub/blob/main/frontend/src/assets/images/cliphub_loggedin-dropdown.png)
+![Navbar - loggedout](https://github.com/mistersouza/cliphub/blob/main/frontend/src/assets/images/cliphub_loggedout.png)
+![Navbar dropdown](https://github.com/mistersouza/cliphub/blob/main/frontend/src/assets/images/cliphub_dropdown.png)
 
 - Hero
     - __Header Display:__ 
