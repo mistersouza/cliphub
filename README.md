@@ -402,7 +402,7 @@ All the tests in one [place](testing.md)
 - Started fresh on Heroku and gave our app a European vibe.
 - Swiped right for GitHub as our deployment wingman.
 - Dropped in some super-secret config vars for that behind-the-scenes magic. Check out the cool settings
-![Config Vars](https://github.com/mistersouza/localle/blob/main/static/assets/images/cliphub_heroku-vars.png)
+![Config Vars](https://github.com/mistersouza/cliphub/blob/main/frontend/src/assets/images/cliphub_heroku-vars.png)
 - Finally hit that deploy button and let the awesomeness unfold
 
 ## Big Ups
@@ -415,8 +415,7 @@ All the tests in one [place](testing.md)
 
 ### Borrowed Brilliance
 
-- Code With Stein [Online Marketplace]()
-- Code Institute's [I Think Therefore I Blog ]()
+- Code Institute's [moments](https://github.com/mr-fibonacci/moments/tree/bb6657e265fb18360b841e10d9d633dad06f4e5c)
 
 ### Supercharged Support
 
