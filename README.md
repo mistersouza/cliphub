@@ -141,28 +141,39 @@ The layout is both functional and stylish, ensuring you can focus on what matter
 
 ### Access Granted: Let's Dive In
 
-- Alright, here's the backstage pass: We're rocking the show with allauth for login/register magic.
-![AuthModal - new user](https://github.com/mistersouza/cliphub/blob/main/frontend/src/assets/images/cliphub-signup.png)
-![AuthModal - log in](https://github.com/mistersouza/cliphub/blob/main/frontend/src/assets/images/cliphub-login.png)
-- Our 🔑 tokens make sure only the right folks access the right stuff. Secure, seamless, and always behind the scenes.
+- Alright, here's the backstage pass: We're rocking the show with allauth for login/register magic.Our 🔑 tokens make sure only the right folks access the right stuff. Secure, seamless, and always behind the scenes.
+
+![AuthModal - new user](https://github.com/mistersouza/cliphub/blob/main/frontend/src/assets/images/cliphub_signup.png)
+![AuthModal - log in](https://github.com/mistersouza/cliphub/blob/main/frontend/src/assets/images/cliphub_login.png)
 
 ![Navbar - loggedin]()
 ![Navbar - loggedout]()
 
-## Django Squad: Apps & Cool Stuf
+## Django & React Squad: Apps & Cool Stuf
 
-▷ Alright, localle )) is a cool mix of three Django applications:
+▷ Alright, ClipHub is a slick fusion of Django applications, each bringing its own magic:
 
-- __core:__ The heart of it all
-- __inventory:__ Stocked and loaded
-- __store:__ Your one-stop shop
+- __core:__ The powerhouse that keeps it all running
+- __clips:__ Your curated library of knowledge, always ready to roll
+- __comments:__ Where conversations come to life
+- __flags:__ Keeping things clean and in check
+- __followers:__ Building the crowd, one fan at a time
+- __likes:__ Your quick nod of approval
+- __profiles:__ Your digital identity, front and center
 
-▷ And to make this awesome ride even smoother, we've got some handy Django packages on board:
+▷ To keep this smooth ride even more epic, we've equipped ClipHub with some essential tools. On the front-end, we’re powered by:
 
-- __crispy_forms:__ 
-- __crispy_bootstrap5:__ 
-- __cloudinary__ 
-- __allauth:__ 
+- __React:__ The framework that makes our app dynamic and interactive.
+- __React Router:__ Enabling seamless navigation throughout the application.
+- __Axios:__ For effortless API communication.
+- __Tailwind CSS:__ Crafting a slick and responsive UI.
+- __React Icons:__ Adding that extra flair to our interface.
+- __JWT Decode:__ Keeping things secure under the hood.
+
+▷ And to make this journey even smoother, we've got some powerful Django packages on the backend:
+
+- __cloudinary:__ Handling seamless media uploads.
+- __allauth:__ Managing authentication with ease.
 
 ## Inside the Data Universe 
 
