@@ -38,37 +38,11 @@ Ready to embark on this visual journey? Check it out live [here.](https://cliphu
 🌿 Mindful Viewers 
 🌍 Cultural Aficionados 
 
-### User Stories
+### Methodology in Motion 
 
-▷ These user stories, requirements, and features? They're the plot twists in our website's grand narrative, guaranteeing a wild ride for our incredible users. And that's not all! We're just getting started. As our user squad grows, we'll keep weaving in more tales to keep the adventure alive and kicking.
+▷ Our user stories, requirements, and features are the plot twists in the grand narrative of our website, driving an exciting journey for our users. In line with Agile methodologies, our course facilitator and tutor take on the honor of serving as our Scrum Masters. We've embraced both physical Kanban boards at home and Asana for managing and tracking progress, ensuring continuous improvement and delivery.
 
-- __User Registration:__ 
-
-- __Product Listing:__ 
-
-- __Search Functionality:__ 
-
-- __Secure Payment:__ 
-
-- __User Profiles:__ 
-
-- __Review and Ratings:__ 
-
-- __Responsive Design:__ 
-
-- __Seller Dashboard:__ 
-
-- __Feedback Mechanism:__ 
-
-- __Geolocation Services:__ 
-
-- __Wishlist and Favorites:__ 
-
-- __Integration with Social Media:__ 
-
-- __Seller Verification:__ 
-
-- __Customer Support:__ 
+Each user story is translated into GitHub issues, which are attached to the [project's repository](https://github.com/users/mistersouza/projects/5/views/1). This combination of physical and digital tools keeps the development cycle dynamic and transparent, ensuring we stay on track and sync. And the adventure? It's just getting started! As our user base grows, we'll keep weaving in new features and stories to keep the experience fresh, engaging, and always improving.
 
 ### Wireframes
 
