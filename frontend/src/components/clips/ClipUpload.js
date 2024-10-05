@@ -72,7 +72,7 @@ const ClipUpload = () => {
 
   return (
     <div
-      className="flex justify-center h-full w-full absolute top-[60]
+      className="flex justify-center h-full w-full absolute top-[60px]
       left-0 pt-10 lg:pt-20 bg-gray-200 mb-10"
     >
       <form
