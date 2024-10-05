@@ -5,13 +5,9 @@ Back to [README.md](README.md)
 ## Validation
 
 ### HTML
-|Page|Validator|Result|
-| --- | --- | --- |
-| Home |![home](https://github.com/mistersouza/localle/blob/main/static/assets/images/localle_validator-html-home.png) | ✅ |
-| Clip Details |![All items](https://github.com/mistersouza/localle/blob/main/static/assets/images/localle_validador-html-items.png) | ✅ |
-| Upload Clip |![Item](https://github.com/mistersouza/localle/blob/main/static/assets/images/localle_validator-html-item.png) | ✅ |
-| Log In |![Log In](https://github.com/mistersouza/localle/blob/main/static/assets/images/localle_validator-html-login.png) | ✅ |
-| Sign Up |![Sign Up](https://github.com/mistersouza/localle/blob/main/static/assets/images/localle_validator-html-signup.png) | ✅ |
+
+- True, I’ve decided to sidestep some 'info' on the trail forward for the sake of clean code style and consistency. As my Russian friend once said, "if the code isn't sleek, the app doesn't run smoothly". 
+    [![Error free HTML](https://github.com/mistersouza/cliphub/blob/main/frontend/src/assets/images/cliphub_html-check)(https://validator.w3.org/nu/?doc=https%3A%2F%2Fcliphub-af0e79d881e5.herokuapp.com%2Fclips%2F6)]
 
 ### CSS
 
