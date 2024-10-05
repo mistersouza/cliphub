@@ -15,9 +15,9 @@ Back to [README.md](README.md)
 
 ### CSS
 
-▷ While the live site's running smooth without any noticeable glitches, I'm wrestling with Bootstrap 5 variables to make them play nice with the CSS validation engine. It's a bit of a challenge, but I'm diving in to crack the code
+- W3C CSS Validator – The Style Check. See for yourself, just hit the button below
 
-Test Results CSS ❌
+    [![Valid CSS!](https://jigsaw.w3.org/css-validator/images/vcss-blue)](https://jigsaw.w3.org/css-validator/validator?uri=https://cliphub-af0e79d881e5.herokuapp.com/)
 
 ### JavaScript
 
