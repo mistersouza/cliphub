@@ -71,14 +71,14 @@ Each user story is translated into GitHub issues, which are attached to the [pro
 ### Across the Whole Site
 
 - Navbar
-    - __Navigation:__ 
-    - __Menus:__ 
-    - __User-Friendly Touch:__ 
-    - __One-Click Wonders:__ 
+    - __Navigation:__ Seamless links to key areas of the platform, including the homepage and upload section.
+    - __Menus:__  Intuitive dropdown menus for user options, enhancing accessibility and user interaction.
+    - __User-Friendly Touch:__ A clean design with a search bar for quick access to clips and a visually appealing avatar for profile access.
+    - __One-Click Wonders:__ Quick actions like uploading clips and toggling authentication options with just a click.
 
-![Navbar - loggedin]()
-![Navbar - loggedout]()
-![Navbar dropdown]()
+![Navbar - loggedin](https://github.com/mistersouza/cliphub/blob/main/frontend/src/assets/images/cliphub_loggedin.png)
+![Navbar - loggedout](https://github.com/mistersouza/cliphub/blob/main/frontend/src/assets/images/cliphub_loggedout.png)
+![Navbar dropdown](https://github.com/mistersouza/cliphub/blob/main/frontend/src/assets/images/cliphub_dropdown.png)
 
 - Hero
     - __Header Display:__ 
