@@ -79,7 +79,7 @@ Each user story is translated into GitHub issues, which are attached to the [pro
 ![Navbar - loggedin](https://github.com/mistersouza/cliphub/blob/main/frontend/src/assets/images/cliphub_loggedin.png)
 ![Navbar - loggedin dropdown](https://github.com/mistersouza/cliphub/blob/main/frontend/src/assets/images/cliphub_loggedin-dropdown.png)
 ![Navbar - loggedout](https://github.com/mistersouza/cliphub/blob/main/frontend/src/assets/images/cliphub_loggedout.png)
-![Navbar dropdown](https://github.com/mistersouza/cliphub/blob/main/frontend/src/assets/images/cliphub_dropdown.png)
+![Navbar - loggedout dropdown](https://github.com/mistersouza/cliphub/blob/main/frontend/src/assets/images/cliphub_loggeout-dropdown.png)
 
 - Hero
     - __Header Display:__ 
