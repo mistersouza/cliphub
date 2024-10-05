@@ -419,8 +419,8 @@ All the tests in one [place](testing.md)
 
 ### Supercharged Support
 
-- David Calikes, Code Institute Cohort Facilitator.
-  - Positive and Uplifting. David's Always available and boosts my confidence everytime we chat.
+- Kristyna Wach, Code Institute Cohort Facilitator.
+  - Positive and Uplifting. Kristyna's Always available and boosts my confidence everytime we chat.
 - Oluwafemi Medale, Code Institute Mentor.
   - Bugs terminator. He always make times, when there's no time at all.
 - Chat GPT, Mister know it all.

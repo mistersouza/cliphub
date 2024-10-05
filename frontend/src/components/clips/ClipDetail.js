@@ -43,8 +43,9 @@ const ClipDetail = () => {
   useEffect(() => {
     (async () => {
       try {
-        const { data } = await axiosRequest.get(`clips/${id}`);
+        const { data } = await axiosRequest.get(`clips/${id}/`);
         setClip(data);
+        console.log('clip data', data);
         setIsLiked(Boolean(data.like_id));
       } catch (error) {
         console.error(error);

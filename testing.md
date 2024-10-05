@@ -8,9 +8,8 @@ Back to [README.md](README.md)
 |Page|Validator|Result|
 | --- | --- | --- |
 | Home |![home](https://github.com/mistersouza/localle/blob/main/static/assets/images/localle_validator-html-home.png) | ✅ |
-| All Items |![All items](https://github.com/mistersouza/localle/blob/main/static/assets/images/localle_validador-html-items.png) | ✅ |
-| Item |![Item](https://github.com/mistersouza/localle/blob/main/static/assets/images/localle_validator-html-item.png) | ✅ |
-| Add & Edit Item |![Create Listing](https://github.com/mistersouza/localle/blob/main/static/assets/images/localle_validator-html-add.png) | ✅ |
+| Clip Details |![All items](https://github.com/mistersouza/localle/blob/main/static/assets/images/localle_validador-html-items.png) | ✅ |
+| Upload Clip |![Item](https://github.com/mistersouza/localle/blob/main/static/assets/images/localle_validator-html-item.png) | ✅ |
 | Log In |![Log In](https://github.com/mistersouza/localle/blob/main/static/assets/images/localle_validator-html-login.png) | ✅ |
 | Sign Up |![Sign Up](https://github.com/mistersouza/localle/blob/main/static/assets/images/localle_validator-html-signup.png) | ✅ |
 
@@ -30,7 +29,7 @@ Test Results CSS ❌
 
 |Browser|Result|Pass/Fail|Notes|
 | --- | --- | --- | ---|
-| Google Chrome | All pages, load as expected. All features work as expected | ✅ | God bless Bootstrap |
+| Google Chrome | All pages, load as expected. All features work as expected | ✅ | God bless Tailwinds |
 | Firefox | All pages, load as expected. All features work as expected | ✅ | Amen |
 
 
@@ -40,9 +39,8 @@ Test Results CSS ❌
 
 |Page|Validator|Result|
 | --- | --- | --- |
-| Home |![home](https://github.com/mistersouza/localle/blob/main/static/assets/images/localle_validator-lighthouse-home.png) | ⚠️ |
-| All Items |![Items](https://github.com/mistersouza/localle/blob/main/static/assets/imageslocalle_validator-lighthouse-items.png/) | ⚠️ |
-| Item |![Item](https://github.com/mistersouza/localle/blob/main/static/assets/images/localle_validator-lighthouse-item.png) | ⚠️ |
+| home |![home](https://github.com/mistersouza/localle/blob/main/static/assets/images/localle_validator-lighthouse-home.png) | ⚠️ |
+| Clip Details |![Items](https://github.com/mistersouza/localle/blob/main/static/assets/imageslocalle_validator-lighthouse-items.png/) | ✅ |
 | Sign up |![Sign up](https://github.com/mistersouza/localle/blob/main/static/assets/images/localle_validator-lighthouse-signup.png) | ✅ |
 | Login |![Sign up](https://github.com/mistersouza/localle/blob/main/static/assets/images/localle_validator-lighthouse-login.png) | ✅ |
 
@@ -62,20 +60,19 @@ Test Results CSS ❌
 |Navbar|Click on Log Out |Log user out, redirect to Home|Pass|Navbar present on all pages |
 |Banner|Open Home page. Ensure the banner loads|Hero section loads as it should |Pass| |
 |Navbar| Click add icon. Ensure the details displayed add item form |Link works and form is displayed alright |Pass| |
-||Open the Create Listing page and create a listing. Ensure it shows as first in the most recent listings section |The added listing is displayed as most recent |Pass| |
+||Search listings by a combination of filters. Ensure the results displayed are accurate with the search filters|All search results match the search criteria |Pass| |
 |Item Card| Click on the item card. Ensure it redirects to the correct item page |When clicked each card redirects to the correct item page |Pass| |
 || Click on the item card. Ensure it redirects to the correct single listing page |When clicked each card button redirects to the correct single listing page |Pass| |
 |Footer|Ensure each one opens the correct page in a new tab | |Pass| |
 
-- Items Page 
+- Sidebar 
 
 |Section|Test Action|Expected Result|Pass/Fail|Comments|
 | ---| ---| ---| ---| ---|
-||Search listings by a combination of filters. Ensure the results displayed are accurate with the search filters|All search results match the search criteria |Pass| |
-|Categories| Show as they should | They do indeed |Pass| |
-|Categories|Click on all of the categories. Ensure they redirect to the appropriate page displaying only the search results. |All links redirect to the correct page displaying the correct results. |Pass| |
+|Topics| Show as they should | They do indeed |Pass| |
+|Topics|Click on all of the categories. Ensure they redirect to the appropriate page displaying only the search results. |All links redirect to the correct page displaying the correct results. |Pass| |
 
-- Item
+- Clip details
 
 |Section|Test Action|Expected Result|Pass/Fail|Comments|
 | ---| ---| ---| ---| ---|
@@ -92,7 +89,7 @@ Test Results CSS ❌
 ||Fill all fields with correct data but one. Click send a message. Ensure the form is not submitted and an appropriate message is displayed. Repeat for all fields. |Form did not submit, the appropriate message was displayed|Pass||
 |Description|Scroll to the description section. Ensure the accurate description is displayed |The accurate description is displayed|Pass||
 
-- Adding Item
+- Uploading clip
 
 |Section|Test Action|Expected Result|Pass/Fail|Comments|
 | ---| ---| ---| ---| ---|
@@ -100,14 +97,6 @@ Test Results CSS ❌
 ||Click on each drop down field to ensure correct options are displayed|Correct options are displayed|Pass||
 ||Fill all fields with correct data in the expected format. Click Submit. Ensure the listing was created by: 1. checking for flash message, 2. Go to Home page and find the card with the new item |When submitted success flash message is presented. The new listing card appears on the home page's recent listings|Pass||
 ||Fill all fields with correct data but one. Click Submit. Ensure the form does not submit and appropriate message is displayed. Repeat for all fields. |Form did not submit, appropriate message was displayed|Pass||
-
-- Editing Item
-
-|Section|Test Action|Expected Result|Pass/Fail|Comments|
-| ---| ---| ---| ---| ---|
-|Form|||Pass|Tested at create item|
-||Open edit item form. Ensure the form is populated with the correct item's details|The form is populated with the correct item's details|Pass||
-
 
 - Delete item
 
@@ -121,7 +110,7 @@ Test Results CSS ❌
 
 |Section|Test Action|Expected Result|Pass/Fail|Comments|
 | ---| ---| ---| ---| ---|
-|Form|Fill all fields with correct data in the expected format. Click Sign In. Ensure Flash message appears and the user is redirected to the home page. To ensure the user is logged in: Open developer tools and navigate to application. On the side select cookies and check for sessionid being added. |When submitted success flash message is presented, the user is redirected to the home page. Sessionid is added to the cookies|Pass||
+|Form|Fill all fields with correct data in the expected format. Click Sign In. Ensure Flash message appears and the user is redirected to the home page. To ensure the user is logged in: Open developer tools and navigate to application. On the side select cookies and check for sessionid being added. |When submitted success flash message is presented, the user is redirected to the home page. Tokenid is added to the cookies|Pass||
 | | Fill in the form with incorrect details. Ensure the user is not logged in and flash message appears| Flash message appears in red letting the user know they have entered incorrect details. The user is not signed in| Pass| |
 | | Click on the forgot password link. ensure it redirects to the reset password page.| The user is redirected to the reset password page| Pass| |
 | | Click on the register here link. ensure it redirects to sign up page.| The user is redirected to the sign up page|Fail| I'm currently dedicated to ensuring the accurate display of a particular message.|
