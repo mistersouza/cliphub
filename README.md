@@ -58,9 +58,9 @@ Each user story is translated into GitHub issues, which are attached to the [pro
 
 ### Typography
 
-▷ Right now, we're rolling with Robobo's sassiness, but I'm on a mission to amp up our site's style and user experience. I'm diving into font choices that vibe perfectly with our design and audience.
+▷ Right now, we’re embracing Robobo's flair, but I'm on a mission to elevate our site’s style and user experience. I’m exploring font options that resonate with our design and audience for a more cohesive look.
 
-![Roboto]()
+![Roboto](https://github.com/mistersouza/cliphub/blob/main/frontend/src/assets/images/cliphub_font.png)
 
 ## Up Next: What's in Store!
 
@@ -76,6 +76,8 @@ Each user story is translated into GitHub issues, which are attached to the [pro
     - __User-Friendly Touch:__ 
     - __One-Click Wonders:__ 
 
+![Navbar - loggedin]()
+![Navbar - loggedout]()
 ![Navbar dropdown]()
 
 - Hero
@@ -145,9 +147,6 @@ The layout is both functional and stylish, ensuring you can focus on what matter
 
 ![AuthModal - new user](https://github.com/mistersouza/cliphub/blob/main/frontend/src/assets/images/cliphub_signup.png)
 ![AuthModal - log in](https://github.com/mistersouza/cliphub/blob/main/frontend/src/assets/images/cliphub_login.png)
-
-![Navbar - loggedin]()
-![Navbar - loggedout]()
 
 ## Django & React Squad: Apps & Cool Stuf
 
