@@ -7,7 +7,8 @@ Back to [README.md](README.md)
 ### HTML
 
 - True, I’ve decided to sidestep some 'info' on the trail forward for the sake of clean code style and consistency. As my Russian friend once said, "if the code isn't sleek, the app doesn't run smoothly". 
-    [![Error free HTML](https://github.com/mistersouza/cliphub/blob/main/frontend/src/assets/images/cliphub_html-check)(https://validator.w3.org/nu/?doc=https%3A%2F%2Fcliphub-af0e79d881e5.herokuapp.com%2Fclips%2F6)]
+
+    [![Check HTML](https://github.com/mistersouza/cliphub/blob/main/frontend/src/assets/images/cliphub_html-check.png)](https://validator.w3.org/nu/?doc=https%3A%2F%2Fcliphub-af0e79d881e5.herokuapp.com%2Fclips%2F6)
 
 ### CSS
 
